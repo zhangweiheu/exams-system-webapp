@@ -1,0 +1,33 @@
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+    <link type="text/css" rel="stylesheet" href="/asset/bootstrap/css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="/asset/bootstrap/css/bootstrap-theme.min.css"/>
+    <link type="text/css" rel="stylesheet" href="/css/simplePagination.css"/>
+    <script type="text/javascript">
+        function md5password() {
+            $("#password").val($.md5($("#password").val()));
+            return true;
+        }
+    </script>
+</head>
+<body>
+<div align="center">
+    <p>在线测试系统登陆</p>
+    <form method="post" action="/">
+        <p>用户名：<input id="username" name="username" placeholder="请输入用户名" type="text"/></p>
+        <p>密&nbsp;&nbsp;&nbsp;&nbsp;码：<input id="password" name="password" placeholder="请输入密码" type="text"/></p>
+        <p><label class="checkbox" contenteditable="true"><input id="isSavePassword" type="checkbox"/>保存密码</label></p>
+        <p><br/>
+            <button class="btn" contenteditable="true" type="reset">重置</button>
+            <button class="btn" contenteditable="true" type="submit" onsubmit="return md5password();">提交</button>
+        </p>
+    </form>
+</div>
+
+<script type="text/javascript" src="/asset/jquery/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="/asset/jquery/jquery.simplePagination.js"></script>
+<script type="text/javascript" src="/asset/jquery/jquery.md5.js"></script>
+<script type="text/javascript" src="/asset/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>
