@@ -15,8 +15,5 @@ import org.springframework.context.annotation.Import;
 @Import({CoreApplication.class, PassportApplication.class})
 @ComponentScan(basePackageClasses = {com.online.exams.system.webapp.controller.Pkg.class})
 public class WebappConfiguration {
-    public WebappConfiguration() {
-        System.out.print("sss");
-    }
 }
 
