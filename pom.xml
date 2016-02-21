@@ -21,8 +21,8 @@
             <artifactId>exams-system-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.online</groupId>
-            <artifactId>exams-system-passport</artifactId>
+            <groupId>com.qiniu</groupId>
+            <artifactId>qiniu-java-sdk</artifactId>
         </dependency>
         <!--Spring boot套件-->
         <dependency>
@@ -75,6 +75,13 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>springloaded</artifactId>
+                        <version>1.2.5.RELEASE</version>
+                    </dependency>
+                </dependencies>
                 <executions>
                     <execution>
                         <goals>
@@ -85,13 +92,6 @@
                         </configuration>
                     </execution>
                 </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>springloaded</artifactId>
-                        <version>1.2.5.RELEASE</version>
-                    </dependency>
-                </dependencies>
                 <configuration>
                     <jvmArguments>
                         -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005
