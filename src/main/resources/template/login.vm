@@ -1,29 +1,13 @@
+<!DOCTYPE html>
 <html>
 <head>
-    <title>在线测试系统登陆</title>
+    <title>在线测试系统 | 登陆</title>
     <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
     <link type="text/css" rel="stylesheet" href="/asset/bootstrap/css/bootstrap.min.css"/>
     <link type="text/css" rel="stylesheet" href="/asset/bootstrap/css/bootstrap-theme.min.css"/>
     <link type="text/css" rel="stylesheet" href="/css/simplePagination.css"/>
-    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
-    <link rel="stylesheet" type="text/css" href="/css/36kr.css"/>
-    <script type="text/javascript" src="/asset/jquery/jquery-1.11.2.min.js"/>
-    <script type="text/javascript" src="/asset/jquery/jquery.simplePagination.js"/>
-    <script type="text/javascript" src="/asset/bootstrap/js/bootstrap.min.js"/>
-    <script type="text/javascript" src="/asset/jquery/jquery.md5.js"/>
-    <script type="text/javascript" src="/js/particles.js"/>
-    <script src="http://static.geetest.com/static/tools/gt.js"/>
-    <script type="text/javascript" src="/js/login.js"/>
-    <script>
-        function md5password() {
-            if ($("#password").val().textTrim === "" || $("#username").val().textTrim === "") {
-                $("#submit_btn").attr("disabled", 'disabled');
-                return false;
-            }
-            $("#password").val($.md5($("#password").val()));
-            return true;
-        }
-    </script>
+    <link rel="stylesheet" type="text/css" href="/css/login.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/online.css"/>
 </head>
 <body>
 <div id="particles-js"></div>
@@ -32,7 +16,7 @@
         <div class="main-title">在线测试系统登陆</div>
         <br/>
         <div>
-            <a style="color: #0f0f0f;font-size: 15px;position: absolute;right: 50px;top: 50px" href="/register">注册</a>
+            <a style="color: #0f0f0f;font-size: 15px;position: absolute;right: 50px;top: 50px" href="">注册</a>
         </div>
         <form class="main-form" method="post" action="/" onsubmit="return md5password();">
             <div class="formfont">用户名：
@@ -56,71 +40,13 @@
         </form>
     </div>
 </section>
-
-<script>
-    particlesJS("particles-js", {
-        particles: {
-            color: "#46BCF3",
-            shape: "circle",
-            opacity: 1,
-            size: 1,
-            size_random: !0,
-            nb: 200,
-            line_linked: {
-                enable_auto: !0,
-                distance: 100,
-                color: "#46BCF3",
-                opacity: .4,
-                width: 1,
-                condensed_mode: {enable: !1, rotateX: 600, rotateY: 600}
-            },
-            anim: {enable: !0, speed: 2.5}
-        },
-        interactivity: {
-            enable: !0,
-            mouse: {distance: 250},
-            detect_on: "canvas",
-            mode: "grab",
-            line_linked: {opacity: .35},
-            events: {onclick: {enable: !0, mode: "push", nb: 3}}
-        },
-        retina_detect: !0
-    });
-</script>
-<script>
-    $.ajax({
-        // 获取id，challenge，success（是否启用failback）
-        url: "/api/",
-        type: "get",
-        dataType: "json", // 使用jsonp格式
-        success: function (data) {
-            // 使用initGeetest接口
-            // 参数1：配置参数，与创建Geetest实例时接受的参数一致
-            // 参数2：回调，回调的第一个参数验证码对象，之后可以使用它做appendTo之类的事件
-            initGeetest({
-                gt: data.data.gt,
-                challenge: data.data.challenge,
-                product: "embed", // 产品形式
-                offline: !data.data.success
-            }, function (captchaObj) {
-                // 将验证码加到id为captcha的元素里
-                captchaObj.appendTo("#captcha");
-                captchaObj.onSuccess(function () {
-                    $("#submit_btn").removeAttr("disabled");
-                });
-                captchaObj.refresh(function () {
-                    $("#submit_btn").attr("disabled", 'disabled');
-                });
-                captchaObj.onRefresh(function () {
-                    $("#submit_btn").attr("disabled", 'disabled');
-                });
-                captchaObj.onFail(function () {
-                    $("#submit_btn").attr("disabled", 'disabled');
-                });
-            });
-        }
-    });
-</script>
-
+<script type="text/javascript" src="/asset/jquery/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="/asset/jquery/jquery.md5.js"></script>
+<script type="text/javascript" src="/js/particles.js"></script>
+<script type="text/javascript" src="/asset/layer/layer.js"></script>
+<script src="http://static.geetest.com/static/tools/gt.js"></script>
+<script type="text/javascript" src="/js/bg.js"></script>
+<script type="text/javascript" src="/js/seccode.js"></script>
+<script type="text/javascript" src="/js/login.js"></script>
 </body>
 </html>

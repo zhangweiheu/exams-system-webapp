@@ -17,15 +17,12 @@ import javax.servlet.http.HttpServletResponse;
  * Created by zhang on 2016/2/20.
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/login")
 public class LoginApiController {
     private static final Logger LOGGER = LoggerFactory.getLogger(LoginApiController.class);
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public JsonResponse login(HttpServletRequest request) {
-        GeetestLib geetestLib = new GeetestLib(GeetestConfig.getCaptchaId(), GeetestConfig.getPrivateKey());
-        int gtServerStatus = geetestLib.preProcess();
-        request.getSession().setAttribute(geetestLib.gtServerStatusSessionKey,gtServerStatus);
-        return JsonResponse.success().add(JSONUtils.parse(geetestLib.getResponseStr()));
+        return JsonResponse.success();
     }
 }

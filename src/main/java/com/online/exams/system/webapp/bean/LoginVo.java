@@ -1,9 +1,5 @@
 package com.online.exams.system.webapp.bean;
 
-import com.sun.org.glassfish.gmbal.NameValue;
-import org.springframework.beans.factory.annotation.Value;
-
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 /**

@@ -70,19 +70,9 @@ public class LoginController {
             response.addCookie(privilegeCookie);
         } catch (Exception e) {
             LOGGER.warn("generate token fail");
+            e.getMessage();
             return "login";
         }
         return "index";
-    }
-
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public String register() {
-        return "register";
-    }
-
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String register_submit(@ModelAttribute User user) {
-
-        return "login";
     }
 }
