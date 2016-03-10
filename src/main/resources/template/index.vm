@@ -22,9 +22,10 @@
             if (tarVal == 3) location.href = '/paper';
             if (tarVal == 4) location.href = '/rank';
             if (tarVal == 5) location.href = '/analysis';
-            if (tarVal == 6) location.href = '/syatem/analysis';
+            if (tarVal == 6) location.href = '/system/analysis';
             if (tarVal == 7) location.href = '/system/user';
             if (tarVal == 8) location.href = '/system/paper';
+            if (tarVal == 9) location.href = '/system/question';
         }
     </script>
 
@@ -80,7 +81,8 @@
                                 nav = "";
                                 nav += "<li class=\"nav-item\" onclick=\"goToTargetPage(6)\"><a>系统数据分析</a></li>";
                                 nav += "<li class=\"nav-item\" onclick=\"goToTargetPage(7)\"><a>系统用户管理</a></li>";
-                                nav += "<li class=\"nav-item\" onclick=\"goToTargetPage(8)\"><a>系统试题管理</a></li>";
+                                nav += "<li class=\"nav-item\" onclick=\"goToTargetPage(8)\"><a>系统试卷管理</a></li>";
+                                nav += "<li class=\"nav-item\" onclick=\"goToTargetPage(9)\"><a>系统试题管理</a></li>";
                             }
                         }
                     }

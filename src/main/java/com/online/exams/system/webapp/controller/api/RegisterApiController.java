@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Created by zhang on 2016/2/20.
  */
+@Deprecated
 @RestController
 @RequestMapping("/api/register")
 public class RegisterApiController {

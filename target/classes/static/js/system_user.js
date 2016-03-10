@@ -43,7 +43,7 @@ function buildTable(page, pageSize) {
                             tbody += "<td class='fixWid'>" + elem.username + "</td>";
                             tbody += "<td>" + elem.email + "</td>";
                             tbody += "<td>" + elem.properties.createTime + "</td>";
-                            if (elem.isAdmin) {
+                            if (elem.admin) {
                                 tbody += "<td class='fixWid'>管理员</td>";
                             } else {
                                 tbody += "<td class='fixWid'>普通用户</td>";

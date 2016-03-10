@@ -1,13 +1,9 @@
 package com.online.exams.system.webapp.controller;
 
-import com.online.exams.system.core.model.User;
-import com.online.exams.system.core.service.UserService;
 import com.online.exams.system.webapp.annotation.LoginRequired;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,14 +13,14 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 @LoginRequired
-@RequestMapping("/system/user")
-public class SystemUserController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(SystemUserController.class);
+@RequestMapping("/system/question")
+public class SystemQuestionController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(SystemQuestionController.class);
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public ModelAndView user() {
+    public ModelAndView question() {
         ModelAndView view = new ModelAndView();
-        view.setViewName("system_user");
+        view.setViewName("system_question");
         return view;
     }
 

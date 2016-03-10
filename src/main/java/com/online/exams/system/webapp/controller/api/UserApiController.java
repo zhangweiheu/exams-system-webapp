@@ -39,6 +39,8 @@ public class UserApiController {
             userVo.setProperties("createTime", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(user.getCreateAt()));
             userVo.setUpdateAt(null);
             userVo.setPassword(null);
+            userVo.setAdmin(user.getIsAdmin());
+            userVo.setDelete(user.getIsDelete());
             userVoList.add(userVo);
         }
         page.setTotalCount(userService.getTotalCount());
@@ -52,14 +54,25 @@ public class UserApiController {
         user.setPassword("");
         return JsonResponse.success(user);
     }
+    @RequestMapping(value = "/{uid}", method = RequestMethod.DELETE)
+    public JsonResponse deleteUserById(@PathVariable("uid") int uid) {
+        User user = userService.findUserByUid(uid);
+        if(null != user){
+            userService.deleteUserByUid(uid);
+        }
+        return JsonResponse.success();
+    }
 
-    @RequestMapping(value = "/", method = RequestMethod.PUT)
+    @RequestMapping(value = "/", method = RequestMethod.POST)
     public JsonResponse updateUser(@ModelAttribute User user) {
         return JsonResponse.success(userService.updateUser(user));
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
-    public JsonResponse saveUser(@ModelAttribute User user) {
-        return JsonResponse.success(userService.saveUser(user));
+    @RequestMapping(value = "/", method = RequestMethod.PUT)
+    public JsonResponse saveUser(@ModelAttribute UserVo userVo) {
+        User user = new User();
+        BeanUtils.copyProperties(userVo,user);
+        userService.updateUser(user);
+        return JsonResponse.success();
     }
 }
