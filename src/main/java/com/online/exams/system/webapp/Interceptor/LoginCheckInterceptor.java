@@ -62,7 +62,7 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
                 Integer uid = getUid(token);
                 if (uid != null) {
                     User user = userService.findUserByUid(uid);
-                    if (user != null && !user.getIsDelete()) {
+                    if (null != user && !user.getIsDelete()) {
                         UserHolder.getInstance().set(user);
                         return true;
                     }
@@ -90,7 +90,7 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
         if (retJson) {
             response.getOutputStream().write(JSON.toJSONString(JsonResponse.failed("请登录")).getBytes("UTF-8"));
         } else {
-            response.sendRedirect("/login");
+            response.sendRedirect("/");
         }
 
         return false;

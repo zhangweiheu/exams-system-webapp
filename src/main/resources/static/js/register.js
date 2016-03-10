@@ -2,25 +2,30 @@
  * Created by zhang on 2016/2/21.
  */
 function md5password() {
+    var password = $("#password1").val();
     if ($("#username").val().textTrim === "") {
         disable_btn("用户名不能为空");
         return false;
     }
-    if ($("#password").val().textTrim === "" || !$("#password").val().isEqual($("#password2").val())) {
+    if (password.textTrim === "" || !password.isEqual($("#password2").val())) {
         disable_btn("两次密码不一致");
         return false;
     }
-
-    $("#password").val($.md5($("#password").val()));
+    $("#password").val($.md5(password));
     return true;
 }
-function disable_btn(s) {
-    layer.alert(s);
-    $("#submit_btn").attr("disabled", 'disabled');
-}
-function checkpassword(){
-    if ($("#password").val().textTrim === "" || !$("#password").val().isEqual($("#password2").val())) {
+
+$("#password2").blur(function (){
+    var password = $("#password");
+    var password2 = $("#password2");
+    if (password.val().trim() === "" || password2.val() === "") {
+        disable_btn("密码不能为空");
+    }else if (password.val() != password2.val()) {
         disable_btn("两次密码不一致");
-        return false;
     }
+});
+
+function disable_btn(s) {
+    $("#submit_btn").attr("disabled", 'disabled');
+    layer.alert(s);
 }

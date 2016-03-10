@@ -2,6 +2,7 @@ package com.online.exams.system.webapp.controller;
 
 import com.online.exams.system.core.model.User;
 import com.online.exams.system.core.service.UserService;
+import com.online.exams.system.webapp.annotation.NotNeedLogin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
  * Created by zhang on 2016/2/20.
  */
 @Controller
+@NotNeedLogin
 @RequestMapping("/register")
 public class RegisterController {
     private static final Logger LOGGER = LoggerFactory.getLogger(RegisterController.class);

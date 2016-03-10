@@ -2,6 +2,7 @@ package com.online.exams.system.webapp.controller.api;
 
 import com.alibaba.druid.support.json.JSONUtils;
 import com.online.exams.system.core.bean.JsonResponse;
+import com.online.exams.system.webapp.annotation.NotNeedLogin;
 import com.online.exams.system.webapp.geetest.GeetestConfig;
 import com.online.exams.system.webapp.geetest.GeetestLib;
 import com.qiniu.util.Auth;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
  * Created by zhang on 2016/2/24.
  */
 @RestController
+@NotNeedLogin
 @RequestMapping("/api/token")
 public class TokenApiController {
     private static final Logger LOGGER = LoggerFactory.getLogger(TokenApiController.class);

@@ -8,6 +8,7 @@
     <link type="text/css" rel="stylesheet" href="/css/simplePagination.css"/>
     <link type="text/css" rel="stylesheet" href="/css/style.css"/>
     <link type="text/css" rel="stylesheet" href="/css/online.css"/>
+    <link rel="shortcut icon" href="/images/java.png"/>
 </head>
 <body>
 <div id="particles-js"></div>
@@ -20,19 +21,19 @@
                 <input id="username" style="padding: 0px" name="username" placeholder="请输入用户名" type="text" value="$!{user.username}" required/>
             </div>
             <div style="color: black;font-size: 15px">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：
-                <input id="password" style="padding: 0px" name="password" placeholder="请输入密码" type="password" value="${user.password}" required/>
+                <input id="password" style="padding: 0px" name="password" placeholder="请输入密码" type="password" value="$!{user.password}" required/>
             </div>
             <div style="color: black;font-size: 15px">确认密码：
-                <input id="password2" style="padding: 0px" name="password2" placeholder="请再次输入密码" type="password" onblur="checkpassword()" required/>
+                <input id="password2" style="padding: 0px" name="password2" placeholder="请再次输入密码" type="password" required/>
             </div>
             <div style="color: black;font-size: 15px">手&nbsp;&nbsp;机&nbsp;&nbsp;号：
-                <input id="phone" style="padding: 0px" name="phone" placeholder="请输入手机号" type="text" value="${user.phone}"/>
+                <input id="phone" style="padding: 0px" name="phone" placeholder="请输入手机号" type="text" value="$!{user.phone}"/>
             </div>
             <div style="color: black;font-size: 15px">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱：
-                <input id="email" style="padding: 0px;margin-bottom: 10px;border-radius: 3px;border: 1px solid #DFE1E8" name="email" placeholder="请输入邮箱" type="email" value="${user.email}"/>
+                <input id="email" style="padding: 0px;margin-bottom: 10px;border-radius: 3px;border: 1px solid #DFE1E8" name="email" placeholder="请输入邮箱" type="email" value="$!{user.email}"/>
             </div>
             <div style="color: black;font-size: 15px">微&nbsp;&nbsp;信&nbsp;&nbsp;号：
-                <input id="wechat" style="padding: 0px" name="wechat" placeholder="请输入微信号" type="text" value="${user.wechat}"/>
+                <input id="wechat" style="padding: 0px" name="wechat" placeholder="请输入微信号" type="text" value="$!{user.wechat}"/>
             </div>
 ##            <div id="avatar_container" style="color: black;font-size: 15px;margin-bottom: 10px">上传头像：
 ##                <a class="btn btn-default btn-lg " id="avatar" href="#">
@@ -42,7 +43,7 @@
 ##            </div>
 
             <div style="color: black;font-size: 15px">个人简介：
-                <input id="intro" style="padding: 0px" name="intro" placeholder="请简单介绍一下自己" type="text" value="${user.intro}"/>
+                <input id="intro" style="padding: 0px" name="intro" placeholder="请简单介绍一下自己" type="text" value="$!{user.intro}"/>
             </div>
 
             <div id="captcha"></div>
@@ -55,14 +56,15 @@
 
 <script type="text/javascript" src="/asset/jquery/jquery-1.11.2.min.js"></script>
 <script type="text/javascript" src="/asset/jquery/jquery.md5.js"></script>
+<script type="text/javascript" src="/asset/layer/layer.js"></script>
 <script type="text/javascript" src="/js/particles.js"></script>
 <script src="http://static.geetest.com/static/tools/gt.js"></script>
 <script type="text/javascript" src="/js/bg.js"></script>
 <script type="text/javascript" src="/js/seccode.js"></script>
-<script type="text/javascript" src="/asset/qiniuyun/plupload.dev.js"></script>
-<script type="text/javascript" src="/asset/qiniuyun/moxie.js"></script>
-<script type="text/javascript" src="/asset/qiniuyun/qiniu.js"></script>
-<script type="text/javascript" src="/js/photo_upload.js"></script>
+##<script type="text/javascript" src="/asset/qiniuyun/plupload.dev.js"></script>
+##<script type="text/javascript" src="/asset/qiniuyun/moxie.js"></script>
+##<script type="text/javascript" src="/asset/qiniuyun/qiniu.js"></script>
+##<script type="text/javascript" src="/js/photo_upload.js"></script>
 <script type="text/javascript" src="/js/register.js"></script>
 </body>
 </html>
