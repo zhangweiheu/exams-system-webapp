@@ -12,9 +12,36 @@
     <table>
         <tr>
 
-        </tr>
-    </table>
-</div>
+            <div style="font-weight: bold; margin: 0px auto; width: 90%;">
+                <span class="head-btn"><a href="#" btn-type="add"><img src="/images/add.png" width="20px" height="20px"/>新增</a></span>
+            </div>
 
+            <div>
+                <input type="hidden" id="page" value="$!{page}"/>
+                <input type="hidden" id="pageSize" value="$!{pageSize}"/>
+                <table id="user-list">
+                    <thead>
+                    <tr>
+                        <td>ID</td>
+                        <td>题目</td>
+                        <td>答案</td>
+                        <td>标签</td>
+                        <td>分数</td>
+                        <td>难度系数</td>
+                        <td>优先级</td>
+                        <td>状态</td>
+                        <td>总完成数</td>
+                        <td>总正确数</td>
+                        <td>创建时间</td>
+                    </tr>
+                    </thead>
+                    <tbody id="system-question-tbody"></tbody>
+                </table>
+            </div>
+            <div id="pageArea"></div>
+    <script type="text/javascript" src="/asset/jquery/jquery-1.11.2.js"></script>
+    <script type="text/javascript" src="/asset/jquery/jquery.simplePagination.js"></script>
+    <script type="text/javascript" src="/asset/layer/layer.js"></script>
+    <script type="text/javascript" src="/js/system_question.js"></script>
 </body>
 </html>

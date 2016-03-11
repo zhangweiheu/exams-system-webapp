@@ -14,12 +14,12 @@ function buildPager(_totalCnt, _currentPage, pageSize) {
             buildTable(page, pageSize);
         }
     });
-    $("#pageArea").append("<li class='page-link next' style='margin-left:30px;margin-top: 3px;font-size: 15px;'>共 "+_totalCnt+" 条</li>");
+    $("#pageArea").append("<li class='page-link next' style='margin-left:30px;margin-top: 3px;font-size: 15px;'>共 " + _totalCnt + " 条</li>");
 }
 
 function buildTable(page, pageSize) {
     var pageSize = Math.floor(window.innerHeight / 37) - 6;
-    if($('#page').val() == ""){
+    if ($('#page').val() == "") {
         page = 1;
     }
     $('#page').val(page);
@@ -49,7 +49,7 @@ function buildTable(page, pageSize) {
                                 tbody += "<td class='fixWid'>普通用户</td>";
                             }
                             tbody += "<td class='fixWid'><a btn-type=\"edit\" uid=\"" + elem.id + "\" href=\"#\">编辑</a></td>";
-                            tbody += "<td class='fixWid'><a  onclick=\"deleteRecord('"+ elem.id +"')\"   btn-type=\"delete\" uid=\"" + elem.id + "\" href=\"#\">删除</a></td>";
+                            tbody += "<td class='fixWid'><a  onclick=\"deleteRecord('" + elem.id + "')\"   btn-type=\"delete\" uid=\"" + elem.id + "\" href=\"#\">删除</a></td>";
                             tbody += "</tr>";
                         } else {
                             //超出部分
@@ -59,7 +59,8 @@ function buildTable(page, pageSize) {
 
                     }
                     $("#system-user-tbody").html(tbody)
-                    ;         buildPager(data.data.totalCount, data.data.page, data.data.pageSize);
+                    ;
+                    buildPager(data.data.totalCount, data.data.page, data.data.pageSize);
                 }
             } else {
                 layer.alert('加载失败', {icon: 8});
@@ -83,7 +84,7 @@ function edit_tmpl(uid) {
 }
 
 function add_tmpl() {
-    buildCommonLayer('新增用户','/user/edit/0');
+    buildCommonLayer('新增用户', '/user/edit/0');
 }
 
 $(function () {
@@ -108,9 +109,9 @@ $(function () {
         buildTable(page, pageSize);
     });
 });
-function deleteRecord(id){
+function deleteRecord(id) {
     layer.confirm('确认删除？', {
-        icon: 4, offset:'150px', yes: function () {
+        icon: 4, offset: '150px', yes: function () {
             remove(id);
         }
     });
@@ -123,7 +124,7 @@ function remove(id) {
         success: function (data) {
             if (data.code == 0) {
                 layer.alert('删除成功', {
-                    icon: 1, offset:'150px', end: function () {
+                    icon: 1, offset: '150px', end: function () {
                         location.reload(true);
                     }
                 });
@@ -142,12 +143,12 @@ function gatherData() {
     var isAdmin = $('input[name=isAdmin]:checked').val();
     if (parseInt(isAdmin) == 1) {
         isAdmin = true;
-    }else{
+    } else {
         isAdmin = false;
     }
 
     var d = {
-        "id":id,
+        "id": id,
         "name": name,
         "email": email,
         "password": password,
@@ -159,7 +160,7 @@ function gatherData() {
 
 $("#save-btn").on('click', function () {
     var d = gatherData();
-    if(!checkInputData(d))return;
+    if (!checkInputData(d))return;
     if (d.id != undefined && d.id != "") {
         //alert(d.isAdmin);
         $.ajax({
@@ -206,7 +207,7 @@ $("#save-btn").on('click', function () {
 /** 参数校验 */
 function checkInputData(data) {
     for (key in data) {
-        if(key === "id" || key === "isAdmin") continue;
+        if (key === "id" || key === "isAdmin") continue;
         if (!data[key]) {
             layer.alert(key + '没填');
             return false;

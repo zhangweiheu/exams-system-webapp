@@ -11,65 +11,93 @@
     <link rel="shortcut icon" href="/images/java.png"/>
 </head>
 <body>
-    <div align="center">
-        <div style="color: black;font-size: 30px;align-content: center">用户管理</div>
-        <br/>
-        <input idv="id" type="hidden" value="$!{user.id}">
-        <div style="color: black;font-size: 15px">用&nbsp;&nbsp;户&nbsp;&nbsp;名：
-            <input id="username" style="padding: 0px" name="username" placeholder="请输入用户名" type="text" value="$!{user.username}" required/>
-        </div>
-        <div style="color: black;font-size: 15px">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：
-            <input id="password" style="padding: 0px" name="password" placeholder="请输入密码" type="password" value="$!{user.password}" required/>
-        </div>
-        <div style="color: black;font-size: 15px">手&nbsp;&nbsp;机&nbsp;&nbsp;号：
-            <input id="phone" style="padding: 0px" name="phone" placeholder="请输入手机号" type="text" value="$!{user.phone}"/>
-        </div>
-        <div style="color: black;font-size: 15px">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱：
-            <input id="email" style="padding: 0px;margin-bottom: 10px;border-radius: 3px;border: 1px solid #DFE1E8" name="email" placeholder="请输入邮箱" type="email" value="$!{user.email}"/>
-        </div>
-        <div style="color: black;font-size: 15px">微&nbsp;&nbsp;信&nbsp;&nbsp;号：
-            <input id="wechat" style="padding: 0px" name="wechat" placeholder="请输入微信号" type="text" value="$!{user.wechat}"/>
-        </div>
-        <div style="color: black;font-size: 15px">是否是管理员：
-            #if ( $user.isAdmin)
-                #if ( ${user.isAdmin} == true)
-                    普通用户<input type="radio" id="isAdmin" name="isAdmin" value="0" style="width: 10%;height: 20px;" />
-                    管理员<input type="radio" id="isAdmin"  name="isAdmin" value="1"  style="width: 10%;height: 20px;" checked/>
+<div align="center">
+    <div style="color: black;font-size: 30px;align-content: center">编辑试题</div>
+    <br/>
+    <input idv="id" type="hidden" value="$!{question.id}">
+    <table>
+        <tr>
+            <td>试题类型</td>
+            <td>
+                #if(1 == $!{question.type})
+                    <select id="type" style="width:95px;" required>
+                        <option name="type" value="0">单选</option>
+                        <option name="type" value="1" selected>多选</option>
+                        <option name="type" value="2">编程题</option>
+                    </select>
+                #elseif(2 == $!{question.type})
+                    <select id="type" style="width:95px;" required>
+                        <option name="type" value="0">单选</option>
+                        <option name="type" value="1">多选</option>
+                        <option name="type" value="2" selected>编程题</option>
+                    </select>
                 #else
-                    普通用户<input type="radio" id="isAdmin"  name="isAdmin" value="0" style="width: 10%;height: 20px;" checked/>
-                    管理员<input type="radio"  id="isAdmin" name="isAdmin" value="1"  style="width: 10%;height: 20px;" />
+                    <select id="type" style="width:95px;" required>
+                        <option name="type" value="0" selected>单选</option>
+                        <option name="type" value="1">多选</option>
+                        <option name="type" value="2">编程题</option>
+                    </select>
                 #end
-            #else
-                普通用户<input type="radio" id="isAdmin"  name="isAdmin" value="0" style="width: 10%;height: 20px;" checked/>
-                管理员<input type="radio"  id="isAdmin" name="isAdmin" value="1"  style="width: 10%;height: 20px;" />
-            #end
-        </div>
-        ##            <div id="avatar_container" style="color: black;font-size: 15px;margin-bottom: 10px">上传头像：
-        ##                <a class="btn btn-default btn-lg " id="avatar" href="#">
-        ##                    <i class="glyphicon glyphicon-plus"></i>
-        ##                    <span>选择文件</span>
-        ##                </a>
-        ##            </div>
+            </td>
+        </tr>
+        <tr>
+            <td>试题主干</td>
+            <td><input id="title" type="text" value="$!{question.title}" required></td>
+        </tr>
+        <tr>
+            <td>试题选项</td>
+            <td><input id="options" type="text" value="$!{question.options}"></td>
+        </tr>
+        <tr>
+            <td>试题答案</td>
+            <td><input id="answers" type="text" value="$!{question.answers}">
+            </td>
+        </tr>
+        <tr>
+            <td>试题难度</td>
+            <td>
+                <input id="difficulty" type="number" value="$!{question.difficulty}" max="10" min="1">
+            </td>
+        </tr>
+        <tr>
+            <td>试题优先级</td>
+            <td><input id="priority" type="number" value="$!{question.priority}" max="10" min="1">
+            </td>
+        </tr>
+        <tr>
+            <td>试题状态</td>
+            <td>
+                #if(1 == $!{question.status})
+                    <select id="status" style="width:95px;" required>
+                        <option name="status" value="0">正常</option>
+                        <option name="status" value="1" selected>已删除</option>
+                        <option name="status" value="2">有错误</option>
+                    </select>
+                #elseif(2 == $!{question.status})
+                    <select id="status" style="width:95px;" required>
+                        <option name="status" value="0">正常</option>
+                        <option name="status" value="1">已删除</option>
+                        <option name="status" value="2" selected>有错误</option>
+                    </select>
+                #else
+                    <select id="status" style="width:95px;" required>
+                        <option name="status" value="0" selected>正常</option>
+                        <option name="status" value="1">已删除</option>
+                        <option name="status" value="2">有错误</option>
+                    </select>
+                #end
+            </td>
+        </tr>
+        <tr>
+            <td>操作</td>
+            <td>
+                <button id="save-btn">保存</button>
+            </td>
+        </tr>
+    </table>
 
-        <div style="color: black;font-size: 15px">个人简介：
-            <input id="intro" style="padding: 0px" name="intro" placeholder="请简单介绍一下自己" type="text" value="$!{user.intro}"/>
-        </div>
 
-        <div id="captcha"></div>
-        <br/>
-        <input id="submit_btn" class="btn input-submit" disabled="disabled" type="submit" value="注册"
-                   style="width: 70%;background-color:#fff;color: #0f0f0f;font-size: 15px"/>
-    </div>
-
+</div>
 <script type="text/javascript" src="/asset/jquery/jquery-1.11.2.min.js"></script>
-<script type="text/javascript" src="/asset/jquery/jquery.md5.js"></script>
-<script type="text/javascript" src="/js/particles.js"></script>
-<script src="http://static.geetest.com/static/tools/gt.js"></script>
-<script type="text/javascript" src="/js/seccode.js"></script
-##<script type="text/javascript" src="/asset/qiniuyun/plupload.dev.js"></script>
-##<script type="text/javascript" src="/asset/qiniuyun/moxie.js"></script>
-##<script type="text/javascript" src="/asset/qiniuyun/qiniu.js"></script>
-<script type="text/javascript" src="/js/photo_upload.js"></script>
-<script type="text/javascript" src="/js/register.js"></script>
 </body>
 </html>

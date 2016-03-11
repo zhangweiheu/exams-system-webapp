@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class QuestionApiController {
     private static final Logger LOGGER = LoggerFactory.getLogger(QuestionApiController.class);
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
     public JsonResponse getQuestionList() {
         return null;
     }

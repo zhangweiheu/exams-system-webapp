@@ -25,7 +25,7 @@ function buildTable(page, pageSize) {
     $('#page').val(page);
     $.ajax({
         method: "GET",
-        url: "/api/user/list",
+        url: "/api/question/list",
         async: true,
         data: {"page": page, "pageSize": pageSize},
         dataType: "json",
