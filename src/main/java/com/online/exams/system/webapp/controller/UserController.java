@@ -27,8 +27,10 @@ public class UserController {
     UserService userService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public String User() {
-        return "user";
+    public ModelAndView User() {
+        ModelAndView view = new ModelAndView();
+        view.setViewName("user");
+        return view;
     }
 
     @RequestMapping(value = "/edit/{uid}", method = RequestMethod.GET)

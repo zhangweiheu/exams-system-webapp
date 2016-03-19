@@ -25,7 +25,7 @@ function buildTable(page, pageSize) {
     $('#page').val(page);
     $.ajax({
         method: "GET",
-        url: "/api/user/list",
+        url: "/api/system/user/list",
         async: true,
         data: {"page": page, "pageSize": pageSize},
         dataType: "json",
@@ -42,6 +42,14 @@ function buildTable(page, pageSize) {
                             tbody += "<td class='fixWid'>" + elem.id + "</td>";
                             tbody += "<td class='fixWid'>" + elem.username + "</td>";
                             tbody += "<td>" + elem.email + "</td>";
+                            tbody += "<td>" + elem.phone + "</td>";
+                            tbody += "<td>" + elem.wechat + "</td>";
+                            if (!elem.delete) {
+                                tbody += "<td class='fixWid'>正常</td>";
+                            } else {
+                                tbody += "<td class='fixWid'>已删除</td>";
+                            }
+                            tbody += "<td>" + elem.tagList + "</td>";
                             tbody += "<td>" + elem.properties.createTime + "</td>";
                             if (elem.admin) {
                                 tbody += "<td class='fixWid'>管理员</td>";
@@ -54,7 +62,6 @@ function buildTable(page, pageSize) {
                         } else {
                             //超出部分
                             tbody += "<tr></tr>";
-                            //var elem = {id: "", name: "", email: "",  createAt: "", isAdmin: "",isDeleted: ""};
                         }
 
                     }
@@ -134,86 +141,3 @@ function remove(id) {
         }
     });
 }
-
-function gatherData() {
-    var id = $("#id").val();
-    var name = $("#name").val().trim();
-    var email = $("#email").val().trim();
-    var password = !$("#old_password").length || $("#password").val().trim() != $("#old_password").val().trim() ? $.md5($("#password").val().trim()) : $("#password").val().trim();
-    var isAdmin = $('input[name=isAdmin]:checked').val();
-    if (parseInt(isAdmin) == 1) {
-        isAdmin = true;
-    } else {
-        isAdmin = false;
-    }
-
-    var d = {
-        "id": id,
-        "name": name,
-        "email": email,
-        "password": password,
-        "isAdmin": isAdmin
-    };
-
-    return d;
-}
-
-$("#save-btn").on('click', function () {
-    var d = gatherData();
-    if (!checkInputData(d))return;
-    if (d.id != undefined && d.id != "") {
-        //alert(d.isAdmin);
-        $.ajax({
-            method: "PUT",
-            url: "/api/user/",
-            async: true,
-            data: d,
-            success: function (data) {
-                if (data.code == 0) {
-                    layer.alert('更新成功', {
-                        icon: 9, offset: '150px', end: function () {
-                            var index = parent.layer.getFrameIndex(window.name);
-                            parent.layer.close(index);
-                        }
-                    });
-                } else {
-                    layer.alert(data.msg, {icon: 11})
-                }
-            }
-        });
-    } else {
-        $.ajax({
-            method: "POST",
-            url: "/api/user",
-            async: true,
-            data: d,
-            success: function (data) {
-                if (data.code == 0) {
-                    layer.alert('创建成功', {
-                        icon: 9, offset: '150px', end: function () {
-                            var index = parent.layer.getFrameIndex(window.name);
-                            parent.layer.close(index);
-                        }
-                    });
-                } else {
-                    layer.alert(data.msg, {icon: 11})
-                }
-            }
-        });
-    }
-});
-
-
-/** 参数校验 */
-function checkInputData(data) {
-    for (key in data) {
-        if (key === "id" || key === "isAdmin") continue;
-        if (!data[key]) {
-            layer.alert(key + '没填');
-            return false;
-        }
-    }
-    return true;
-}
-
-

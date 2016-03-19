@@ -1,6 +1,7 @@
 package com.online.exams.system.webapp.config;
 
 import com.online.exams.system.core.config.CoreApplication;
+import com.online.exams.system.webapp.Interceptor.ExceptionInterceptor;
 import com.online.exams.system.webapp.Interceptor.LoginCheckInterceptor;
 import com.online.exams.system.webapp.Interceptor.PrivilegeInterceptor;
 import com.online.exams.system.webapp.spring.AbstractWebMvcConfiguration;
@@ -89,6 +90,11 @@ public class WebappConfiguration extends AbstractWebMvcConfiguration {
     @Bean
     public PrivilegeInterceptor privilegeInterceptor() {
         return new PrivilegeInterceptor();
+    }
+
+    @Bean
+    public ExceptionInterceptor exceptionInterceptor(){
+        return new ExceptionInterceptor();
     }
 
     @Override

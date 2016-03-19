@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title>在线测试系统 | 试卷作答</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+##    <link type="text/css" rel="stylesheet" href="/asset/bootstrap/css/bootstrap.min.css"/>
+##    <link type="text/css" rel="stylesheet" href="/asset/bootstrap/css/bootstrap-theme.min.css"/>
+    <link rel="shortcut icon" href="/images/java.png"/>
+</head>
+<body>
+    #include("./index.vm")
+<br/>
+<div id="select" align="center" style="background-color: #2371B3">
+    <div>
+        <div style="color: black;font-size: 30px">试卷类型选择</div>
+        <input id="uid" value="$!{uid}" hidden/>
+        <div>请选择试卷类型：</div>
+        <form>
+            <input name="paperType" type="radio" value="SINGLE_SELECTION">单选
+            <input name="paperType" type="radio" value="MULTI_SELECTION">多选
+            <input name="paperType" type="radio" value="PROGRAMMING_QUESTION">编程题
+            <input name="paperType" type="radio" value="SINGLE_AND_MULTI">单选和多选
+            <input name="paperType" type="radio" value="SINGLE_AND_PROGRAMMING">单选和编程
+            <input name="paperType" type="radio" value="MULTI_AND_PROGRAMMING">多选和编程
+            <input name="paperType" type="radio" value="SINGLE_AND_MULTI_PROGRAMMING">单选、多选和编程
+        </form>
+        <div>请选择试题技术范围：</div>
+        <form>
+            <input name="questionTagList" type="checkbox" value="JAVA">Java
+            <input name="questionTagList" type="checkbox" value="HTML">HTML
+            <input name="questionTagList" type="checkbox" value="SYSTEM">操作系统
+            <input name="questionTagList" type="checkbox" value="NETWORK">计算机网络
+            <input name="questionTagList" type="checkbox" value="CSS">CSS
+            <input name="questionTagList" type="checkbox" value="SPRING">Spring框架
+            <input name="questionTagList" type="checkbox" value="HIBERNATE">Hibernate
+            <input name="questionTagList" type="checkbox" value="MYSQL">MySql数据库
+            <input type="checkbox" name="checkAll" id="checkAll"/>全选/取消全选
+        </form>
+        <div>
+            <input id="submit-btn" type="submit" value="提交"/>
+        </div>
+    </div>
+
+</div>
+
+<br/>
+
+<div id="exam" align="center" style="background-color: #2371B3">
+    <div id="show" style="color: black;font-size: 30px;align-content: center">试卷作答</div>
+    <input id="pid" value="$!{pid}" hidden/>
+    <input id="s" value="0" hidden/>
+    <input id="m" value="0" hidden/>
+    <input id="p" value="0" hidden/>
+    <br/>
+
+    <div id="single"></div>
+    <div id="multi"></div>
+    <div id="program"></div>
+
+</div>
+
+<script type="text/javascript" src="/asset/jquery/jquery-1.11.2.js"></script>
+<script type="text/javascript" src="/asset/jquery/jquery.simplePagination.js"></script>
+<script type="text/javascript" src="/asset/layer/layer.js"></script>
+<script type="text/javascript" src="/js/exam.js"></script>
+</body>
+</html>

@@ -1,5 +1,6 @@
 package com.online.exams.system.webapp.controller;
 
+import com.online.exams.system.webapp.annotation.AdminOnly;
 import com.online.exams.system.webapp.annotation.LoginRequired;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 @LoginRequired
+@AdminOnly
 @RequestMapping("/system/paper")
 public class SystemPaperController {
     private static final Logger LOGGER = LoggerFactory.getLogger(SystemPaperController.class);
@@ -23,5 +25,4 @@ public class SystemPaperController {
         view.setViewName("system_paper");
         return view;
     }
-
 }

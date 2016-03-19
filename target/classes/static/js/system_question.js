@@ -25,7 +25,7 @@ function buildTable(page, pageSize) {
     $('#page').val(page);
     $.ajax({
         method: "GET",
-        url: "/api/question/list",
+        url: "/api/system/question/list",
         async: true,
         data: {"page": page, "pageSize": pageSize},
         dataType: "json",
@@ -40,25 +40,24 @@ function buildTable(page, pageSize) {
                             var elem = data.data.data[i];
                             tbody += "<tr>";
                             tbody += "<td class='fixWid'>" + elem.id + "</td>";
-                            tbody += "<td class='fixWid'>" + elem.username + "</td>";
-                            tbody += "<td>" + elem.email + "</td>";
+                            tbody += "<td class='fixWid'>" + elem.title + "</td>";
+                            tbody += "<td>" + elem.answers + "</td>";
+                            tbody += "<td>" + elem.tagList + "</td>";
+                            tbody += "<td>" + elem.difficulty + "</td>";
+                            tbody += "<td>" + elem.priority + "</td>";
+                            tbody += "<td>" + elem.status + "</td>";
+                            tbody += "<td>" + elem.totalDone + "</td>";
+                            tbody += "<td>" + elem.totalSuccess + "</td>";
                             tbody += "<td>" + elem.properties.createTime + "</td>";
-                            if (elem.admin) {
-                                tbody += "<td class='fixWid'>管理员</td>";
-                            } else {
-                                tbody += "<td class='fixWid'>普通用户</td>";
-                            }
-                            tbody += "<td class='fixWid'><a btn-type=\"edit\" uid=\"" + elem.id + "\" href=\"#\">编辑</a></td>";
-                            tbody += "<td class='fixWid'><a  onclick=\"deleteRecord('" + elem.id + "')\"   btn-type=\"delete\" uid=\"" + elem.id + "\" href=\"#\">删除</a></td>";
+                            tbody += "<td class='fixWid'><a btn-type=\"edit\" qid=\"" + elem.id + "\" href=\"#\">编辑</a></td>";
+                            tbody += "<td class='fixWid'><a  onclick=\"deleteRecord('" + elem.id + "')\"   btn-type=\"delete\" qid=\"" + elem.id + "\" href=\"#\">删除</a></td>";
                             tbody += "</tr>";
                         } else {
                             //超出部分
                             tbody += "<tr></tr>";
-                            //var elem = {id: "", name: "", email: "",  createAt: "", isAdmin: "",isDeleted: ""};
                         }
-
                     }
-                    $("#system-user-tbody").html(tbody)
+                    $("#system-question-tbody").html(tbody)
                     ;
                     buildPager(data.data.totalCount, data.data.page, data.data.pageSize);
                 }
@@ -69,13 +68,13 @@ function buildTable(page, pageSize) {
     });
 }
 
-function edit_tmpl(uid) {
+function edit_tmpl(qid) {
     layer.open({
         type: 2,
-        title: '编辑用户',
+        title: '编辑试题',
         shadeClose: true,
         shade: 0.5,
-        content: '/user/edit/' + uid,
+        content: '/system/question/edit/' + qid,
         area: ['70%', '80%'],
         end: function () {
             buildTable($('#page').val(), $('#pageSize').val());
@@ -84,7 +83,7 @@ function edit_tmpl(uid) {
 }
 
 function add_tmpl() {
-    buildCommonLayer('新增用户', '/user/edit/0');
+    buildCommonLayer('新增试题', '/system/question/edit/0');
 }
 
 $(function () {
@@ -94,8 +93,8 @@ $(function () {
     buildTable(page, pageSize);
 
     $(document).delegate("a[btn-type='edit']", "click", function () {
-        var uid = $(this)[0].getAttribute("uid");
-        edit_tmpl(uid);
+        var qid = $(this)[0].getAttribute("qid");
+        edit_tmpl(qid);
     });
 
     $(document).delegate("a[btn-type='add']", "click", function () {
@@ -109,17 +108,17 @@ $(function () {
         buildTable(page, pageSize);
     });
 });
-function deleteRecord(id) {
+function deleteRecord(qid) {
     layer.confirm('确认删除？', {
         icon: 4, offset: '150px', yes: function () {
-            remove(id);
+            remove(qid);
         }
     });
 }
-function remove(id) {
+function remove(qid) {
     $.ajax({
         method: "DELETE",
-        url: "/api/user/" + id,
+        url: "/api/system/question/" + qid,
         async: true,
         success: function (data) {
             if (data.code == 0) {
@@ -134,86 +133,3 @@ function remove(id) {
         }
     });
 }
-
-function gatherData() {
-    var id = $("#id").val();
-    var name = $("#name").val().trim();
-    var email = $("#email").val().trim();
-    var password = !$("#old_password").length || $("#password").val().trim() != $("#old_password").val().trim() ? $.md5($("#password").val().trim()) : $("#password").val().trim();
-    var isAdmin = $('input[name=isAdmin]:checked').val();
-    if (parseInt(isAdmin) == 1) {
-        isAdmin = true;
-    } else {
-        isAdmin = false;
-    }
-
-    var d = {
-        "id": id,
-        "name": name,
-        "email": email,
-        "password": password,
-        "isAdmin": isAdmin
-    };
-
-    return d;
-}
-
-$("#save-btn").on('click', function () {
-    var d = gatherData();
-    if (!checkInputData(d))return;
-    if (d.id != undefined && d.id != "") {
-        //alert(d.isAdmin);
-        $.ajax({
-            method: "PUT",
-            url: "/api/user/",
-            async: true,
-            data: d,
-            success: function (data) {
-                if (data.code == 0) {
-                    layer.alert('更新成功', {
-                        icon: 9, offset: '150px', end: function () {
-                            var index = parent.layer.getFrameIndex(window.name);
-                            parent.layer.close(index);
-                        }
-                    });
-                } else {
-                    layer.alert(data.msg, {icon: 11})
-                }
-            }
-        });
-    } else {
-        $.ajax({
-            method: "POST",
-            url: "/api/user",
-            async: true,
-            data: d,
-            success: function (data) {
-                if (data.code == 0) {
-                    layer.alert('创建成功', {
-                        icon: 9, offset: '150px', end: function () {
-                            var index = parent.layer.getFrameIndex(window.name);
-                            parent.layer.close(index);
-                        }
-                    });
-                } else {
-                    layer.alert(data.msg, {icon: 11})
-                }
-            }
-        });
-    }
-});
-
-
-/** 参数校验 */
-function checkInputData(data) {
-    for (key in data) {
-        if (key === "id" || key === "isAdmin") continue;
-        if (!data[key]) {
-            layer.alert(key + '没填');
-            return false;
-        }
-    }
-    return true;
-}
-
-

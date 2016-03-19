@@ -25,22 +25,21 @@ public class RegisterController {
     private UserService userService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public String register() {
-        return "register";
+    public ModelAndView register(ModelAndView modelAndView) {
+        modelAndView.setViewName("register");
+        return modelAndView;
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     public ModelAndView registerForm(@ModelAttribute User user, ModelAndView modelAndView) {
         if (null == userService.findUserByName(user.getUsername())) {
             userService.saveUser(user);
-            modelAndView.getModelMap().addAttribute("msg","您已经成功注册，请登录");
+            modelAndView.getModelMap().addAttribute("msg", "您已经成功注册，请登录");
             modelAndView.setViewName("login");
         } else {
-            modelAndView.addObject("user",user);
+            modelAndView.addObject("user", user);
             modelAndView.setViewName("register");
         }
         return modelAndView;
     }
-
-
 }

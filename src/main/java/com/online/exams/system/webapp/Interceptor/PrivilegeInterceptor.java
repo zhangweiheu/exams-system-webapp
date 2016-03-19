@@ -47,7 +47,6 @@ public class PrivilegeInterceptor extends HandlerInterceptorAdapter {
                 return false;
             }
         }
-
         return true;
     }
 

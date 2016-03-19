@@ -26,6 +26,11 @@ public class UserVo extends BaseObject {
     /** 头像 */
     private String avatar;
 
+    /**
+     * 标签
+     */
+    private String tagList;
+
     /** 简介 */
     private String intro;
 
@@ -171,5 +176,13 @@ public class UserVo extends BaseObject {
 
     public void setUpdateAt(Date updateAt) {
         this.updateAt = updateAt;
+    }
+
+    public String getTagList() {
+        return tagList;
+    }
+
+    public void setTagList(String tagList) {
+        this.tagList = tagList;
     }
 }
