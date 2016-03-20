@@ -8,7 +8,7 @@ $("#save-btn").on('click', function () {
         //alert(d.isAdmin);
         $.ajax({
             method: "PUT",
-            url: "/api/user/",
+            url: "/api/user",
             async: true,
             data: d,
             success: function (data) {

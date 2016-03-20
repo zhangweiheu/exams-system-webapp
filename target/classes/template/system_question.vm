@@ -20,6 +20,7 @@
             <tr>
                 <td>ID</td>
                 <td>题目</td>
+                <td>试题类型</td>
                 <td>答案</td>
                 <td>标签</td>
                 <td>难度系数</td>

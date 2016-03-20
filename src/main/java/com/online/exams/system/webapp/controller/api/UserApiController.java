@@ -36,15 +36,15 @@ public class UserApiController {
 
 
 
-    @RequestMapping(value = "/", method = RequestMethod.PUT)
-    public JsonResponse updateUser(@ModelAttribute User user) {
+    @RequestMapping(value = "", method = RequestMethod.PUT)
+    public JsonResponse updateUser(User user) {
         if(!checkprivilege(user.getId())){
             return JsonResponse.failed();
         }
         return JsonResponse.success(userService.updateUser(user));
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public JsonResponse saveUser(@ModelAttribute UserVo userVo) {
         User user = new User();
         if(null != userService.findUserByName(userVo.getUsername())){

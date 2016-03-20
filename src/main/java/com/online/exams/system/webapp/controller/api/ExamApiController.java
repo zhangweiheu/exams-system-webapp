@@ -1,5 +1,9 @@
 package com.online.exams.system.webapp.controller.api;
 
+import com.alibaba.druid.support.json.JSONUtils;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.util.*;
+import com.alibaba.fastjson.util.IdentityHashMap;
 import com.online.exams.system.core.bean.JsonResponse;
 import com.online.exams.system.core.bean.MongoPaper;
 import com.online.exams.system.core.bean.QuestionMap;
@@ -16,6 +20,7 @@ import com.online.exams.system.core.service.PaperService;
 import com.online.exams.system.core.service.TagService;
 import com.online.exams.system.core.util.PaperUtil;
 import com.online.exams.system.webapp.annotation.LoginRequired;
+import com.rabbitmq.tools.json.JSONUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,7 +80,7 @@ public class ExamApiController {
         paper.setTotalRight(PaperUtil.calautePaperTotalSuccess(questionMaps));
         paperService.updatePaper(paper);
 
-        mongoPaperDao.addPaper(mongoPaper);
+        mongoPaperDao.updateMongoPaper(mongoPaper);
         return JsonResponse.success();
     }
 
@@ -121,16 +126,35 @@ public class ExamApiController {
     }
 
     /**
-     * 新生成试卷
+     * 检查是否存在未完成试卷，如果有，则返回，否则返回fail
      */
+    @RequestMapping(value = "/check/{uid}", method = RequestMethod.GET)
+    public JsonResponse checkHaveDoingPaper(@PathVariable("uid") Integer uid) {
+        Paper paper = paperService.findDoingPaperByUid(uid);
+        if (null != paper) {
+            MongoPaper mongoPaper = mongoPaperDao.findMongoPaperById(Integer.toUnsignedLong(paper.getMongoPaperId()));
+            JsonResponse jsonResponse = JsonResponse.success();
+            jsonResponse.put("uid", uid);
+            List<QuestionMap> list = mongoPaper.getQuestionMapList();
+            for(QuestionMap questionMap:list){
+                questionMap.setRight(null);
+                questionMap.setAnswers(null);
+            }
+            jsonResponse.put("questions", list);
+            jsonResponse.put("pid", paper.getId());
+
+            return jsonResponse;
+        } else {
+            return JsonResponse.failed();
+        }
+    }
+
     @RequestMapping(value = "/generate/{uid}", method = RequestMethod.POST)
     public JsonResponse doPaper(@PathVariable("uid") Integer uid, @RequestParam("questionTagList") String questionTagList, @RequestParam("paperType") String paperType, ModelMap model) {
         Paper paper = paperService.findDoingPaperByUid(uid);
-        HashMap<String, Object> hashMap = new HashMap<>();
+        HashMap<String, Object> hashMap;
         if (null != paper) {
-            MongoPaper mongoPaper = mongoPaperDao.findMongoPaperById(Integer.toUnsignedLong(paper.getMongoPaperId()));
-            hashMap.put("questions", mongoPaper.getQuestionMapList());
-            hashMap.put("pid", paper.getId());
+            return JsonResponse.failed("存在未完成试卷，请先完成！");
         } else {
             List<TagEnum> tagEnumList = convertTagLisString2TagList(questionTagList);
             switch (paperType) {
@@ -172,11 +196,12 @@ public class ExamApiController {
 
     private HashMap<Integer, String> convertAnswersListString2AnswersMap(String answersList) {
         HashMap<Integer, String> answers = new HashMap<>();
-        answersList = answersList.subSequence(1, answersList.length() - 1).toString();
-        String[] answerArray = answersList.split(",");
-        for (String s : answerArray) {
-            String[] tem = s.split(":");
-            answers.put(Integer.parseInt(tem[0]), tem[1]);
+        JSONObject jsonObject = JSONObject.parseObject(answersList);
+
+        Iterator<Map.Entry<String, Object>> it = jsonObject.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry<String, Object> param = it.next();
+            answers.put(Integer.parseInt(param.getKey().toString()),param.getValue().toString());
         }
         return answers;
     }
@@ -380,7 +405,6 @@ public class ExamApiController {
 
         return "1";
     }
-
 
     private HashMap<String, String> getTestCase2HashMap(int pid) {
         HashMap<String, String> hashMap = new HashMap<>();

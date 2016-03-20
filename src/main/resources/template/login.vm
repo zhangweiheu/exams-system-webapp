@@ -35,7 +35,7 @@
             </div>
             <br/>
             <input id="submit_btn" class="btn input-submit" disabled="disabled" type="submit" value="登陆"
-                   style="width: 70%;background-color:#fff;color: #0f0f0f;font-size: 15px"/>
+                   style="width: 30%;background-color:#fff;color: #0f0f0f;font-size: 30px"/>
         </form>
     </div>
 </section>

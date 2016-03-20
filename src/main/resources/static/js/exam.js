@@ -2,12 +2,12 @@
  * Created by zhang on 2016/3/17.
  */
 $("#show").hide();
+$("#exam-over-btn").hide();
 
 $(function () {
     $.ajax({
-        method: "POST",
-        url: "/api/system/exam/generate/" + $("#uid").val(),
-        data: d,
+        method: "GET",
+        url: "/api/system/exam/check/" + $("#uid").val(),
         dataType: "json",
         success: function (data) {
             if (data.code == 0) {
@@ -15,8 +15,6 @@ $(function () {
                 $("#uid").val(d.uid);
                 $("#pid").val(d.pid);
                 generatePaperView(d.questions);
-            } else {
-                layer.alert(data.msg, {icon: 11})
             }
         }
     });
@@ -74,15 +72,14 @@ function checkInputData(data) {
 }
 
 /**全选/全不选*/
-$(function () {
-    $("#checkAll").click(function () {
-        $('input[name="subBox"]').attr("checked", this.checked);
-    });
-    var $subBox = $("input[name='questionTagList']");
-    $subBox.click(function () {
-        $("#checkAll").attr("checked", $subBox.length == $("input[name='questionTagList']:checked").length ? true : false);
-    });
+$("#checkAll").on("click", function () {
+    $('input[name="questionTagList"]').attr("checked", this.checked);
 });
+
+$("input[name='questionTagList']").on("click", function () {
+    $("#checkAll").attr("checked", $("input[name='questionTagList']").length == $("input[name='questionTagList']:checked").length);
+});
+
 
 /**试题显示页*/
 
@@ -94,13 +91,14 @@ function generatePaperView(questions) {
 
     $("#select").hide();
     $("#show").show();
+    $("#exam-over-btn").show();
 
     var s = 0;
     var m = 0;
     var p = 0;
-    var single = "<table><thead>单项选择</thead><tbody>";
-    var multi = "<table><thead>多项选择</thead><tbody>";
-    var program = "<table><thead>编程题</thead><tbody>";
+    var single = "<div style='color: black;font-size: 25px'>单项选择</div>";
+    var multi = "<div style='color: black;font-size: 25px'>多项选择</div>";
+    var program = "<div style='color: black;font-size: 25px'>编程题</div>";
 
     for (var i = 0; i < questions.length; i++) {
 
@@ -111,71 +109,64 @@ function generatePaperView(questions) {
 
         if (q.questionType == "SINGLE_SELECTION") {
             s++;
-            single = single + "<br/><tr>" + title + "</tr><br/>"
-            single += "<tr>";
-            single = single + "<input id=\"" + s + "s\" value=\"" + id + "\" hidden/>";
-            single = single + "<input name=\"" + s + "s\" type=\"radio\" value=\"A\">" + options.A;
-            single = single + "<input name=\"" + s + "s\" type=\"radio\" value=\"B\">" + options.B;
-            single = single + "<input name=\"" + s + "s\" type=\"radio\" value=\"C\">" + options.C;
-            single = single + "<input name=\"" + s + "s\" type=\"radio\" value=\"D\">" + options.D;
-            single += "</tr>";
+
+            single = single + "<div class='font-style' style='position: relative;left: 20px;margin-top: 25px'>" + title + "</div>";
+            single = single + "<div style='margin:0 auto;position: relative'>";
+            single = single + "<div hidden><input id='" + s + "s' value='" + id + "' hidden/></div>";
+            single = single + "<div style='width:25%;float: left;vertical-align:middle'><label style='font-size: 15px;color: black;right: 30px'><input class='input-radio' name='" + s + "s' type='radio' value='A'>" + options.A + "</label></div>";
+            single = single + "<div style='width:25%;float: left;vertical-align:middle'><label style='font-size: 15px;color: black;right: 30px'><input class='input-radio' name='" + s + "s' type='radio' value='B'>" + options.B + "</label></div>";
+            single = single + "<div style='width:25%;float: left;vertical-align:middle'><label style='font-size: 15px;color: black;right: 30px'><input class='input-radio' name='" + s + "s' type='radio' value='C'>" + options.C + "</label></div>";
+            single = single + "<div style='width:25%;float: left;vertical-align:middle'><label style='font-size: 15px;color: black;right: 30px'><input class='input-radio' name='" + s + "s' type='radio' value='D'>" + options.D + "</label></div>";
+            single = single + "</div>";
         }
 
         if (q.questionType == "MULTI_SELECTION") {
             m++;
-            multi = multi + "<br/><tr>" + title + "</tr><br/>"
-            multi += "<tr>";
-            multi = multi + "<input id=\"" + m + "m\" value=\"" + id + "\" hidden/>";
-            multi = multi + "<input name=\"" + m + "m\" type=\"checkbox\" value=\"A\">" + options.A;
-            multi = multi + "<input name=\"" + m + "m\" type=\"checkbox\" value=\"B\">" + options.B;
-            multi = multi + "<input name=\"" + m + "m\" type=\"checkbox\" value=\"C\">" + options.C;
-            multi = multi + "<input name=\"" + m + "m\" type=\"checkbox\" value=\"D\">" + options.D;
-            multi += "</tr>";
+            multi = multi + "<div class='font-style' style='position: relative;left: 20px;margin-top: 25px'>" + title + "</div>"
+            multi = multi + "<div style='margin:0 auto;position: relative'>";
+            multi = multi + "<div style='width:25%;float: left;vertical-align:middle'><label style='font-size: 15px;color: black;right: 30px'><input class='input-radio' id='" + m + "m' value='" + id + "' hidden/><div>";
+            multi = multi + "<div style='width:25%;float: left;vertical-align:middle'><label style='font-size: 15px;color: black;right: 30px'><input class='input-radio' name='" + m + "m' type='checkbox' value='A'>" + options.A + "</label><div>";
+            multi = multi + "<div style='width:25%;float: left;vertical-align:middle'><label style='font-size: 15px;color: black;right: 30px'><input class='input-radio' name='" + m + "m' type='checkbox' value='B'>" + options.B + "</label><div>";
+            multi = multi + "<div style='width:25%;float: left;vertical-align:middle'><label style='font-size: 15px;color: black;right: 30px'><input class='input-radio' name='" + m + "m' type='checkbox' value='C'>" + options.C + "</label><div>";
+            multi = multi + "<div style='width:25%;float: left;vertical-align:middle'><label style='font-size: 15px;color: black;right: 30px'><input class='input-radio' name='" + m + "m' type='checkbox' value='D'>" + options.D + "</label><div>";
+            multi = multi + "</div>";
         }
 
         if (q.questionType == "PROGRAMMING_QUESTION") {
             p++;
-            program = program + "<br/><tr>" + title + "</tr><br/>"
-            program += "<tr>";
-            program = program + "<input id=\"" + p + "p\" value=\"" + id + "\" hidden/>";
-            program = program + "<input style=\"width:800px;height:600px\" name=\"" + p + "p\" " + "type=\"text\">";
-            program += "</tr>";
+            program = program + "<div class='font-style' style='position: relative;left: 20px;margin-top: 25px'>" + title + "</div>"
+            program = program + "<div style='margin:0 auto;position: relative'>";
+            program = program + "<div><input id=" + p + "p' class='input-radio' value='" + id + "' hidden/></div>";
+            program = program + "<div><input style='width:800px;height:600px' name=" + p + "p' type='text'></div>";
+            program = program + "</div>";
         }
     }
 
-    if (single.length > 33) {
+    if (single.length > 51) {
         single = single +
-            "</tbody>" +
-            "<div><input id=\"single-save-btn\" type=\"submit\" " + "value=\"提交\"/></div>" +
-            "</table>";
+            "<div align='center' style='margin-top: 60px;margin-right: 30%;margin-left: 30%'><input id='single-save-btn' type='submit' class='input-btn' value='提交' onclick='singlesubmit();'></div>";
         $("#s").val(s);
         $("#single").html(single);
     }
-    if (multi.length > 33) {
+    if (multi.length > 52) {
         multi = multi +
-            "</tbody>" +
-            "<div><input " + "id=\"multi-save-btn\" " + "type=\"submit\" " + "value=\"提交\"/></div>" +
-            "</table>";
+            "<div align='center' style='margin-top: 60px;margin-right: 30%;margin-left: 30%'><input id='multi-save-btn' type='submit' class='input-btn' value='提交' onclick='multisubmit();'></div>";
         $("#m").val(m);
         $("#multi").html(multi);
     }
-    if (program.length > 33) {
+    if (program.length > 51) {
         program = program +
-            "</tbody>" +
-            "<div><input " + "id=\"program-save-btn\" " + "type=\"submit\" " + "value=\"提交\"/></div>" +
-            "</table>";
+            "<div align='center' style='margin-top: 60px;margin-right: 30%;margin-left: 30%'><input id='program-save-btn' type='submit' class='input-btn' value='提交' onclick='programsubmit();'></div>";
         $("#p").val(p);
         $("#program").html(program);
     }
 }
 
-
-/**保存btn监听*/
-$("#single-save-btn").on('click', function () {
+function singlesubmit() {
     var d = gatherDataSingle();
     $.ajax({
         method: "PUT",
-        url: "/api/system/exam/do/" + $("#uid").val(),
+        url: "/api/system/exam/do/" + $("#pid").val(),
         data: d,
         success: function (data) {
             if (data.code == 0) {
@@ -190,13 +181,13 @@ $("#single-save-btn").on('click', function () {
             }
         }
     });
-});
+}
 
-$("#multi-save-btn").on('click', function () {
+function multisubmit() {
     var d = gatherDataMulti();
     $.ajax({
         method: "PUT",
-        url: "/api/system/exam/do/" + $("#uid").val(),
+        url: "/api/system/exam/do/" + $("#pid").val(),
         data: d,
         success: function (data) {
             if (data.code == 0) {
@@ -211,13 +202,13 @@ $("#multi-save-btn").on('click', function () {
             }
         }
     });
-});
+}
 
-$("#program-save-btn").on('click', function () {
+function programsubmit() {
     var d = gatherDataProgram();
     $.ajax({
         method: "PUT",
-        url: "/api/system/exam/programing/",
+        url: "/api/system/exam/programing",
         data: d,
         success: function (data) {
             if (data.code == 0) {
@@ -232,7 +223,9 @@ $("#program-save-btn").on('click', function () {
             }
         }
     });
-});
+}
+
+
 $("#exam-over-btn").on('click', function () {
     $.ajax({
         method: "PUT",
@@ -260,15 +253,14 @@ function gatherDataSingle() {
         return undefined;
     }
     var d = {};
-
     for (var i = 1; i <= s; i++) {
         var ids = $("#" + i + "s").val();
         var valuecheck = $('input[name = ' + i + 's]:checked').val();
-        var c = ids + ":" + valuecheck;
-        d.add(c);
+        d[ids] = valuecheck;
     }
-    return d;
+    return {"answersList":JSON.stringify(d)};
 }
+
 function gatherDataMulti() {
     var m = $("#m").val();
     if (0 == m) {
@@ -284,19 +276,19 @@ function gatherDataMulti() {
             tag_array.push($(this).val());
         });
         var answers = tag_array.join();
-        var c = ids + ":" + answers;
-        d.add(c);
+        d[ids] = answers;
     }
-    return d;
+    return {"answersList":JSON.stringify(d)};
 }
+
 function gatherDataProgram() {
     var pid = $("#pid").val();
     var qid = $("#1p").val();
     var text = $("input[name='1p']").val();
     var d = {
-        "pid":pid,
-        "qid":qid,
-        "text":text
+        "pid": pid,
+        "qid": qid,
+        "text": text
     }
     return d;
 }

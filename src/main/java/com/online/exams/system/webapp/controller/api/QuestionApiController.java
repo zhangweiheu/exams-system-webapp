@@ -1,14 +1,10 @@
 package com.online.exams.system.webapp.controller.api;
 
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.serializer.IntegerCodec;
 import com.online.exams.system.core.bean.JsonResponse;
 import com.online.exams.system.core.bean.Page;
 import com.online.exams.system.core.bean.TestCase;
 import com.online.exams.system.core.dao.MongoTestCaseDao;
-import com.online.exams.system.core.enums.QuestionTypeEnum;
 import com.online.exams.system.core.enums.RefTypeEnum;
-import com.online.exams.system.core.enums.StatusEnum;
 import com.online.exams.system.core.model.Question;
 import com.online.exams.system.core.model.Tag;
 import com.online.exams.system.core.service.QuestionService;
@@ -23,7 +19,10 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by zhang on 2016/3/8.
@@ -62,25 +61,18 @@ public class QuestionApiController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.PUT)
-    public JsonResponse updateQuestuion(@RequestParam("id") Integer id, @RequestParam("title") String title, @RequestParam("options") String options, @RequestParam("answers") String answers, @RequestParam("difficulty") Integer difficulty, @RequestParam("priority") Integer priority, @RequestParam("tagList") String tagList, @RequestParam("status") StatusEnum status, @RequestParam("questionType") QuestionTypeEnum questionType) {
+    public JsonResponse updateQuestuion(QuestionVo questionVo) {
         Question question = new Question();
-        question.setId(id);
-        question.setTitle(title);
-        question.setOptions(options);
-        question.setAnswers(answers);
-        question.setDifficulty(difficulty);
-        question.setPriority(priority);
-        question.setQuestionType(questionType);
-        question.setStatus(status);
-        question.setUpdateAt(new Date());
+        BeanUtils.copyProperties(questionVo, question);
+        question.setOptions(null);
         questionService.updateQuestion(question);
-        tagService.updateTagList(tagList, id, RefTypeEnum.QUESTION);
+        tagService.updateTagList(questionVo.getTagList(), questionVo.getId(), RefTypeEnum.QUESTION);
         return JsonResponse.success();
     }
 
     @RequestMapping(value = "/programing", method = RequestMethod.PUT)
-    public JsonResponse updateProgramingQuestuion(@RequestParam("id") Integer id, @RequestParam("title") String title, @RequestParam("options") String options, @RequestParam("answers") String answers, @RequestParam("difficulty") Integer difficulty, @RequestParam("priority") Integer priority, @RequestParam("tagList") String tagList, @RequestParam("status") StatusEnum status, @RequestParam("questionType") QuestionTypeEnum questionType) {
-        Question question = questionService.findQuestionById(id);
+    public JsonResponse updateProgramingQuestuion(QuestionVo questionVo) {
+        Question question = questionService.findQuestionById(questionVo.getId());
         TestCase testCase = new TestCase();
         testCase.setId(Long.parseLong(question.getAnswers()));
         testCase.setKeyValue(string2HashMap(question.getAnswers()));
@@ -88,16 +80,10 @@ public class QuestionApiController {
         long qtid = mongoTestCaseDao.updateTestCaseByTCID(testCase);
 
         question.setAnswers(String.valueOf(qtid));
-        question.setTitle(title);
-        question.setOptions(options);
-        question.setDifficulty(difficulty);
-        question.setPriority(priority);
-        question.setQuestionType(questionType);
-        question.setStatus(status);
-        question.setUpdateAt(new Date());
+        BeanUtils.copyProperties(questionVo, question);
 
         questionService.updateQuestion(question);
-        tagService.updateTagList(tagList, id, RefTypeEnum.QUESTION);
+        tagService.updateTagList(questionVo.getTagList(), questionVo.getId(), RefTypeEnum.QUESTION);
         return JsonResponse.success();
     }
 

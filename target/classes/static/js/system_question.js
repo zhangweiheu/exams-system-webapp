@@ -41,13 +41,14 @@ function buildTable(page, pageSize) {
                             tbody += "<tr>";
                             tbody += "<td class='fixWid'>" + elem.id + "</td>";
                             tbody += "<td class='fixWid'>" + elem.title + "</td>";
+                            tbody += "<td class='170px'>" + elem.questionType + "</td>";
                             tbody += "<td>" + elem.answers + "</td>";
                             tbody += "<td>" + elem.tagList + "</td>";
                             tbody += "<td>" + elem.difficulty + "</td>";
-                            tbody += "<td>" + elem.priority + "</td>";
+                            tbody += "<td class='fixWid'>" + elem.priority + "</td>";
                             tbody += "<td>" + elem.status + "</td>";
-                            tbody += "<td>" + elem.totalDone + "</td>";
-                            tbody += "<td>" + elem.totalSuccess + "</td>";
+                            tbody += "<td class='fixWid'>" + elem.totalDone + "</td>";
+                            tbody += "<td class='fixWid'>" + elem.totalSuccess + "</td>";
                             tbody += "<td>" + elem.properties.createTime + "</td>";
                             tbody += "<td class='fixWid'><a btn-type=\"edit\" qid=\"" + elem.id + "\" href=\"#\">编辑</a></td>";
                             tbody += "<td class='fixWid'><a  onclick=\"deleteRecord('" + elem.id + "')\"   btn-type=\"delete\" qid=\"" + elem.id + "\" href=\"#\">删除</a></td>";

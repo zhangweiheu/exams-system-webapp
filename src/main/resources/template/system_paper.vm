@@ -7,7 +7,7 @@
 </head>
 <body>
     #include("./index.vm")
-<div>
+<div align="center">
     <div>
         <table>
             <input type="hidden" id="page" value="$!{page}"/>

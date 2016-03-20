@@ -17,6 +17,8 @@ import org.springframework.format.number.NumberFormatAnnotationFormatterFactory;
 import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.format.support.FormattingConversionService;
 import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
+import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.filter.HttpPutFormContentFilter;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.DelegatingWebMvcConfiguration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -25,6 +27,7 @@ import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.view.velocity.VelocityConfigurer;
 import org.springframework.web.servlet.view.velocity.VelocityViewResolver;
 
+import javax.servlet.Filter;
 import java.util.Properties;
 
 /**
@@ -76,6 +79,7 @@ public class WebappConfiguration extends AbstractWebMvcConfiguration {
         registry.addInterceptor(privilegeInterceptor()).addPathPatterns("/**");
     }
 
+
     // 添加方法参数验证器
     @Bean
     public MethodValidationPostProcessor configMethodValidationPostProcessor() {
@@ -93,7 +97,7 @@ public class WebappConfiguration extends AbstractWebMvcConfiguration {
     }
 
     @Bean
-    public ExceptionInterceptor exceptionInterceptor(){
+    public ExceptionInterceptor exceptionInterceptor() {
         return new ExceptionInterceptor();
     }
 
@@ -136,6 +140,21 @@ public class WebappConfiguration extends AbstractWebMvcConfiguration {
         CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
         commonsMultipartResolver.setDefaultEncoding("utf-8");
         return commonsMultipartResolver;
+    }
+
+    // 支持PUT请求
+    @Bean
+    public HttpPutFormContentFilter httpPutFormContentFilter() {
+        return new HttpPutFormContentFilter();
+    }
+
+    // 统一UTF-8编码
+    @Bean
+    public CharacterEncodingFilter characterEncodingFilter() {
+        CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
+        characterEncodingFilter.setEncoding("UTF-8");
+        characterEncodingFilter.setForceEncoding(true);
+        return characterEncodingFilter;
     }
 }
 

@@ -3,8 +3,6 @@
 <head>
     <title>在线测试系统 | 编辑试题</title>
     <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
-    <link type="text/css" rel="stylesheet" href="/asset/bootstrap/css/bootstrap.min.css"/>
-    <link type="text/css" rel="stylesheet" href="/asset/bootstrap/css/bootstrap-theme.min.css"/>
     <link rel="shortcut icon" href="/images/java.png"/>
 </head>
 <body>
@@ -42,31 +40,31 @@
         <div class="control-group">
             <label class="control-label" style="color: black;font-size: 15px;" for="title">试题主干</label>
             <div class="controls">
-                <input id="title" style="width: 40%;height: 40px" type="text" value="$!{questionVo.title}" required>
+                <input id="title" style="width: 40%;height: 40px" type="text" value="$!{questionVo.title}" required/>
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" style="color: black;font-size: 15px;" for="options">试题选项</label>
             <div class="controls">
-                <input id="options" style="width: 40%;height: 40px" type="text" value="$!{questionVo.options}">
+                <input id="options" style="width: 40%;height: 40px" type="text" value="$!{questionVo.options}"/>
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" style="color: black;font-size: 15px;" for="answers">试题答案</label>
             <div class="controls">
-                <input id="answers" style="width: 40%;height: 40px" type="text" value="$!{questionVo.answers}">
+                <input id="answers" style="width: 40%;height: 40px" type="text" value="$!{questionVo.answers}"/>
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" style="color: black;font-size: 15px;" for="difficulty">试题难度</label>
             <div class="controls">
-                <input id="difficulty" style="width: 40%;height: 40px" type="number" value="$!{questionVo.difficulty}" max="10" min="1">
+                <input id="difficulty" style="width: 40%;height: 40px" type="number" value="$!{questionVo.difficulty}" max="10" min="1"/>
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" style="color: black;font-size: 15px;" for="priority">试题优先级</label>
             <div class="controls">
-                <input id="priority" style="width: 40%;height: 40px" type="number" value="$!{questionVo.priority}" max="10" min="1">
+                <input id="priority" style="width: 40%;height: 40px" type="number" value="$!{questionVo.priority}" max="10" min="1"/>
             </div>
         </div>
         <div>
@@ -97,7 +95,7 @@
         <div class="control-group">
             <label class="control-label" style="color: black;font-size: 15px;" for="tag">试题标签</label>
             <div id="tag">
-                <input id="taglist" value="$!{questionVo.tagList}" hidden>
+                <input id="taglist" value="$!{questionVo.tagList}" hidden/>
                 <div>
                     <a style="color: black;font-size: 15px;">Java</a><input type="checkbox" name="tag" id="java" value="JAVA">
                     <a style="color: black;font-size: 15px;">HTML</a><input type="checkbox" name="tag" id="html" value="HTML">
@@ -119,7 +117,6 @@
 </div>
 <script type="text/javascript" src="/asset/jquery/jquery-1.11.2.min.js"></script>
 <script type="text/javascript" src="/asset/jquery/jquery.simplePagination.js"></script>
-<script type="text/javascript" src="/asset/bootstrap/js/bootstrap.js"></script>
 <script type="text/javascript" src="/asset/layer/layer.js"></script>
 <script type="text/javascript" src="/js/edit_question.js"></script>
 </body>

@@ -6,10 +6,10 @@
 $("#save-btn").on('click', function () {
     var d = gatherData();
     if (!checkInputData(d))return;
-    var turl  = "/api/system/question/";
+    var turl  = "/api/system/question";
 
     if("PROGRAMMING_QUESTION" == d.questionType){
-        turl = "/api/system/question/programing/"
+        turl = "/api/system/question/programing"
     }
     if (d.id != undefined && d.id != "") {
         $.ajax({
@@ -92,6 +92,15 @@ function checkInputData(data) {
     return true;
 }
 
+$(document).delegate('input[name="tag"]', "click", function () {
+    var tag_array = new Array();
+    $('input[name="tag"]:checked').each(function () {
+        tag_array.push($(this).val());
+    });
+    var tagList = tag_array.join();
+    $("#tagList").val(tagList);
+});
+
 $(function(){
     var taglist = $("#tagList").val();
     if (taglist === undefined || taglist === ""){}
@@ -125,4 +134,4 @@ $(function(){
             }
         }
     }
-})
+});

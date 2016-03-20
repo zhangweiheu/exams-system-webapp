@@ -68,29 +68,16 @@ public class SystemUserApiController {
         return JsonResponse.success();
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.PUT)
-    public JsonResponse updateUser(@PathVariable("id") Integer id, @PathVariable("username") String username, @PathVariable("password") String password, @PathVariable("isAdmin") Boolean isAdmin, @PathVariable("isDelete") Boolean isDelete, @PathVariable("tagList") String tagList, @PathVariable("intro") String intro, @PathVariable("email") String email, @PathVariable("phone") String phone, @PathVariable("wechat") String wechat, @PathVariable("totalScore") Integer totalScore, @PathVariable("totalDone") Integer totalDone, @PathVariable("averageScore") Integer averageScore) {
-
+    @RequestMapping(value = "", method = RequestMethod.PUT)
+    public JsonResponse updateUser(UserVo userVo) {
         User user = new User();
-        user.setId(id);
-        user.setUsername(username);
-        user.setPassword(password);
-        user.setIsDelete(isDelete);
-        user.setIsAdmin(isAdmin);
-        user.setTotalDone(totalDone);
-        user.setTotalScore(totalScore);
-        user.setAverageScore(averageScore);
-        user.setEmail(email);
-        user.setPhone(phone);
-        user.setWechat(wechat);
-        user.setIntro(intro);
-        user.setUpdateAt(new Date());
+        BeanUtils.copyProperties(userVo, user);
         userService.updateUser(user);
-        tagService.updateTagList(tagList, id, RefTypeEnum.USER);
+        tagService.updateTagList(userVo.getTagList(), userVo.getId(), RefTypeEnum.USER);
         return JsonResponse.success();
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public JsonResponse saveUser(@ModelAttribute UserVo userVo) {
         User user = new User();
         if (null != userService.findUserByName(userVo.getUsername())) {

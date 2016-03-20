@@ -25,7 +25,7 @@ function buildTable(page, pageSize) {
     $('#page').val(page);
     $.ajax({
         method: "GET",
-        url: "/api/system/paper/list/",
+        url: "/api/system/paper/list",
         async: true,
         data: {"page": page, "pageSize": pageSize},
         dataType: "json",
@@ -72,11 +72,11 @@ function buildTable(page, pageSize) {
 function edit_tmpl(pid) {
     $.ajax({
         method: "PUT",
-        url: "/api/system/paper/" + pid,
+        url: "/api/system/paper/0/" + pid,
         async: true,
         success: function (data) {
             if (data.code == 0) {
-                layer.alert('删除成功', {
+                layer.alert(data.data, {
                     icon: 1, offset: '150px', end: function () {
                         location.reload(true);
                     }
@@ -96,8 +96,8 @@ $(function () {
     buildTable(page, pageSize);
 
     $(document).delegate("a[btn-type='edit']", "click", function () {
-        var uid = $(this)[0].getAttribute("uid");
-        edit_tmpl(uid);
+        var pid = $(this)[0].getAttribute("pid");
+        edit_tmpl(pid);
     });
 
     $('#tmpl-select').on('change', function () {

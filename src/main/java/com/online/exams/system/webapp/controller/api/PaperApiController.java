@@ -73,7 +73,6 @@ public class PaperApiController {
             paperVo.setProperties("createTime", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(paper.getCreateAt()));
             paperVo.setCreateAt(null);
             paperVo.setUpdateAt(null);
-            paperVo.setMongoPaperId(null);
             paperVo.setTagList(convertTagList2String(paper.getId()));
             paperVos.add(paperVo);
         }
@@ -95,12 +94,23 @@ public class PaperApiController {
      */
     @RequestMapping(value = "/{uid}/{pid}", method = RequestMethod.PUT)
     public JsonResponse setPaperUnUpdate(@PathVariable("uid") int uid, @PathVariable("pid") int pid) {
-        Paper paper = new Paper();
-        paper.setId(pid);
-        paper.setUserId(uid);
+        if (uid != 0 && uid == UserHolder.getInstance().getUser().getId()) {}
+        else if (uid == 0 && UserHolder.getInstance().getUser().getIsAdmin()) {}
+        else {
+            return JsonResponse.failed("操作被无权限");
+        }
+        Paper paper = paperService.findPaperById(pid);
+        if (paper.getStatus() == StatusEnum.DELETE) {
+            return JsonResponse.failed("试卷已删除，不可修改");
+        }
+        if (paper.getStatus() == StatusEnum.CLOSE) {
+            paper.setStatus(StatusEnum.NORMAL);
+            paperService.updatePaper(paper);
+            return JsonResponse.success("试卷打开成功");
+        }
         paper.setStatus(StatusEnum.CLOSE);
         paperService.updatePaper(paper);
-        return JsonResponse.success();
+        return JsonResponse.success("试卷关闭成功");
     }
 
     /**
