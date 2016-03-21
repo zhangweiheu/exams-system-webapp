@@ -36,12 +36,12 @@ public class PaperVo extends BaseObject {
     /**
      * 总分
      */
-    private Integer totalPoints;
+    private Double totalPoints;
 
     /**
      * 得分
      */
-    private Integer score;
+    private Double score;
 
     /**
      * 状态：0正常 | 1删除 | 2有错误
@@ -113,19 +113,19 @@ public class PaperVo extends BaseObject {
         this.difficulty = difficulty;
     }
 
-    public Integer getTotalPoints() {
+    public Double getTotalPoints() {
         return totalPoints;
     }
 
-    public void setTotalPoints(Integer totalPoints) {
+    public void setTotalPoints(Double totalPoints) {
         this.totalPoints = totalPoints;
     }
 
-    public Integer getScore() {
+    public Double getScore() {
         return score;
     }
 
-    public void setScore(Integer score) {
+    public void setScore(Double score) {
         this.score = score;
     }
 

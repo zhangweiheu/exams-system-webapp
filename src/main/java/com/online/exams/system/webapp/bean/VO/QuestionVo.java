@@ -2,7 +2,6 @@ package com.online.exams.system.webapp.bean.VO;
 
 import com.online.exams.system.core.enums.QuestionTypeEnum;
 import com.online.exams.system.core.enums.StatusEnum;
-import com.online.exams.system.core.enums.TagEnum;
 import com.online.exams.system.webapp.bean.BaseObject;
 
 import java.util.Date;
