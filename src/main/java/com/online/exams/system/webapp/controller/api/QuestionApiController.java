@@ -19,10 +19,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by zhang on 2016/3/8.
@@ -87,6 +84,10 @@ public class QuestionApiController {
         return JsonResponse.success();
     }
 
+    /**
+     * option ：{"A":"aaaa","B":"wfgyuerhg","C":"2","D":"aaaa"}
+     * answers : AC
+     * */
     @RequestMapping(value = "", method = RequestMethod.POST)
     public JsonResponse saveQuestion(@ModelAttribute QuestionVo questionVo) {
         Question question = new Question();
@@ -103,6 +104,7 @@ public class QuestionApiController {
         return JsonResponse.success();
     }
 
+    /**program print:sdfgsdgsdrg;print:wrfer*/
     @RequestMapping(value = "/programing", method = RequestMethod.POST)
     public JsonResponse saveProgramingQuestion(@ModelAttribute QuestionVo questionVo) {
 
@@ -154,12 +156,13 @@ public class QuestionApiController {
         return stringBuffer.subSequence(0, stringBuffer.length() - 1).toString();
     }
 
-    private static HashMap<String, String> string2HashMap(String s) {
-        HashMap<String, String> data = new HashMap<>();
+    private static LinkedHashMap<String, String> string2HashMap(String s) {
+        LinkedHashMap<String, String> data = new LinkedHashMap<>();
         String[] s1 = s.split(";");
         for (String tmp : s1) {
             String[] kv = tmp.split(":");
             data.put(kv[0], kv[1]);
+
         }
         return data;
     }

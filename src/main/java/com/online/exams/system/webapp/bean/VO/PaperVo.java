@@ -31,7 +31,7 @@ public class PaperVo extends BaseObject {
     /**
      * 难度系数0-10
      */
-    private Integer difficulty;
+    private Double difficulty;
 
     /**
      * 总分
@@ -105,11 +105,11 @@ public class PaperVo extends BaseObject {
         this.paperType = paperType;
     }
 
-    public Integer getDifficulty() {
+    public Double getDifficulty() {
         return difficulty;
     }
 
-    public void setDifficulty(Integer difficulty) {
+    public void setDifficulty(Double difficulty) {
         this.difficulty = difficulty;
     }
 

@@ -26,7 +26,7 @@
         width: 25%;
     }
 </style>
-<body>
+<body style="overflow: auto">
     #include("./index.vm")
 <br/>
 <div id="select" style="background-color: #2371B3">
@@ -111,7 +111,7 @@
 
 </div>
 
-<div id="exam" style="background-color: #2371B3">
+<div id="exam" style="background-color: #2371B3;margin-top: -20px">
     <div id="show" style="color: black;font-size: 30px" align="center">试卷作答</div>
     <input id="pid" value="$!{pid}" hidden/>
     <input id="s" value="0" hidden/>
@@ -123,7 +123,7 @@
     <div id="multi"></div>
     <div id="program"></div>
     <div>
-        <input id="exam-over-btn" class="input-btn" style="position: relative;top: -20px;" type="submit" value="结束测试">
+        <input id="exam-over-btn" class="input-btn" style="position: relative;top: -5px;" type="submit" value="结束测试">
     </div>
 
 </div>

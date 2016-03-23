@@ -92,7 +92,7 @@
 </head>
 <body>
 <div style="text-align: center;-webkit-perspective: 1000">
-    <div class="main" style="margin-bottom: 10px">
+    <div class="main" style="margin-bottom: 0px;margin-top: 10px">
         <!-- Nav -->
         <nav class="nav">
             <ul class="nav-list">

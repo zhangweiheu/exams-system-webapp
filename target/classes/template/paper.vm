@@ -15,8 +15,8 @@
         <input type="hidden" id="pageSize" value="$!{pageSize}"/>
         <input type="hidden" id="uid" value="$!{uid}"/>
         <thead>
-        <tr>
-            <td>ID</td>
+        <tr style="border-top: 1px solid #C1DAD7">
+            <td style="border-left: 1px solid #C1DAD7">ID</td>
             <td>试卷类型</td>
             <td>难度系数</td>
             <td>得分</td>

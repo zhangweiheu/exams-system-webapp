@@ -18,7 +18,7 @@ function buildPager(_totalCnt, _currentPage, pageSize) {
 }
 
 function buildTable(page, pageSize) {
-    var pageSize = Math.floor(window.innerHeight / 37) - 6;
+    var pageSize = Math.floor(window.innerHeight / 45) - 6;
     if ($('#page').val() == "") {
         page = 1;
     }
@@ -39,7 +39,7 @@ function buildTable(page, pageSize) {
                         if (i < curPageSize) {
                             var elem = data.data.data[i];
                             tbody += "<tr>";
-                            tbody += "<td width=\"50px\">" + elem.id + "</td>";
+                            tbody += "<td width='50px' style='border-left:1px solid #C1DAD7'>" + elem.id + "</td>";
                             tbody += "<td width=\"150px\">" + elem.paperType + "</td>";
                             tbody += "<td width='50px'>" + elem.difficulty + "</td>";
                             tbody += "<td width='50px'>" + elem.score + "</td>";

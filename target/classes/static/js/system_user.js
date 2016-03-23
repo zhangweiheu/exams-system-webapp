@@ -18,7 +18,7 @@ function buildPager(_totalCnt, _currentPage, pageSize) {
 }
 
 function buildTable(page, pageSize) {
-    var pageSize = Math.floor(window.innerHeight / 37) - 6;
+    var pageSize = Math.floor(window.innerHeight / 45) - 6;
     if ($('#page').val() == "") {
         page = 1;
     }
@@ -39,8 +39,8 @@ function buildTable(page, pageSize) {
                         if (i < curPageSize) {
                             var elem = data.data.data[i];
                             tbody += "<tr>";
-                            tbody += "<td class='fixWid'>" + elem.id + "</td>";
-                            tbody += "<td class='fixWid'>" + elem.username + "</td>";
+                            tbody += "<td class='fixWid' style='border-left: 1px solid #C1DAD7'>" + elem.id + "</td>";
+                            tbody += "<td style='70px'>" + elem.username + "</td>";
                             tbody += "<td>" + elem.email + "</td>";
                             tbody += "<td>" + elem.phone + "</td>";
                             tbody += "<td>" + elem.wechat + "</td>";

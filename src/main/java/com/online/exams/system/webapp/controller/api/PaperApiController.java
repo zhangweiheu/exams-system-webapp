@@ -114,7 +114,7 @@ public class PaperApiController {
     }
 
     /**
-     * //     * 获取做过的试卷
+     * //     * 获取做过的试卷，不允许修改
      * //
      */
     @RequestMapping(value = "/{uid}/{pid}", method = RequestMethod.GET)

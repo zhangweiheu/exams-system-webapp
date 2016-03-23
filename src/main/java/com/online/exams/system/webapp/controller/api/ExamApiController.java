@@ -1,9 +1,6 @@
 package com.online.exams.system.webapp.controller.api;
 
-import com.alibaba.druid.support.json.JSONUtils;
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.util.*;
-import com.alibaba.fastjson.util.IdentityHashMap;
 import com.online.exams.system.core.bean.JsonResponse;
 import com.online.exams.system.core.bean.MongoPaper;
 import com.online.exams.system.core.bean.QuestionMap;
@@ -20,7 +17,6 @@ import com.online.exams.system.core.service.PaperService;
 import com.online.exams.system.core.service.TagService;
 import com.online.exams.system.core.util.PaperUtil;
 import com.online.exams.system.webapp.annotation.LoginRequired;
-import com.rabbitmq.tools.json.JSONUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,9 +89,9 @@ public class ExamApiController {
         return JsonResponse.success(paperService.updatePaper(paper));
     }
 
-    @RequestMapping(value = "/programing", method = RequestMethod.POST)
+    @RequestMapping(value = "/programing", method = RequestMethod.PUT)
     public JsonResponse programingCheck(@RequestParam("pid") int pid, @RequestParam("qid") int qid, @RequestParam("text") String text) {
-        HashMap<String, String> hashMap = getTestCase2HashMap(qid);
+        LinkedHashMap<String, String> hashMap = getTestCase2HashMap(pid);
         String result = compileJava(text, hashMap);
         if ("0".equals(result)) {
             return JsonResponse.success("代码测试不通过");
@@ -105,8 +101,9 @@ public class ExamApiController {
             MongoPaper mongoPaper = mongoPaperDao.findMongoPaperById(Integer.toUnsignedLong(paper.getMongoPaperId()));
             List<QuestionMap> mapList = mongoPaper.getQuestionMapList();
             for (QuestionMap q : mapList) {
-                if (q.getQuestionType() == QuestionTypeEnum.PROGRAMMING_QUESTION) {
+                if (q.getQuestionType() == QuestionTypeEnum.PROGRAMMING_QUESTION && q.getId() == qid) {
                     q.setRight(true);
+                    q.setCurrentAnswer(text);
                     break;
                 }
             }
@@ -136,7 +133,7 @@ public class ExamApiController {
             JsonResponse jsonResponse = JsonResponse.success();
             jsonResponse.put("uid", uid);
             List<QuestionMap> list = mongoPaper.getQuestionMapList();
-            for(QuestionMap questionMap:list){
+            for (QuestionMap questionMap : list) {
                 questionMap.setRight(null);
                 questionMap.setAnswers(null);
             }
@@ -150,7 +147,7 @@ public class ExamApiController {
     }
 
     @RequestMapping(value = "/generate/{uid}", method = RequestMethod.POST)
-    public JsonResponse doPaper(@PathVariable("uid") Integer uid, @RequestParam("questionTagList") String questionTagList, @RequestParam("paperType") String paperType, ModelMap model) {
+    public JsonResponse generatePaper(@PathVariable("uid") Integer uid, @RequestParam("questionTagList") String questionTagList, @RequestParam("paperType") String paperType, ModelMap model) {
         Paper paper = paperService.findDoingPaperByUid(uid);
         HashMap<String, Object> hashMap;
         if (null != paper) {
@@ -201,7 +198,7 @@ public class ExamApiController {
         Iterator<Map.Entry<String, Object>> it = jsonObject.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry<String, Object> param = it.next();
-            answers.put(Integer.parseInt(param.getKey().toString()),param.getValue().toString());
+            answers.put(Integer.parseInt(param.getKey().toString()), param.getValue().toString());
         }
         return answers;
     }
@@ -218,17 +215,17 @@ public class ExamApiController {
         return tagEnumList;
     }
 
-    private String compileJava(String source, HashMap<String, String> testCase) {
+    private String compileJava(String source, LinkedHashMap<String, String> testCase) {
         /**配置参数*/
         String javaexeDir = "C:\\Program Files\\Java\\jdk1.8.0_51\\bin"; //exe文件存放目录
         String delexeDir = "C:\\Windows\\System32"; //exe文件存放目录
         String workDir = "f:\\";     // 工作目录
-        String javaSource = "demo.java";    // 需要转换的源文件，于工作目录下
+        String javaSource = "f:\\demo.java";    // 需要转换的源文件，于工作目录下
         String javaClass = "demo";    // 需要转换的源文件，于工作目录下
-        String testCaseInputFile = "input.txt";    // 测试用例输入，于工作目录下
-        String testCaseOutputFile = "output.txt";    // 测试用例输出，于工作目录下
-        String testCaseAnswerFile = "answer.txt";    // 测试用例答案，于工作目录下
-        String exceptionFile = "exception.txt";    // 异常文件，于工作目录下
+        String inputFilePath = "f:\\input.txt";    // 测试用例输入，于工作目录下
+        String outputFilePath = "f:\\output.txt";    // 测试用例输出，于工作目录下
+        String answerFilePath = "f:\\answer.txt";    // 测试用例答案，于工作目录下
+        String exceptionFilePath = "f:\\exception.txt";    // 异常文件，于工作目录下
 
 
         /**清除目录下的文件*/
@@ -239,7 +236,7 @@ public class ExamApiController {
         processBuilder.directory(new File(workDir));
         List<String> command = new LinkedList<>();
         command.add("cmd.exe");
-        command.add("/c del /f /q /a f:\\test\\*");
+        command.add("/c del /f /q /a f:\\*");
 
         processBuilder.command(command);
 
@@ -253,43 +250,56 @@ public class ExamApiController {
         processBuilder.command().clear();
         command.clear();
         try {
-            Thread.sleep(6000);
+            Thread.sleep(1000);
         } catch (Exception e) {
             return "-1";
         }
 
         /**生成测试文件*/
-        File inputGenerate = new File("f:\\input.txt");
-        File answerGenerate = new File("f:\\answer.txt");
-
+        Boolean isInputExist = false;
         try {
-            inputGenerate.createNewFile();
-            answerGenerate.createNewFile();
-            BufferedWriter inputWriter = new BufferedWriter(new FileWriter(inputGenerate));
-            BufferedWriter answerWriter = new BufferedWriter(new FileWriter(answerGenerate));
-
             Iterator iterator = testCase.entrySet().iterator();
+            Map.Entry entry1 = (Map.Entry) iterator.next();
 
-            while (iterator.hasNext()) {
-                Map.Entry entry = (Map.Entry) iterator.next();
-                inputWriter.write(entry.getKey() + "\r\n");
-                answerWriter.write(entry.getValue() + "\r\n");
-                iterator.remove();
+            if (!entry1.getKey().toString().matches("^print.*")) {
+
+                File inputGenerate = new File(inputFilePath);
+                File answerGenerate = new File(answerFilePath);
+                BufferedWriter inputWriter = new BufferedWriter(new FileWriter(inputGenerate));
+                BufferedWriter answerWriter = new BufferedWriter(new FileWriter(answerGenerate));
+                isInputExist = true;
+                iterator = testCase.entrySet().iterator();
+                while (iterator.hasNext()) {
+                    Map.Entry entry = (Map.Entry) iterator.next();
+                    inputWriter.write(entry.getKey() + "\r\n");
+                    answerWriter.write(entry.getValue() + "\r\n");
+                    iterator.remove();
+                }
+
+                inputWriter.flush();
+                answerWriter.flush();
+                inputWriter.close();
+                answerWriter.close();
+            } else {
+
+                File answerGenerate = new File(answerFilePath);
+                BufferedWriter answerWriter = new BufferedWriter(new FileWriter(answerGenerate));
+                iterator = testCase.entrySet().iterator();
+                while (iterator.hasNext()) {
+                    Map.Entry entry = (Map.Entry) iterator.next();
+                    answerWriter.write(entry.getValue() + "\r\n");
+                    iterator.remove();
+                }
+                answerWriter.flush();
+                answerWriter.close();
             }
-
-            inputWriter.flush();
-            answerWriter.flush();
-            inputWriter.close();
-            answerWriter.close();
         } catch (Exception e) {
             return "-1";
         }
 
-
         /**输出java代码到目录*/
-        File file = new File("f:\\demo.java");
+        File file = new File(javaSource);
         try {
-            file.createNewFile();
             BufferedWriter out = new BufferedWriter(new FileWriter(file));
             out.write(source);
             out.flush();
@@ -299,16 +309,12 @@ public class ExamApiController {
         }
 
         /**设置环境*/
-        environment.clear();
-        environment.put("Path", environment.get("Path") + javaexeDir);
-        processBuilder.directory(new File(workDir));
 
-        command.add("javac.exe");
-        command.add(javaSource);
-        command.add(">>");
-        command.add("exception.txt");
+        command.add("cmd.exe");
+        command.add("/c javac demo.java >> exception.txt");
         processBuilder.command(command);
 
+        File exceptionFile = new File(exceptionFilePath);
         /**编译java文件*/
         try {
             processBuilder.start();
@@ -316,13 +322,11 @@ public class ExamApiController {
             return "-1";
         }
 
-
         /**检查是否编译出现异常*/
-        File exception = new File("f:\\exception.txt");
-        if (file.exists()) {
+        if(exceptionFile.exists()){
             try {
 
-                FileReader fileExceptionReader = new FileReader(exception);
+                FileReader fileExceptionReader = new FileReader(exceptionFile);
                 BufferedReader exceptionReader = new BufferedReader(fileExceptionReader);
 
                 StringBuffer exceptionStringBuffer = new StringBuffer();
@@ -332,29 +336,34 @@ public class ExamApiController {
                     exceptionStringBuffer.append("\r\n");
                     es = exceptionReader.readLine();
                 }
-                return exceptionStringBuffer.toString();
+                String exceptionResult = exceptionStringBuffer.toString();
+                if (!"".equals(exceptionResult.trim())) {
+                    return exceptionResult.trim();
+                }
             } catch (Exception e) {
                 return "-1";
             }
         }
 
 
+
         /**环境重置*/
         processBuilder.command().clear();
         command.clear();
         try {
-            Thread.sleep(6000);
+            Thread.sleep(1000);
         } catch (Exception e) {
             return e.toString();
         }
 
-        /**执行demo.java文件*/
-        command.add("java.exe");
-        command.add(javaClass);
-        command.add("<");
-        command.add(testCaseInputFile);
-        command.add(">>");
-        command.add(testCaseOutputFile);
+        /**执行编译demo.java文件*/
+        command.add("cmd.exe");
+
+        if (isInputExist) {
+            command.add("/c java demo < input.txt >> output.txt");
+        }else{
+            command.add("/c java demo >> output.txt");
+        }
 
         processBuilder.command(command);
         try {
@@ -366,12 +375,9 @@ public class ExamApiController {
         /**比较结果文件是否一致*/
         /**java运行文件demo，测试输出是否和结果一致*/
 
-        File fileOutput = new File("f:\\output.txt");
-        File fileanswer = new File("f:\\answer.txt");
-
         try {
-            FileReader fileOutputReader = new FileReader(fileOutput);
-            FileReader fileanswerReader = new FileReader(fileanswer);
+            FileReader fileOutputReader = new FileReader(outputFilePath);
+            FileReader fileanswerReader = new FileReader(answerFilePath);
             BufferedReader outputReader = new BufferedReader(fileOutputReader);
             BufferedReader answerReader = new BufferedReader(fileanswerReader);
 
@@ -406,8 +412,8 @@ public class ExamApiController {
         return "1";
     }
 
-    private HashMap<String, String> getTestCase2HashMap(int pid) {
-        HashMap<String, String> hashMap = new HashMap<>();
+    private LinkedHashMap<String, String> getTestCase2HashMap(int pid) {
+        LinkedHashMap<String, String> hashMap = new LinkedHashMap<>();
         Paper paper = paperService.findPaperById(pid);
         MongoPaper mongoPaper = mongoPaperDao.findMongoPaperById(Integer.toUnsignedLong(paper.getMongoPaperId()));
         List<QuestionMap> mapList = mongoPaper.getQuestionMapList();

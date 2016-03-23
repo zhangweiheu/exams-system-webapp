@@ -103,60 +103,61 @@ function generatePaperView(questions) {
     for (var i = 0; i < questions.length; i++) {
 
         var q = questions[i];
-        var options = JSON.parse(q.options);
+
         var title = q.title;
         var id = q.id;
 
         if (q.questionType == "SINGLE_SELECTION") {
             s++;
-
-            single = single + "<div class='font-style' style='position: relative;left: 20px;margin-top: 25px'>" + title + "</div>";
+            var options = JSON.parse(q.options);
+            single = single + "<div class='font-style' style='position: relative;left: 20px;margin-top: 25px'>"+ s + "、" + title + "</div>";
             single = single + "<div style='margin:0 auto;position: relative'>";
-            single = single + "<div hidden><input id='" + s + "s' value='" + id + "' hidden/></div>";
-            single = single + "<div style='width:25%;float: left;vertical-align:middle'><label style='font-size: 15px;color: black;right: 30px'><input class='input-radio' name='" + s + "s' type='radio' value='A'>" + options.A + "</label></div>";
-            single = single + "<div style='width:25%;float: left;vertical-align:middle'><label style='font-size: 15px;color: black;right: 30px'><input class='input-radio' name='" + s + "s' type='radio' value='B'>" + options.B + "</label></div>";
-            single = single + "<div style='width:25%;float: left;vertical-align:middle'><label style='font-size: 15px;color: black;right: 30px'><input class='input-radio' name='" + s + "s' type='radio' value='C'>" + options.C + "</label></div>";
-            single = single + "<div style='width:25%;float: left;vertical-align:middle'><label style='font-size: 15px;color: black;right: 30px'><input class='input-radio' name='" + s + "s' type='radio' value='D'>" + options.D + "</label></div>";
+                single = single + "<div hidden><input id='" + s + "s' value='" + id + "' hidden/></div>";
+                single = single + "<div style='width:25%;float: left;vertical-align:middle'><label style='font-size: 15px;color: black;right: 30px'><input class='input-radio' name='" + s + "s' type='radio' value='A'>" + options.A + "</label></div>";
+                single = single + "<div style='width:25%;float: left;vertical-align:middle'><label style='font-size: 15px;color: black;right: 30px'><input class='input-radio' name='" + s + "s' type='radio' value='B'>" + options.B + "</label></div>";
+                single = single + "<div style='width:25%;float: left;vertical-align:middle'><label style='font-size: 15px;color: black;right: 30px'><input class='input-radio' name='" + s + "s' type='radio' value='C'>" + options.C + "</label></div>";
+                single = single + "<div style='width:25%;float: left;vertical-align:middle'><label style='font-size: 15px;color: black;right: 30px'><input class='input-radio' name='" + s + "s' type='radio' value='D'>" + options.D + "</label></div>";
             single = single + "</div>";
         }
 
         if (q.questionType == "MULTI_SELECTION") {
             m++;
-            multi = multi + "<div class='font-style' style='position: relative;left: 20px;margin-top: 25px'>" + title + "</div>"
+            var options = JSON.parse(q.options);
+            multi = multi + "<div class='font-style' style='position: relative;left: 20px;margin-top: 25px'>"+ m + "、" + title + "</div>"
             multi = multi + "<div style='margin:0 auto;position: relative'>";
-            multi = multi + "<div style='width:25%;float: left;vertical-align:middle'><label style='font-size: 15px;color: black;right: 30px'><input class='input-radio' id='" + m + "m' value='" + id + "' hidden/><div>";
-            multi = multi + "<div style='width:25%;float: left;vertical-align:middle'><label style='font-size: 15px;color: black;right: 30px'><input class='input-radio' name='" + m + "m' type='checkbox' value='A'>" + options.A + "</label><div>";
-            multi = multi + "<div style='width:25%;float: left;vertical-align:middle'><label style='font-size: 15px;color: black;right: 30px'><input class='input-radio' name='" + m + "m' type='checkbox' value='B'>" + options.B + "</label><div>";
-            multi = multi + "<div style='width:25%;float: left;vertical-align:middle'><label style='font-size: 15px;color: black;right: 30px'><input class='input-radio' name='" + m + "m' type='checkbox' value='C'>" + options.C + "</label><div>";
-            multi = multi + "<div style='width:25%;float: left;vertical-align:middle'><label style='font-size: 15px;color: black;right: 30px'><input class='input-radio' name='" + m + "m' type='checkbox' value='D'>" + options.D + "</label><div>";
+                multi = multi + "<div hidden><input id='" + m + "m' value='" + id + "' hidden/></div>";
+                multi = multi + "<div style='width:25%;float: left;vertical-align:middle'><label style='font-size: 15px;color: black;right: 30px'><input class='input-radio' name='" + m + "m' type='checkbox' value='A'>" + options.A + "</label></div>";
+                multi = multi + "<div style='width:25%;float: left;vertical-align:middle'><label style='font-size: 15px;color: black;right: 30px'><input class='input-radio' name='" + m + "m' type='checkbox' value='B'>" + options.B + "</label></div>";
+                multi = multi + "<div style='width:25%;float: left;vertical-align:middle'><label style='font-size: 15px;color: black;right: 30px'><input class='input-radio' name='" + m + "m' type='checkbox' value='C'>" + options.C + "</label></div>";
+                multi = multi + "<div style='width:25%;float: left;vertical-align:middle'><label style='font-size: 15px;color: black;right: 30px'><input class='input-radio' name='" + m + "m' type='checkbox' value='D'>" + options.D + "</label></div>";
             multi = multi + "</div>";
         }
 
         if (q.questionType == "PROGRAMMING_QUESTION") {
             p++;
-            program = program + "<div class='font-style' style='position: relative;left: 20px;margin-top: 25px'>" + title + "</div>"
+            program = program + "<div class='font-style' style='position: relative;left: 20px;margin-bottom: 20px'>"+ p + "、" + title + "</div>"
             program = program + "<div style='margin:0 auto;position: relative'>";
-            program = program + "<div><input id=" + p + "p' class='input-radio' value='" + id + "' hidden/></div>";
-            program = program + "<div><input style='width:800px;height:600px' name=" + p + "p' type='text'></div>";
+            program = program + "<div><input id='" + p + "p' class='input-radio' value='" + id + "' hidden/></div>";
+            program = program + "<div><input style='width:80%;height:450px;margin-left: 10%;margin-bottom: 3%' name='" + p + "p' type='text'></div>";
             program = program + "</div>";
         }
     }
 
-    if (single.length > 51) {
+    if (single.length > 52) {
         single = single +
-            "<div align='center' style='margin-top: 60px;margin-right: 30%;margin-left: 30%'><input id='single-save-btn' type='submit' class='input-btn' value='提交' onclick='singlesubmit();'></div>";
+            "<div align='center' style='margin-top: 60px;margin-top: -5px'><input id='single-save-btn' type='submit' class='input-btn' value='提交' onclick='singlesubmit();'></div>";
         $("#s").val(s);
         $("#single").html(single);
     }
     if (multi.length > 52) {
         multi = multi +
-            "<div align='center' style='margin-top: 60px;margin-right: 30%;margin-left: 30%'><input id='multi-save-btn' type='submit' class='input-btn' value='提交' onclick='multisubmit();'></div>";
+            "<div align='center' style='margin-top: 60px;margin-top: -5px'><input id='multi-save-btn' type='submit' class='input-btn' value='提交' onclick='multisubmit();'></div>";
         $("#m").val(m);
         $("#multi").html(multi);
     }
     if (program.length > 51) {
         program = program +
-            "<div align='center' style='margin-top: 60px;margin-right: 30%;margin-left: 30%'><input id='program-save-btn' type='submit' class='input-btn' value='提交' onclick='programsubmit();'></div>";
+            "<div align='center' style='margin-top: 60px;margin-top: -5px'><input id='program-save-btn' type='submit' class='input-btn' value='提交' onclick='programsubmit();'></div>";
         $("#p").val(p);
         $("#program").html(program);
     }

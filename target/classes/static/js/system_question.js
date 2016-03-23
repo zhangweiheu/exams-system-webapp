@@ -18,7 +18,7 @@ function buildPager(_totalCnt, _currentPage, pageSize) {
 }
 
 function buildTable(page, pageSize) {
-    var pageSize = Math.floor(window.innerHeight / 37) - 6;
+    var pageSize = Math.floor(window.innerHeight / 45) - 6;
     if ($('#page').val() == "") {
         page = 1;
     }
@@ -39,17 +39,17 @@ function buildTable(page, pageSize) {
                         if (i < curPageSize) {
                             var elem = data.data.data[i];
                             tbody += "<tr>";
-                            tbody += "<td class='fixWid'>" + elem.id + "</td>";
-                            tbody += "<td class='fixWid'>" + elem.title + "</td>";
-                            tbody += "<td class='170px'>" + elem.questionType + "</td>";
-                            tbody += "<td>" + elem.answers + "</td>";
-                            tbody += "<td>" + elem.tagList + "</td>";
-                            tbody += "<td>" + elem.difficulty + "</td>";
-                            tbody += "<td class='fixWid'>" + elem.priority + "</td>";
-                            tbody += "<td>" + elem.status + "</td>";
-                            tbody += "<td class='fixWid'>" + elem.totalDone + "</td>";
-                            tbody += "<td class='fixWid'>" + elem.totalSuccess + "</td>";
-                            tbody += "<td>" + elem.properties.createTime + "</td>";
+                            tbody += "<td style='border-left:1px solid #C1DAD7'>" + elem.id + "</td>";
+                            tbody += "<td style='width:auto'>" + elem.title + "</td>";
+                            tbody += "<td style='width:150px'>" + elem.questionType + "</td>";
+                            tbody += "<td style='width:auto'>" + elem.answers + "</td>";
+                            tbody += "<td style='width:auto'>" + elem.tagList + "</td>";
+                            tbody += "<td style='width:50px'>" + elem.difficulty + "</td>";
+                            tbody += "<td style='width:50px'>" + elem.priority + "</td>";
+                            tbody += "<td style='width:60px'>" + elem.status + "</td>";
+                            tbody += "<td style='width:50px'>" + elem.totalDone + "</td>";
+                            tbody += "<td style='width:50px'>" + elem.totalSuccess + "</td>";
+                            tbody += "<td style='width:90px'>" + elem.properties.createTime + "</td>";
                             tbody += "<td class='fixWid'><a btn-type=\"edit\" qid=\"" + elem.id + "\" href=\"#\">编辑</a></td>";
                             tbody += "<td class='fixWid'><a  onclick=\"deleteRecord('" + elem.id + "')\"   btn-type=\"delete\" qid=\"" + elem.id + "\" href=\"#\">删除</a></td>";
                             tbody += "</tr>";
