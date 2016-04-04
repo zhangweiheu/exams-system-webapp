@@ -33,12 +33,6 @@
             <div style="color: black;font-size: 15px">微&nbsp;&nbsp;信&nbsp;&nbsp;号：
                 <input id="wechat" style="padding: 0px" name="wechat" placeholder="请输入微信号" type="text" value="$!{user.wechat}"/>
             </div>
-##            <div id="avatar_container" style="color: black;font-size: 15px;margin-bottom: 10px">上传头像：
-##                <a class="btn btn-default btn-lg " id="avatar" href="#">
-##                    <i class="glyphicon glyphicon-plus"></i>
-##                    <span>选择文件</span>
-##                </a>
-##            </div>
 
             <div style="color: black;font-size: 15px">个人简介：
                 <input id="intro" style="padding: 0px" name="intro" placeholder="请简单介绍一下自己" type="text" value="$!{user.intro}"/>
@@ -59,10 +53,6 @@
 <script src="http://static.geetest.com/static/tools/gt.js"></script>
 <script type="text/javascript" src="/js/bg.js"></script>
 <script type="text/javascript" src="/js/seccode.js"></script>
-##<script type="text/javascript" src="/asset/qiniuyun/plupload.dev.js"></script>
-##<script type="text/javascript" src="/asset/qiniuyun/moxie.js"></script>
-##<script type="text/javascript" src="/asset/qiniuyun/qiniu.js"></script>
-##<script type="text/javascript" src="/js/photo_upload.js"></script>
 <script type="text/javascript" src="/js/register.js"></script>
 </body>
 </html>

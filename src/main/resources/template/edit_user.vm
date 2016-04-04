@@ -110,22 +110,11 @@
     </form>
 </div>
 
-
-##            <div id="avatar_container" style="color: black;font-size: 15px;margin-bottom: 10px">上传头像：
-##                <a class="btn btn-default btn-lg " id="avatar" href="#">
-##                    <i class="glyphicon glyphicon-plus"></i>
-##                    <span>选择文件</span>
-##                </a>
-##            </div>
 <script type="text/javascript" src="/asset/jquery/jquery-1.11.2.min.js"></script>
 <script type="text/javascript" src="/asset/jquery/jquery.md5.js"></script>
 <script type="text/javascript" src="/asset/bootstrap/js/bootstrap.js"></script>
 <script type="text/javascript" src="/js/particles.js"></script>
 <script type="text/javascript" src="/asset/layer/layer.js"></script>
-##<script type="text/javascript" src="/asset/qiniuyun/plupload.dev.js"></script>
-##<script type="text/javascript" src="/asset/qiniuyun/moxie.js"></script>
-##<script type="text/javascript" src="/asset/qiniuyun/qiniu.js"></script>
-##<script type="text/javascript" src="/js/photo_upload.js"></script>
 <script type="text/javascript" src="/js/edit_user.js"></script>
 </body>
 </html>

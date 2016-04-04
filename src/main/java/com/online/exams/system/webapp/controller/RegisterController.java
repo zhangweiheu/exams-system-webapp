@@ -33,6 +33,7 @@ public class RegisterController {
     @RequestMapping(value = "", method = RequestMethod.POST)
     public ModelAndView registerForm(@ModelAttribute User user, ModelAndView modelAndView) {
         if (null == userService.findUserByName(user.getUsername())) {
+            user.setIsAdmin(false);
             userService.saveUser(user);
             modelAndView.getModelMap().addAttribute("msg", "您已经成功注册，请登录");
             modelAndView.setViewName("login");
