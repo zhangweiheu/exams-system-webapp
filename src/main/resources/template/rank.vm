@@ -9,10 +9,25 @@
 </head>
 <body>
     #include("./index.vm")
-
+<div style="position: relative;top: 20px">
+    <input type="hidden" id="page" value="$!{page}"/>
+    <input type="hidden" id="pageSize" value="$!{pageSize}"/>
+    <table>
+        <thead>
+        <tr style="border-top: 1px solid #C1DAD7">
+            <td style='border-left:1px solid #C1DAD7'>名次</td>
+            <td>姓名</td>
+            <td>总得分</td>
+        </tr>
+        </thead>
+        <tbody id="system-rank-tbody"></tbody>
+    </table>
+</div>
+<div id="pageArea" style="margin-top: 4%"></div>
 
 <script type="text/javascript" src="/asset/jquery/jquery-1.11.2.js"></script>
 <script type="text/javascript" src="/asset/jquery/jquery.simplePagination.js"></script>
 <script type="text/javascript" src="/asset/layer/layer.js"></script>
+<script type="text/javascript" src="/js/rank.js"></script>
 </body>
 </html>

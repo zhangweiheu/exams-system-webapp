@@ -8,7 +8,7 @@
     <link rel="shortcut icon" href="/images/java.png"/>
 </head>
 <body>
-<div class="container-fluid" align="center" style="background-color: #2371B3">
+<div class="container-fluid" align="center" style="background-color: #ECF0F1">
     <div style="color: black;font-size: 30px;align-content: center">编辑用户</div>
     <br/>
     <form class="form-horizontal">

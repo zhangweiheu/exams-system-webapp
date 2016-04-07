@@ -6,6 +6,7 @@ import com.online.exams.system.core.model.User;
 import com.online.exams.system.core.service.TagService;
 import com.online.exams.system.core.service.UserService;
 import com.online.exams.system.webapp.annotation.LoginRequired;
+import com.online.exams.system.webapp.bean.UserHolder;
 import com.online.exams.system.webapp.bean.VO.UserVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +41,9 @@ public class UserController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ModelAndView User() {
         ModelAndView view = new ModelAndView();
+        UserVo userVo = new UserVo();
+        BeanUtils.copyProperties(UserHolder.getInstance().getUser(),userVo);
+        view.addObject(userVo);
         view.setViewName("user");
         return view;
     }

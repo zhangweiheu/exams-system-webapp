@@ -85,7 +85,6 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
             retJson = true;
         }
 
-
         logger.info("loginCheckFail");
         if (retJson) {
             response.getOutputStream().write(JSON.toJSONString(JsonResponse.failed("请登录")).getBytes("UTF-8"));
@@ -101,7 +100,6 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
         //        logger.info("removing user");
         UserHolder.getInstance().delete();
     }
-
 
     /**
      * 将参数值中的“[]”进行转义
@@ -124,7 +122,6 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
                 }
             }
         }
-
         return null;
     }
 
@@ -136,7 +133,6 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
                 return Integer.parseInt(split[0]);
             }
         }
-
         return null;
     }
 }

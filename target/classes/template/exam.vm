@@ -29,7 +29,7 @@
 <body style="overflow: auto">
     #include("./index.vm")
 <br/>
-<div id="select" style="background-color: #2371B3">
+<div id="select" style="background-color: #ECF0F1">
     <div>
         <div style="color: black;font-size: 30px">试卷类型选择</div>
         <input id="uid" value="$!{uid}" hidden/>
@@ -111,7 +111,7 @@
 
 </div>
 
-<div id="exam" style="background-color: #2371B3;margin-top: -20px">
+<div id="exam" style="background-color: #ECF0F1;margin-top: -20px">
     <div id="show" style="color: black;font-size: 30px" align="center">试卷作答</div>
     <input id="pid" value="$!{pid}" hidden/>
     <input id="s" value="0" hidden/>

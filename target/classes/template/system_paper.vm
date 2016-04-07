@@ -32,7 +32,7 @@
         <tbody id="system-paper-tbody"></tbody>
     </table>
 </div>
-<div id="pageArea"></div>
+<div id="pageArea" style="margin-top: 4%"></div>
 
 <script type="text/javascript" src="/asset/jquery/jquery-1.11.2.js"></script>
 <script type="text/javascript" src="/asset/jquery/jquery.simplePagination.js"></script>

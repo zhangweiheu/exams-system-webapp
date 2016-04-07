@@ -226,7 +226,7 @@ function programsubmit() {
     });
 }
 
-
+/**结束考试*/
 $("#exam-over-btn").on('click', function () {
     $.ajax({
         method: "PUT",

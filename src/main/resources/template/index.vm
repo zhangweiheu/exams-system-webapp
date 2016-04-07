@@ -76,7 +76,7 @@
                             c_end = document.cookie.indexOf(";", c_start);
                             if (c_end == -1) c_end = document.cookie.length
                             if (unescape(document.cookie.substring(c_start, c_end)) == "T") {
-                                nav = "";
+//                                nav = "";
                                 nav += "<li class=\"nav-item\" onclick=\"goToTargetPage(6)\"><a>系统数据分析</a></li>";
                                 nav += "<li class=\"nav-item\" onclick=\"goToTargetPage(7)\"><a>系统用户管理</a></li>";
                                 nav += "<li class=\"nav-item\" onclick=\"goToTargetPage(8)\"><a>系统试卷管理</a></li>";

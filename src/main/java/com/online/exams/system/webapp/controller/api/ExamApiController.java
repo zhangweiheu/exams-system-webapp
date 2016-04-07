@@ -12,8 +12,10 @@ import com.online.exams.system.core.enums.RefTypeEnum;
 import com.online.exams.system.core.enums.StatusEnum;
 import com.online.exams.system.core.enums.TagEnum;
 import com.online.exams.system.core.model.Paper;
+import com.online.exams.system.core.model.Question;
 import com.online.exams.system.core.service.PaperGenerateService;
 import com.online.exams.system.core.service.PaperService;
+import com.online.exams.system.core.service.QuestionService;
 import com.online.exams.system.core.service.TagService;
 import com.online.exams.system.core.util.PaperUtil;
 import com.online.exams.system.webapp.annotation.LoginRequired;
@@ -51,6 +53,9 @@ public class ExamApiController {
     @Autowired
     TagService tagService;
 
+    @Autowired
+    QuestionService questionService;
+
     /**
      * 做题
      */
@@ -86,7 +91,23 @@ public class ExamApiController {
         paper.setId(pid);
         paper.setUserId(uid);
         paper.setStatus(StatusEnum.CLOSE);
-        return JsonResponse.success(paperService.updatePaper(paper));
+        paperService.updatePaper(paper);
+
+        /**更新题状态*/
+        MongoPaper mongoPaper = mongoPaperDao.findMongoPaperById(Integer.toUnsignedLong(paper.getMongoPaperId()));
+        List<QuestionMap> questionMapList = mongoPaper.getQuestionMapList();
+        for (QuestionMap questionMap : questionMapList) {
+            Question question = questionService.findQuestionById(questionMap.getId());
+            if (null != questionMap.getAnswers()) {
+                question.setTotalDone(question.getTotalDone() + 1);
+            }
+            if (questionMap.getRight()) {
+                question.setTotalSuccess(question.getTotalSuccess() + 1);
+            }
+            questionService.updateQuestion(question);
+        }
+
+        return JsonResponse.success();
     }
 
     @RequestMapping(value = "/programing", method = RequestMethod.PUT)
@@ -323,7 +344,7 @@ public class ExamApiController {
         }
 
         /**检查是否编译出现异常*/
-        if(exceptionFile.exists()){
+        if (exceptionFile.exists()) {
             try {
 
                 FileReader fileExceptionReader = new FileReader(exceptionFile);
@@ -361,7 +382,7 @@ public class ExamApiController {
 
         if (isInputExist) {
             command.add("/c java demo < input.txt >> output.txt");
-        }else{
+        } else {
             command.add("/c java demo >> output.txt");
         }
 
