@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title>在线测试系统 | 试卷作答</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+    <link rel="shortcut icon" href="/images/java.png"/>
+</head>
+<style>
+    .input-radio {
+        height: 20px;
+        width: 6%;
+        font-size: 15px;
+        border-radius: 3px;
+    }
+    .input-btn{
+        width: 20%;
+        font-size: 20px
+    }
+    .font-style{
+        font-size: 20px;
+        color: black;
+    }
+    p{
+        font-size: 15px;
+        color: black;
+        width: 25%;
+    }
+</style>
+<body style="overflow: auto">
+    #include("./index.vm")
+<br/>
+<div id="select" style="background-color: #ECF0F1">
+    <div>
+        <div style="color: black;font-size: 30px">试卷类型选择</div>
+        <input id="uid" value="$!{uid}" hidden/>
+        <div style="color: black;font-size: 20px">请选择试卷类型：</div>
+
+        <form style="vertical-align: middle;left: 10%">
+            <label style="font-size: 15px;color: black;right: 30px;vertical-align:middle">
+                <input class="input-radio" name="paperType" type="radio" value="SINGLE_SELECTION">
+                单选
+            </label>
+
+            <label style="font-size: 15px;color: black;right: 30px;vertical-align:middle">
+                <input class="input-radio" name="paperType" type="radio" value="MULTI_SELECTION">
+                多选
+            </label>
+            <label style="font-size: 15px;color: black;right: 30px;vertical-align:middle">
+                <input class="input-radio" name="paperType" type="radio" value="PROGRAMMING_QUESTION">
+                编程题
+            </label>
+            <label style="font-size: 15px;color: black;right: 30px;vertical-align:middle">
+                <input class="input-radio" name="paperType" type="radio" value="SINGLE_AND_MULTI">
+                单选和多选
+            </label>
+            <label style="font-size: 15px;color: black;right: 30px;vertical-align:middle">
+                <input class="input-radio" name="paperType" type="radio" value="SINGLE_AND_PROGRAMMING">
+                单选和编程
+            </label>
+            <label style="font-size: 15px;color: black;right: 30px;vertical-align:middle">
+                <input class="input-radio" name="paperType" type="radio" value="MULTI_AND_PROGRAMMING">
+                多选和编程
+            </label>
+            <label style="font-size: 15px;color: black;right: 30px;vertical-align:middle">
+                <input class="input-radio" name="paperType" type="radio" value="SINGLE_AND_MULTI_PROGRAMMING">
+                单选、多选和编程
+            </label>
+        </form>
+        <div style="color: black;font-size: 20px">请选择试题技术范围：</div>
+        <form style="vertical-align: middle;left: 10%">
+            <label style="font-size: 15px;color: black;right: 30px;vertical-align:middle">
+                <input class="input-radio" name="questionTagList" type="checkbox" value="JAVA">Java
+            </label>
+            <label style="font-size: 15px;color: black;right: 30px;vertical-align:middle">
+                <input class="input-radio" name="questionTagList" type="checkbox" value="HTML">
+                HTML
+            </label>
+            <label style="font-size: 15px;color: black;right: 30px;vertical-align:middle">
+                <input class="input-radio" name="questionTagList" type="checkbox" value="SYSTEM">
+                操作系统
+            </label>
+            <label style="font-size: 15px;color: black;right: 30px;vertical-align:middle">
+                <input class="input-radio" name="questionTagList" type="checkbox" value="NETWORK">
+                计算机网络
+            </label>
+            <label style="font-size: 15px;color: black;right: 30px;vertical-align:middle">
+                <input class="input-radio" name="questionTagList" type="checkbox" value="CSS">
+                CSS
+            </label>
+            <label style="font-size: 15px;color: black;right: 30px;vertical-align:middle">
+                <input class="input-radio" name="questionTagList" type="checkbox" value="SPRING">
+                Spring框架
+            </label>
+            <label style="font-size: 15px;color: black;right: 30px;vertical-align:middle">
+                <input class="input-radio" name="questionTagList" type="checkbox" value="HIBERNATE">
+                Hibernate
+            </label>
+            <label style="font-size: 15px;color: black;right: 30px;vertical-align:middle">
+                <input class="input-radio" name="questionTagList" type="checkbox" value="MYSQL">
+                MySql数据库
+            </label>
+            <label style="font-size: 15px;color: black;right: 30px;vertical-align:middle">
+                <input class="input-radio" type="checkbox" name="checkAll" id="checkAll"/>
+                全选/取消全选
+            </label>
+        </form>
+        <div align="center">
+            <input id="submit-btn" class="input-btn" type="submit" value="提交">
+        </div>
+    </div>
+
+</div>
+
+<div id="exam" style="background-color: #ECF0F1;margin-top: -20px">
+    <div id="show" style="color: black;font-size: 30px" align="center">试卷作答</div>
+    <input id="pid" value="$!{pid}" hidden/>
+    <input id="s" value="0" hidden/>
+    <input id="m" value="0" hidden/>
+    <input id="p" value="0" hidden/>
+    <br/>
+
+    <div id="single"></div>
+    <div id="multi"></div>
+    <div id="program"></div>
+    <div>
+        <input id="exam-over-btn" class="input-btn" style="position: relative;top: -5px;" type="submit" value="结束测试">
+    </div>
+
+</div>
+
+<script type="text/javascript" src="/asset/jquery/jquery-1.11.2.js"></script>
+<script type="text/javascript" src="/asset/jquery/jquery.simplePagination.js"></script>
+<script type="text/javascript" src="/asset/layer/layer.js"></script>
+<script type="text/javascript" src="/js/exam.js"></script>
+</body>
+</html>

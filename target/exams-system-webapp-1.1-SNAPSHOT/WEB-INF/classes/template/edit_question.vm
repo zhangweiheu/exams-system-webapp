@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title>在线测试系统 | 编辑试题</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+    <link rel="shortcut icon" href="/images/java.png"/>
+</head>
+<body>
+<div align="center" style="background-color:#ECF0F1">
+    <div style="color: black;font-size: 30px;align-content: center">编辑试题</div>
+    <br/>
+    <form class="form-horizontal">
+        <input id="id" type="hidden" value="$!{questionVo.id}">
+        <input id="tagList" type="hidden" value="$!{questionVo.tagList}">
+        <div class="control-group">
+            <label class="control-label" style="color: black;font-size: 15px;" for="type">试题类型</label>
+            <div class="controls">
+                #if("MULTI_SELECTION" == $!{questionVo.questionType})
+                    <select id="questionType" style="width:95px;" required>
+                        <option name="questionType" value="SINGLE_SELECTION">单选</option>
+                        <option name="questionType" value="MULTI_SELECTION" selected>多选</option>
+                        <option name="questionType" value="PROGRAMMING_QUESTION">编程题</option>
+                    </select>
+                #elseif("PROGRAMMING_QUESTION" == $!{questionVo.questionType})
+                    <select id="questionType" style="width:95px;" required>
+                        <option name="questionType" value="SINGLE_SELECTION">单选</option>
+                        <option name="questionType" value="MULTI_SELECTION">多选</option>
+                        <option name="questionType" value="PROGRAMMING_QUESTION" selected>编程题</option>
+                    </select>
+                #else
+                    <select id="questionType" style="width:95px;" required>
+                        <option name="questionType" value="SINGLE_SELECTION" selected>单选</option>
+                        <option name="questionType" value="MULTI_SELECTION">多选</option>
+                        <option name="questionType" value="PROGRAMMING_QUESTION">编程题</option>
+                    </select>
+                #end
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" style="color: black;font-size: 15px;" for="title">试题主干</label>
+            <div class="controls">
+                <input id="title" style="width: 40%;height: 40px" type="text" value="$!{questionVo.title}" required/>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" style="color: black;font-size: 15px;" for="options">试题选项</label>
+            <div class="controls">
+                <input id="options" style="width: 40%;height: 40px" type="text" value="$!{questionVo.options}"/>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" style="color: black;font-size: 15px;" for="answers">试题答案</label>
+            <div class="controls">
+                <input id="answers" style="width: 40%;height: 40px" type="text" value="$!{questionVo.answers}"/>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" style="color: black;font-size: 15px;" for="difficulty">试题难度</label>
+            <div class="controls">
+                <input id="difficulty" style="width: 40%;height: 40px" type="number" value="$!{questionVo.difficulty}" max="10" min="1"/>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" style="color: black;font-size: 15px;" for="priority">试题优先级</label>
+            <div class="controls">
+                <input id="priority" style="width: 40%;height: 40px" type="number" value="$!{questionVo.priority}" max="10" min="1"/>
+            </div>
+        </div>
+        <div>
+
+        </div>
+        <label class="control-label" style="color: black;font-size: 15px;" for="status">试题状态</label>
+        <div>
+            #if("DELETE" == $!{questionVo.status})
+                <select id="status" style="width:95px;" required>
+                    <option name="status" value="NORMAL">正常</option>
+                    <option name="status" value="DELETE" selected>已删除</option>
+                    <option name="status" value="WRONG">有错误</option>
+                </select>
+            #elseif("WRONG" == $!{questionVo.status})
+                <select id="status" style="width:95px;" required>
+                    <option name="status" value="NORMAL">正常</option>
+                    <option name="status" value="DELETE">已删除</option>
+                    <option name="status" value="WRONG" selected>有错误</option>
+                </select>
+            #else
+                <select id="status" style="width:95px;" required>
+                    <option name="status" value="NORMAL" selected>正常</option>
+                    <option name="status" value="DELETE">已删除</option>
+                    <option name="status" value="WRONG">有错误</option>
+                </select>
+            #end
+        </div>
+        <div class="control-group">
+            <label class="control-label" style="color: black;font-size: 15px;" for="tag">试题标签</label>
+            <div id="tag">
+                <input id="taglist" value="$!{questionVo.tagList}" hidden/>
+                <div>
+                    <a style="color: black;font-size: 15px;">Java</a><input type="checkbox" name="tag" id="java" value="JAVA">
+                    <a style="color: black;font-size: 15px;">HTML</a><input type="checkbox" name="tag" id="html" value="HTML">
+                    <a style="color: black;font-size: 15px;">操作系统</a><input type="checkbox" name="tag" id="system" value="SYSTEM">
+                    <a style="color: black;font-size: 15px;">计算机网络</a><input type="checkbox" name="tag" id="network" value="NETWORK">
+                </div>
+                <div>
+                    <a style="color: black;font-size: 15px;">CSS</a><input type="checkbox" name="tag" id="css" value="CSS">
+                    <a style="color: black;font-size: 15px;">Spring</a><input type="checkbox" name="tag" id="spring" value="SPRING">
+                    <a style="color: black;font-size: 15px;">Hibernate</a><input type="checkbox" name="tag" id="hibernate" value="HIBERNATE">
+                    <a style="color: black;font-size: 15px;">MySQL</a><input type="checkbox" name="tag" id="mysql" value="MYSQL">
+                </div>
+            </div>
+        </div>
+        <div>
+            <input id="save-btn" type="submit" value="保存"/>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="/asset/jquery/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="/asset/jquery/jquery.simplePagination.js"></script>
+<script type="text/javascript" src="/asset/layer/layer.js"></script>
+<script type="text/javascript" src="/js/edit_question.js"></script>
+</body>
+</html>
