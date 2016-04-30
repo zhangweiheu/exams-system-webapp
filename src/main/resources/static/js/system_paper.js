@@ -38,11 +38,11 @@ function buildTable(page, pageSize) {
                     for (var i = 0; i < pageSize; i++) {
                         if (i < curPageSize) {
                             var elem = data.data.data[i];
-                            tbody += "<tr>";
+                            tbody += "<tr style='border-left: 1px solid #C1DAD7'>";
                             tbody += "<td width='50px'>" + elem.id + "</td>";
                             tbody += "<td width='50px'>" + elem.userId + "</td>";
                             tbody += "<td width='50px'>" + elem.mongoPaperId + "</td>";
-                            tbody += "<td width='150px'>" + elem.paperType + "</td>";
+                            tbody += "<td>" + elem.paperType + "</td>";
                             tbody += "<td width='50px'>" + elem.difficulty + "</td>";
                             tbody += "<td width='50px'>" + elem.totalPoints + "</td>";
                             tbody += "<td width='50px'>" + elem.score + "</td>";
@@ -55,7 +55,7 @@ function buildTable(page, pageSize) {
                             tbody += "</tr>";
                         } else {
                             //超出部分
-                            tbody += "<tr></tr>";
+                            //tbody += "<tr></tr>";
                         }
                     }
                     $("#system-paper-tbody").html(tbody)

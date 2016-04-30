@@ -5,11 +5,16 @@ import com.online.exams.system.webapp.Interceptor.ExceptionInterceptor;
 import com.online.exams.system.webapp.Interceptor.LoginCheckInterceptor;
 import com.online.exams.system.webapp.Interceptor.PrivilegeInterceptor;
 import com.online.exams.system.webapp.spring.AbstractWebMvcConfiguration;
+import org.apache.catalina.connector.Connector;
+import org.apache.coyote.http11.Http11NioProtocol;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
+import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.format.datetime.DateFormatter;
 import org.springframework.format.datetime.DateFormatterRegistrar;
@@ -27,7 +32,8 @@ import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.view.velocity.VelocityConfigurer;
 import org.springframework.web.servlet.view.velocity.VelocityViewResolver;
 
-import javax.servlet.Filter;
+import java.io.File;
+import java.io.IOException;
 import java.util.Properties;
 
 /**
@@ -108,32 +114,32 @@ public class WebappConfiguration extends AbstractWebMvcConfiguration {
         registry.addResourceHandler("/asset/**").addResourceLocations("classpath:/static/asset/");
         registry.addResourceHandler("/images/**").addResourceLocations("classpath:/static/images/");
     }
-
-    @Override
-    public void configureViewResolvers(ViewResolverRegistry registry) {
-        registry.viewResolver(velocityViewResolver());
-    }
-
-    @Bean
-    public VelocityViewResolver velocityViewResolver() {
-        VelocityViewResolver velocityViewResolver = new VelocityViewResolver();
-        velocityViewResolver.setCache(false);
-        velocityViewResolver.setOrder(10);
-        velocityViewResolver.setSuffix(".vm");
-        velocityViewResolver.setContentType("text/html;charset=UTF-8");
-        return velocityViewResolver;
-    }
-
-    @Bean
-    public VelocityConfigurer velocityConfigurer() {
-        VelocityConfigurer configurer = new VelocityConfigurer();
-        configurer.setResourceLoaderPath("classpath:/template/");
-        Properties properties = new Properties();
-        properties.put("input.encoding", "UTF-8");
-        properties.put("output.encoding", "UTF-8");
-        configurer.setVelocityProperties(properties);
-        return configurer;
-    }
+//
+//    @Override
+//    public void configureViewResolvers(ViewResolverRegistry registry) {
+//        registry.viewResolver(velocityViewResolver());
+//    }
+//
+//    @Bean
+//    public VelocityViewResolver velocityViewResolver() {
+//        VelocityViewResolver velocityViewResolver = new VelocityViewResolver();
+//        velocityViewResolver.setCache(false);
+//        velocityViewResolver.setOrder(10);
+//        velocityViewResolver.setSuffix(".vm");
+//        velocityViewResolver.setContentType("text/html;charset=UTF-8");
+//        return velocityViewResolver;
+//    }
+//
+//    @Bean
+//    public VelocityConfigurer velocityConfigurer() {
+//        VelocityConfigurer configurer = new VelocityConfigurer();
+//        configurer.setResourceLoaderPath("classpath:/template/");
+//        Properties properties = new Properties();
+//        properties.put("input.encoding", "UTF-8");
+//        properties.put("output.encoding", "UTF-8");
+//        configurer.setVelocityProperties(properties);
+//        return configurer;
+//    }
 
     @Bean
     public CommonsMultipartResolver multipartResolver() {
@@ -156,5 +162,7 @@ public class WebappConfiguration extends AbstractWebMvcConfiguration {
         characterEncodingFilter.setForceEncoding(true);
         return characterEncodingFilter;
     }
+
+
 }
 

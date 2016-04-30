@@ -3,17 +3,16 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
-    <name>exams-system-webapp</name>
-    <artifactId>exams-system-webapp</artifactId>
-    <packaging>war</packaging>
-    <version>1.1-SNAPSHOT</version>
-
     <parent>
         <groupId>com.online</groupId>
         <artifactId>exams-system-parent</artifactId>
-        <version>1.1-SNAPSHOT</version>
+        <version>1.2</version>
     </parent>
+
+    <artifactId>exams-system-webapp</artifactId>
+    <version>1.2</version>
+    <packaging>jar</packaging>
+
     <dependencies>
         <!--模块依赖-->
         <dependency>
@@ -32,6 +31,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
+            <!--<scope>provided</scope>-->
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -69,6 +69,11 @@
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
         </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-devtools</artifactId>-->
+            <!--<optional>true</optional>-->
+        <!--</dependency>-->
     </dependencies>
     <build>
         <plugins>
@@ -76,49 +81,47 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <dependencies>
-                    <dependency>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>springloaded</artifactId>
-                        <version>1.2.5.RELEASE</version>
-                    </dependency>
+                    <!--<dependency>-->
+                        <!--<groupId>org.springframework</groupId>-->
+                        <!--<artifactId>springloaded</artifactId>-->
+                        <!--<version>1.2.5.RELEASE</version>-->
+                    <!--</dependency>-->
                 </dependencies>
                 <executions>
                     <execution>
                         <goals>
                             <goal>repackage</goal>
                         </goals>
-                        <configuration>
-                            <classifier>exec</classifier>
-                        </configuration>
                     </execution>
                 </executions>
                 <configuration>
-                    <jvmArguments>
-                        -Xdebug -Xrun jdwp:transport=dt_socket,server=y,suspend=n,address=127.0.0.1:8080
-                    </jvmArguments>
+                    <!--<jvmArguments>-->
+                         <!-- -Xdebug -Xrun jdwp:transport=dt_socket,server=y,suspend=n,address=127.0.0.1:8080-->
+                    <!--</jvmArguments>-->
+                    <fork>true</fork>
                 </configuration>
             </plugin>
 
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <descriptors>
-                        <descriptor>assembly.xml</descriptor>
-                    </descriptors>
-                    <outputDirectory>${project.build.directory}</outputDirectory>
-                    <appendAssemblyId>false</appendAssemblyId>
-                    <finalName>dist</finalName>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+            <!--<plugin>-->
+                <!--<artifactId>maven-assembly-plugin</artifactId>-->
+                <!--<configuration>-->
+                    <!--<descriptors>-->
+                        <!--<descriptor>assembly.xml</descriptor>-->
+                    <!--</descriptors>-->
+                    <!--<outputDirectory>${project.build.directory}</outputDirectory>-->
+                    <!--<appendAssemblyId>false</appendAssemblyId>-->
+                    <!--<finalName>dist</finalName>-->
+                <!--</configuration>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<id>make-assembly</id>-->
+                        <!--<phase>package</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>single</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
             <!--<plugin>-->
                 <!--<groupId>org.apache.maven.plugins</groupId>-->
                 <!--<artifactId>maven-war-plugin</artifactId>-->

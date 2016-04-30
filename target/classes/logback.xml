@@ -5,7 +5,7 @@
 
     <!-- 按照每天生成日志文件 -->
     <appender name="FILE"  class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>D:/log/stdout.log</file>
+        <file>/var/log/webapp-stdout.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <FileNamePattern>/exams-webapp-stdout.log.%d{yyyy-MM-dd}.log</FileNamePattern>
             <MaxHistory>${LOG_STORE_DAYS}</MaxHistory>
@@ -23,7 +23,7 @@
     <!-- 按照每天生成error文件 -->
     <appender name="ERRORFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
 
-        <file>D:/log/exams-webapp-error.log</file>
+        <file>/var/log/exams-webapp-error.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <FileNamePattern>/exams-webapp-error.log.%d{yyyy-MM-dd}.log</FileNamePattern>
             <MaxHistory>${LOG_STORE_DAYS}</MaxHistory>

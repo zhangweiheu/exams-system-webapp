@@ -61,7 +61,7 @@ function buildTable(page, pageSize) {
                             tbody += "</tr>";
                         } else {
                             //超出部分
-                            tbody += "<tr></tr>";
+                            //tbody += "<tr></tr>";
                         }
 
                     }
