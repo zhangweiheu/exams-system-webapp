@@ -11,7 +11,7 @@
 
     <artifactId>exams-system-webapp</artifactId>
     <version>1.2</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
 
     <dependencies>
         <!--模块依赖-->
@@ -77,71 +77,66 @@
     </dependencies>
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <dependencies>
-                    <!--<dependency>-->
-                        <!--<groupId>org.springframework</groupId>-->
-                        <!--<artifactId>springloaded</artifactId>-->
-                        <!--<version>1.2.5.RELEASE</version>-->
-                    <!--</dependency>-->
-                </dependencies>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <!--<jvmArguments>-->
-                         <!-- -Xdebug -Xrun jdwp:transport=dt_socket,server=y,suspend=n,address=127.0.0.1:8080-->
-                    <!--</jvmArguments>-->
-                    <fork>true</fork>
-                </configuration>
-            </plugin>
-
             <!--<plugin>-->
-                <!--<artifactId>maven-assembly-plugin</artifactId>-->
-                <!--<configuration>-->
-                    <!--<descriptors>-->
-                        <!--<descriptor>assembly.xml</descriptor>-->
-                    <!--</descriptors>-->
-                    <!--<outputDirectory>${project.build.directory}</outputDirectory>-->
-                    <!--<appendAssemblyId>false</appendAssemblyId>-->
-                    <!--<finalName>dist</finalName>-->
-                <!--</configuration>-->
+                <!--<groupId>org.springframework.boot</groupId>-->
+                <!--<artifactId>spring-boot-maven-plugin</artifactId>-->
+                <!--<dependencies>-->
+                <!--</dependencies>-->
                 <!--<executions>-->
                     <!--<execution>-->
-                        <!--<id>make-assembly</id>-->
-                        <!--<phase>package</phase>-->
                         <!--<goals>-->
-                            <!--<goal>single</goal>-->
+                            <!--<goal>repackage</goal>-->
                         <!--</goals>-->
                     <!--</execution>-->
                 <!--</executions>-->
-            <!--</plugin>-->
-            <!--<plugin>-->
-                <!--<groupId>org.apache.maven.plugins</groupId>-->
-                <!--<artifactId>maven-war-plugin</artifactId>-->
-                <!--<version>2.6</version>-->
                 <!--<configuration>-->
-                    <!--<webResources>-->
-                        <!--<resource>-->
-                            <!--<targetPath>WEB-INF</targetPath>-->
-                            <!--<filtering>true</filtering>-->
-                            <!--<directory>src/main/resources</directory>-->
-                            <!--<includes>-->
-                                <!--<include>**/*.xml</include>-->
-                                <!--<include>**/*.properties</include>-->
-                            <!--</includes>-->
-                            <!--<targetPath>WEB-INF</targetPath>-->
-                        <!--</resource>-->
-                    <!--</webResources>-->
-                    <!--<failOnMissingWebXml>false</failOnMissingWebXml>-->
+                    <!--&lt;!&ndash;<jvmArguments>&ndash;&gt;-->
+                         <!--&lt;!&ndash; -Xdebug -Xrun jdwp:transport=dt_socket,server=y,suspend=n,address=127.0.0.1:8080&ndash;&gt;-->
+                    <!--&lt;!&ndash;</jvmArguments>&ndash;&gt;-->
+                    <!--<fork>true</fork>-->
                 <!--</configuration>-->
             <!--</plugin>-->
+
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <descriptors>
+                        <descriptor>assembly.xml</descriptor>
+                    </descriptors>
+                    <outputDirectory>${project.build.directory}</outputDirectory>
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <finalName>dist</finalName>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <webResources>
+                        <resource>
+                            <targetPath>WEB-INF</targetPath>
+                            <filtering>true</filtering>
+                            <directory>src/main/resources</directory>
+                            <includes>
+                                <include>**/*.xml</include>
+                                <include>**/*.properties</include>
+                            </includes>
+                            <targetPath>WEB-INF</targetPath>
+                        </resource>
+                    </webResources>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>

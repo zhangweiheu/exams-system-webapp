@@ -15,8 +15,8 @@ public class Application extends SpringBootServletInitializer {
     protected final SpringApplicationBuilder configure(final SpringApplicationBuilder application) {
         return application.sources(WebappConfiguration.class, CoreApplication.class);
     }
-
-    public static void main(String[] args) {
-        SpringApplication.run(WebappConfiguration.class, args);
-    }
+//
+//    public static void main(String[] args) {
+//        SpringApplication.run(WebappConfiguration.class, args);
+//    }
 }
