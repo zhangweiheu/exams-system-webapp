@@ -69,9 +69,9 @@
     </dependencies>
     <build>
         <finalName>exams-system-webapp</finalName>
-        <filters>
-            <filter>src/main/filters/filter_${project.environment}.properties</filter>
-        </filters>
+        <!--<filters>-->
+            <!--<filter>src/main/filters/filter_${project.environment}.properties</filter>-->
+        <!--</filters>-->
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -105,11 +105,11 @@
                 </configuration>
             </plugin>
         </plugins>
-        <resources>
-            <resource>
-                <directory>${project.basedir}/src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
+        <!--<resources>-->
+            <!--<resource>-->
+                <!--<directory>${project.basedir}/src/main/resources</directory>-->
+                <!--<filtering>true</filtering>-->
+            <!--</resource>-->
+        <!--</resources>-->
     </build>
 </project>
