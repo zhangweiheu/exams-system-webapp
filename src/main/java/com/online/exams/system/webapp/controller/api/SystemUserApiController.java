@@ -2,7 +2,7 @@ package com.online.exams.system.webapp.controller.api;
 
 import com.online.exams.system.core.bean.JsonResponse;
 import com.online.exams.system.core.bean.Page;
-import com.online.exams.system.core.enums.RefTypeEnum;
+import com.online.exams.system.core.mybatis.enums.RefTypeEnum;
 import com.online.exams.system.core.model.Tag;
 import com.online.exams.system.core.model.User;
 import com.online.exams.system.core.service.TagService;

@@ -1,0 +1,15 @@
+*.iml
+*.impl
+*.class
+*.bak
+.idea
+.git
+.DS_Store
+bin
+build
+target
+.project
+.settings/
+.classpath
+bin/
+

@@ -1,6 +1,6 @@
 package com.online.exams.system.webapp.controller;
 
-import com.online.exams.system.core.enums.RefTypeEnum;
+import com.online.exams.system.core.mybatis.enums.RefTypeEnum;
 import com.online.exams.system.core.model.Tag;
 import com.online.exams.system.core.model.User;
 import com.online.exams.system.core.service.TagService;
