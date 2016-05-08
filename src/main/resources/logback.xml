@@ -5,7 +5,7 @@
 
     <!-- 按照每天生成日志文件 -->
     <appender name="FILE"  class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>/var/log/webapp/stdout.log</file>
+        <file>/var/log/webapp/webapp-stdout.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <FileNamePattern>/webapp-stdout.log.%d{yyyy-MM-dd}.log</FileNamePattern>
             <MaxHistory>${LOG_STORE_DAYS}</MaxHistory>
