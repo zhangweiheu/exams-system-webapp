@@ -1,7 +1,9 @@
 package com.online.exams.system.webapp.Interceptor;
 
 import com.online.exams.system.core.model.User;
+import com.online.exams.system.core.mybatis.enums.UserTypeEnum;
 import com.online.exams.system.webapp.annotation.AdminOnly;
+import com.online.exams.system.webapp.annotation.ManagerOnly;
 import com.online.exams.system.webapp.bean.UserHolder;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -26,24 +28,33 @@ public class PrivilegeInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         AdminOnly adminOnly = null;
+        ManagerOnly managerOnly = null;
         if (handler instanceof HandlerMethod) {
             HandlerMethod method = (HandlerMethod) handler;
             adminOnly = method.getMethodAnnotation(AdminOnly.class);
+            managerOnly = method.getMethodAnnotation(ManagerOnly.class);
 
-            if (adminOnly == null)
+            if (adminOnly == null) {
                 adminOnly = method.getBeanType().getAnnotation(AdminOnly.class);
+            }
+            if (managerOnly == null) {
+                managerOnly = method.getBeanType().getAnnotation(ManagerOnly.class);
+            }
         }
 
-        if (adminOnly == null) {
+        if (adminOnly == null && managerOnly == null) {
             // 不需要管理员权限，放过检查
             return true;
         }
 
         User user = UserHolder.getInstance().getUser();
         if (user != null) {
-            if (user.getIsAdmin())
+            if (UserTypeEnum.ADMIN == user.getType()) {
                 return true;
-            else {
+            }
+            if (UserTypeEnum.MANAGER == user.getType() && adminOnly == null) {
+                return true;
+            } else {
                 return false;
             }
         }

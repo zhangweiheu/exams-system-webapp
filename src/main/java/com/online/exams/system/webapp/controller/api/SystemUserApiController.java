@@ -51,8 +51,6 @@ public class SystemUserApiController {
             userVo.setUpdateAt(null);
             userVo.setPassword(null);
             userVo.setCreateAt(null);
-            userVo.setAdmin(user.getIsAdmin());
-            userVo.setDelete(user.getIsDelete());
             userVo.setTagList(convertTagList2String(user));
 
             userVoList.add(userVo);

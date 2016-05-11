@@ -6,12 +6,12 @@
     <parent>
         <groupId>com.online</groupId>
         <artifactId>exams-system-parent</artifactId>
-        <version>1.2</version>
+        <version>2.0-SNAPSHOT</version>
     </parent>
 
     <name>exams-system-webapp</name>
     <artifactId>exams-system-webapp</artifactId>
-    <version>1.2</version>
+    <version>2.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <dependencies>
@@ -32,7 +32,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
-            <scope>provided</scope>
+            <!--<scope>provided</scope>-->
         </dependency>
 
         <dependency>

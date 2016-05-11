@@ -6,15 +6,14 @@
     <link type="text/css" rel="stylesheet" href="/css/simplePagination.css"/>
     <link type="text/css" rel="stylesheet" href="/css/style.css"/>
     <link type="text/css" rel="stylesheet" href="/css/online.css"/>
-    <link rel="shortcut icon" href="/images/java.png"/>
 </head>
-<body>
+<body style="overflow: auto">
 <div id="particles-js"></div>
 <section class="wrapper" style="position: absolute;top: 37%">
     <div align="center">
         <div style="color: black;font-size: 30px;align-content: center">在线测试系统注册</div>
         <br/>
-        <form method="post" action="/register" onsubmit="return md5password();">
+        <form>
             <div style="color: black;font-size: 15px">用&nbsp;&nbsp;户&nbsp;&nbsp;名：
                 <input id="username" style="padding: 0px" name="username" placeholder="请输入用户名" type="text" value="$!{user.username}" required/>
             </div>
@@ -33,15 +32,13 @@
             <div style="color: black;font-size: 15px">微&nbsp;&nbsp;信&nbsp;&nbsp;号：
                 <input id="wechat" style="padding: 0px" name="wechat" placeholder="请输入微信号" type="text" value="$!{user.wechat}"/>
             </div>
-
             <div style="color: black;font-size: 15px">个人简介：
                 <input id="intro" style="padding: 0px" name="intro" placeholder="请简单介绍一下自己" type="text" value="$!{user.intro}"/>
             </div>
-
             <div id="captcha"></div>
             <br/>
             <input id="submit_btn" class="btn input-submit" disabled="disabled" type="submit" value="注册"
-                   style="width: 70%;background-color:#fff;color: #0f0f0f;font-size: 15px"/>
+                   style="width: 70%;background-color:#fff;color: #0f0f0f;font-size: 15px;height: 30px"/>
         </form>
     </div>
 </section>

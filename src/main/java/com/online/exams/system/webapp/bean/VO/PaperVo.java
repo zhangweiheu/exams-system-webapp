@@ -73,6 +73,9 @@ public class PaperVo extends BaseObject {
      */
     private Date updateAt;
 
+    /** 枚举 ：0练习卷 | 1考试卷 */
+    private Boolean isExam;
+
     public Integer getId() {
         return id;
     }
@@ -171,5 +174,13 @@ public class PaperVo extends BaseObject {
 
     public void setTotalRight(Integer totalRight) {
         this.totalRight = totalRight;
+    }
+
+    public Boolean getExam() {
+        return isExam;
+    }
+
+    public void setExam(Boolean exam) {
+        isExam = exam;
     }
 }

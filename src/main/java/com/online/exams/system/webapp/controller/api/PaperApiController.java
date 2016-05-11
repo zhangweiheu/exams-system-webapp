@@ -5,11 +5,11 @@ import com.online.exams.system.core.bean.MongoPaper;
 import com.online.exams.system.core.bean.Page;
 import com.online.exams.system.core.bean.QuestionMap;
 import com.online.exams.system.core.dao.MongoPaperDao;
-import com.online.exams.system.core.mybatis.enums.RefTypeEnum;
-import com.online.exams.system.core.mybatis.enums.StatusEnum;
 import com.online.exams.system.core.model.Paper;
 import com.online.exams.system.core.model.Tag;
 import com.online.exams.system.core.model.User;
+import com.online.exams.system.core.mybatis.enums.RefTypeEnum;
+import com.online.exams.system.core.mybatis.enums.StatusEnum;
 import com.online.exams.system.core.service.PaperGenerateService;
 import com.online.exams.system.core.service.PaperService;
 import com.online.exams.system.core.service.QuestionService;
@@ -61,7 +61,7 @@ public class PaperApiController {
     public JsonResponse getPaperList(@ModelAttribute Page page) {
         List<Paper> paperList;
         User user = UserHolder.getInstance().getUser();
-        if (user.getIsAdmin()) {
+        if (user.getType().getValue() > 0) {
             paperList = paperService.listAllPaper(page.getOffset(), page.getPageSize());
         } else {
             paperList = paperService.listAllPaper(page.getOffset(), page.getPageSize(), user.getId());
@@ -73,6 +73,7 @@ public class PaperApiController {
             paperVo.setProperties("createTime", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(paper.getCreateAt()));
             paperVo.setCreateAt(null);
             paperVo.setUpdateAt(null);
+            paperVo.setExam(paper.getIsExam());
             paperVo.setTagList(convertTagList2String(paper.getId()));
             paperVos.add(paperVo);
         }
@@ -94,10 +95,9 @@ public class PaperApiController {
      */
     @RequestMapping(value = "/{uid}/{pid}", method = RequestMethod.PUT)
     public JsonResponse setPaperUnUpdate(@PathVariable("uid") int uid, @PathVariable("pid") int pid) {
-        if (uid != 0 && uid == UserHolder.getInstance().getUser().getId()) {}
-        else if (uid == 0 && UserHolder.getInstance().getUser().getIsAdmin()) {}
-        else {
-            return JsonResponse.failed("操作被无权限");
+        if (uid != 0 && uid == UserHolder.getInstance().getUser().getId()) {} else if (uid == 0
+                && UserHolder.getInstance().getUser().getType().getValue() > 0) {} else {
+            return JsonResponse.failed("操作无无权限");
         }
         Paper paper = paperService.findPaperById(pid);
         if (paper.getStatus() == StatusEnum.DELETE) {

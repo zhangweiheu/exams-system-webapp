@@ -2,7 +2,6 @@
  * Created by zhang on 2016/4/7.
  */
 $(function () {
-
     $.ajax({
         method: "GET",
         url: "/api/analysis/system",
@@ -172,11 +171,6 @@ $(function () {
                         data: wrong
                     }]
                 });
-
-
-
-
-
             } else {
                 layer.alert("获取数据出错", {icon: 11, offset: '150px'});
             }

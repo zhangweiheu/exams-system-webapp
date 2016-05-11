@@ -3,14 +3,9 @@
 <head>
     <title>在线测试系统 | 编辑用户</title>
     <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
-    <link type="text/css" rel="stylesheet" href="/asset/bootstrap/css/bootstrap.min.css"/>
-    <link type="text/css" rel="stylesheet" href="/asset/bootstrap/css/bootstrap-theme.min.css"/>
-    <link rel="shortcut icon" href="/images/java.png"/>
 </head>
 <body>
 <div class="container-fluid" align="center" style="background-color: #ECF0F1">
-    <div style="color: black;font-size: 30px;align-content: center">编辑用户</div>
-    <br/>
     <form class="form-horizontal">
         <input id="id" type="hidden" value="$!{userVo.id}">
         <input id="tagList" type="hidden" value="$!{userVo.tagList}">
@@ -62,17 +57,85 @@
         <div class="control-group">
             <label class="control-label" style="color: black;font-size: 15px;" for="isAdmin">用户类型：</label>
             <div class="controls">
-                #if ( $userVo.isAdmin)
-                    #if ( ${userVo.isAdmin} == true)
-                        普通用户<input type="radio" id="isAdmin" name="isAdmin" value="0" style="width: 10%;height: 20px;"/>
-                        管理员<input type="radio" id="isAdmin" name="isAdmin" value="1" style="width: 10%;height: 20px;" checked/>
-                    #else
-                        普通用户<input type="radio" id="isAdmin" name="isAdmin" value="0" style="width: 10%;height: 20px;" checked/>
-                        管理员<input type="radio" id="isAdmin" name="isAdmin" value="1" style="width: 10%;height: 20px;"/>
-                    #end
+                #if ( ${userVo.type} == "COMMON")
+                    <select id="type" name="type">
+                        <option value="COMMON" name="type" selected="selected">普通用户</option>
+                        <option value="MANAGER" name="type">管理员</option>
+                        <option value="ADMIN" name="type">系统管理员</option>
+                    </select>
+                #elseif(${userVo.type} == "MANAGER")
+                    <select id="type" name="type">
+                        <option value="COMMON" name="type">普通用户</option>
+                        <option value="MANAGER" name="type" selected="selected">管理员</option>
+                        <option value="ADMIN" name="type">系统管理员</option>
+                    </select>
+                #elseif(${userVo.type} == "ADMIN")
+                    <select id="type" name="type">
+                        <option value="COMMON" name="type">普通用户</option>
+                        <option value="MANAGER" name="type">管理员</option>
+                        <option value="ADMIN" name="type" selected="selected">系统管理员</option>
+                    </select>
                 #else
-                    普通用户<input type="radio" id="isAdmin" name="isAdmin" value="0" style="width: 10%;height: 20px;" checked/>
-                    管理员<input type="radio" id="isAdmin" name="isAdmin" value="1" style="width: 10%;height: 20px;"/>
+                    <select id="type" name="type">
+                        <option value="COMMON" name="type" selected="selected">普通用户</option>
+                        <option value="MANAGER" name="type">管理员</option>
+                        <option value="ADMIN" name="type">系统管理员</option>
+                    </select>
+                #end
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" style="color: black;font-size: 15px;" for="isAdmin">用户状态：</label>
+            <div class="controls">
+                #if ( ${userVo.status} == "AUDITING")
+                    <select id="status" name="status">
+                        <option value="AUDITING" name="status" selected="selected">待审核</option>
+                        <option value="REFUSE" name="status">审核不通过</option>
+                        <option value="NORMAL" name="status">审核通过</option>
+                        <option value="DELETED" name="status">已删除</option>
+                        <option value="BLACK" name="status">黑名单</option>
+                    </select>
+                #elseif(${userVo.status} == "REFUSE")
+                    <select id="status" name="status">
+                        <option value="AUDITING" name="status">待审核</option>
+                        <option value="REFUSE" name="status" selected="selected">审核不通过</option>
+                        <option value="NORMAL" name="status">审核通过</option>
+                        <option value="DELETED" name="status">已删除</option>
+                        <option value="BLACK" name="status">黑名单</option>
+                    </select>
+                #elseif(${userVo.status} == "NORMAL")
+                    <select id="status" name="status">
+                        <option value="AUDITING" name="status">待审核</option>
+                        <option value="REFUSE" name="status">审核不通过</option>
+                        <option value="NORMAL" name="status" selected="selected">审核通过</option>
+                        <option value="DELETED" name="status">已删除</option>
+                        <option value="BLACK" name="status">黑名单</option>
+                    </select>
+                #elseif(${userVo.status} == "DELETED")
+                    <select id="status" name="status">
+                        <option value="AUDITING" name="status">待审核</option>
+                        <option value="REFUSE" name="status">审核不通过</option>
+                        <option value="NORMAL" name="status">审核通过</option>
+                        <option value="DELETED" name="status" selected="selected">已删除</option>
+                        <option value="BLACK" name="status">黑名单</option>
+                    </select>
+                #elseif(${userVo.status} == "BLACK")
+                    <select id="status" name="status">
+                        <option value="AUDITING" name="status">待审核</option>
+                        <option value="REFUSE" name="status">审核不通过</option>
+                        <option value="NORMAL" name="status">审核通过</option>
+                        <option value="DELETED" name="status">已删除</option>
+                        <option value="BLACK" name="status" selected="selected">黑名单</option>
+                    </select>
+                #else
+                    <select id="status" name="status">
+                        <option value="AUDITING" name="status" selected="selected">待审核</option>
+                        <option value="REFUSE" name="status">审核不通过</option>
+                        <option value="NORMAL" name="status">审核通过</option>
+                        <option value="DELETED" name="status">已删除</option>
+                        <option value="BLACK" name="status">黑名单</option>
+                    </select>
                 #end
             </div>
         </div>
@@ -112,7 +175,6 @@
 
 <script type="text/javascript" src="/asset/jquery/jquery-1.11.2.min.js"></script>
 <script type="text/javascript" src="/asset/jquery/jquery.md5.js"></script>
-<script type="text/javascript" src="/asset/bootstrap/js/bootstrap.js"></script>
 <script type="text/javascript" src="/js/particles.js"></script>
 <script type="text/javascript" src="/asset/layer/layer.js"></script>
 <script type="text/javascript" src="/js/edit_user.js"></script>

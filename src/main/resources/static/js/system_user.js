@@ -18,7 +18,7 @@ function buildPager(_totalCnt, _currentPage, pageSize) {
 }
 
 function buildTable(page, pageSize) {
-    var pageSize = Math.floor(window.innerHeight / 45) - 6;
+    var pageSize = Math.floor(window.innerHeight / 45) - 9;
     if ($('#page').val() == "") {
         page = 1;
     }
@@ -44,29 +44,42 @@ function buildTable(page, pageSize) {
                             tbody += "<td>" + elem.email + "</td>";
                             tbody += "<td>" + elem.phone + "</td>";
                             tbody += "<td>" + elem.wechat + "</td>";
-                            if (!elem.delete) {
-                                tbody += "<td class='fixWid'>正常</td>";
-                            } else {
-                                tbody += "<td class='fixWid'>已删除</td>";
-                            }
                             tbody += "<td>" + elem.tagList + "</td>";
                             tbody += "<td>" + elem.properties.createTime + "</td>";
-                            if (elem.admin) {
-                                tbody += "<td class='fixWid'>管理员</td>";
-                            } else {
-                                tbody += "<td class='fixWid'>普通用户</td>";
+
+                            if ("COMMON" === elem.type) {
+                                tbody += "<td>普通用户</td>";
+                            } else if("MANAGER" === elem.type){
+                                tbody += "<td>管理员</td>";
+                            } else if("ADMIN" === elem.type){
+                                tbody += "<td>系统管理员</td>";
+                            }else {
+                                tbody += "<td></td>";
+                            }
+
+                            if ("AUDITING" === elem.status) {
+                                tbody += "<td>待审核</td>";
+                            } else if("REFUSE" === elem.status){
+                                tbody += "<td>审核不通过</td>";
+                            } else if("NORMAL" === elem.status){
+                                tbody += "<td>审核通过</td>";
+                            } else if("DELETED" === elem.status){
+                                tbody += "<td>已删除</td>";
+                            } else if("BLACK" === elem.status){
+                                tbody += "<td>黑名单</td>";
+                            }else{
+                                tbody += "<td></td>";
                             }
                             tbody += "<td class='fixWid'><a btn-type=\"edit\" uid=\"" + elem.id + "\" href=\"#\">编辑</a></td>";
                             tbody += "<td class='fixWid'><a  onclick=\"deleteRecord('" + elem.id + "')\"   btn-type=\"delete\" uid=\"" + elem.id + "\" href=\"#\">删除</a></td>";
                             tbody += "</tr>";
                         } else {
                             //超出部分
-                            //tbody += "<tr></tr>";
+                            tbody += "<tr></tr>";
                         }
 
                     }
-                    $("#system-user-tbody").html(tbody)
-                    ;
+                    $("#system-user-tbody").html(tbody);
                     buildPager(data.data.totalCount, data.data.page, data.data.pageSize);
                 }
             } else {
@@ -126,7 +139,7 @@ function deleteRecord(id) {
 function remove(id) {
     $.ajax({
         method: "DELETE",
-        url: "/api/user/" + id,
+        url: "/api/system/user/" + id,
         async: true,
         success: function (data) {
             if (data.code == 0) {

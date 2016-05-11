@@ -41,12 +41,30 @@ function buildTable(page, pageSize) {
                             tbody += "<tr>";
                             tbody += "<td style='border-left:1px solid #C1DAD7'>" + elem.id + "</td>";
                             tbody += "<td style='width:auto'>" + elem.title + "</td>";
-                            tbody += "<td style='width:150px'>" + elem.questionType + "</td>";
+                            if("SINGLE_SELECTION" === elem.questionType){
+                                tbody += "<td style='width:60px'>单选</td>";
+                            } else if("MULTI_SELECTION" === elem.questionType){
+                                tbody += "<td style='width:60px'>多选</td>";
+                            } else if("PROGRAMMING_QUESTION" === elem.questionType){
+                                tbody += "<td style='width:60px'>编程</td>";
+                            }else {
+                                tbody += "<td style='width:60px'></td>";
+                            }
                             tbody += "<td style='width:auto'>" + elem.answers + "</td>";
                             tbody += "<td style='width:auto'>" + elem.tagList + "</td>";
                             tbody += "<td style='width:50px'>" + elem.difficulty + "</td>";
                             tbody += "<td style='width:50px'>" + elem.priority + "</td>";
-                            tbody += "<td style='width:60px'>" + elem.status + "</td>";
+                            if("NORMAL" === elem.status){
+                                tbody += "<td width='60px'>正常</td>";
+                            }else if("WRONG" === elem.status){
+                                tbody += "<td width='60px'>有误</td>";
+                            }else if("CLOSE" === elem.status){
+                                tbody += "<td width='60px'>已关闭</td>";
+                            }else if("DELETE" === elem.status){
+                                tbody += "<td width='60px'>已删除</td>";
+                            }else{
+                                tbody += "<td width='60px'></td>";
+                            }
                             tbody += "<td style='width:50px'>" + elem.totalDone + "</td>";
                             tbody += "<td style='width:50px'>" + elem.totalSuccess + "</td>";
                             tbody += "<td style='width:90px'>" + elem.properties.createTime + "</td>";
@@ -58,8 +76,7 @@ function buildTable(page, pageSize) {
                             //tbody += "<tr></tr>";
                         }
                     }
-                    $("#system-question-tbody").html(tbody)
-                    ;
+                    $("#system-question-tbody").html(tbody);
                     buildPager(data.data.totalCount, data.data.page, data.data.pageSize);
                 }
             } else {

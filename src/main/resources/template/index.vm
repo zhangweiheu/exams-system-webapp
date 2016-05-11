@@ -10,7 +10,6 @@
     <link type="text/css" rel="stylesheet" href="/css/main.css"/>
     <link type="text/css" rel="stylesheet" href="/css/navigate_demo.css"/>
     <link type="text/css" rel="stylesheet" href="/css/navigate_main.css"/>
-    <link rel="shortcut icon" href="/images/java.png"/>
     <script type="text/javascript" src="/asset/jquery/jquery-1.11.2.js"></script>
     <script type="text/javascript" src="/asset/metroJs/MetroJs.js"></script>
     <script>

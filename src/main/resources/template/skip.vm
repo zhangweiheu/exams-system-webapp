@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title>在线测试系统 | 跳转</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+</head>
+<body>
+<div align="center">
+    <div>跳转页面</div>
+    <br/>
+       <span style="color: green"><span id="totalSecond">5</span>
+                        秒后自动跳转至登陆页面</span>
+    <a href="javascript:;" onclick="cancel();" style="color: red">取消</a>
+
+    <span style="color:green">当前时间<span id="time"></span></span>
+</div>
+<script type="text/javascript" src="/asset/jquery/jquery-1.11.2.min.js"></script>
+<script type="text/javascript">
+    var second = 4;
+    var timer;
+    $(function () {
+        $('#time').html(currentTime);
+        timer = window.setInterval(function () {
+            if (second <= 0) {
+                location.href = "/login";
+            } else {
+                $("#totalSecond").html(second--);
+            }
+        }, 1000);
+        var displayTime = window.setInterval(function () {
+            $('#time').html(currentTime)
+        }, 1000);
+    });
+    function cancel() {
+        window.clearInterval(timer);
+    }
+    function currentTime() {
+        var d = new Date(), str = '';
+        str += d.getFullYear() + '年';
+        str += d.getMonth() + 1 + '月';
+        str += d.getDate() + '日';
+        str += d.getHours() + '时';
+        str += d.getMinutes() + '分';
+        str += d.getSeconds() + '秒';
+        return str;
+    }
+</script>
+</body>
+</html>

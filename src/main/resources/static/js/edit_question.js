@@ -21,9 +21,12 @@ $("#save-btn").on('click', function () {
                     layer.alert('更新成功', {
                         icon: 9, offset: '150px', end: function () {
                             var index = parent.layer.getFrameIndex(window.name);
+                            location.reload(true);
                             parent.layer.close(index);
                         }
                     });
+                    dealwithTagList();
+                    location.reload(true);
                 } else {
                     layer.alert(data.msg, {icon: 11})
                 }
@@ -39,9 +42,12 @@ $("#save-btn").on('click', function () {
                     layer.alert('创建成功', {
                         icon: 9, offset: '150px', end: function () {
                             var index = parent.layer.getFrameIndex(window.name);
+                            location.reload(true);
+                            dealwithTagList();
                             parent.layer.close(index);
                         }
                     });
+                    location.reload(true);
                 } else {
                     layer.alert(data.msg, {icon: 11})
                 }
@@ -64,7 +70,7 @@ function gatherData() {
         tag_array.push($(this).val());
     });
     var tagList = tag_array.join();
-
+    $("#tagList").val(tagList);
     var d = {
         "id": id,
         "title": title,
@@ -76,7 +82,6 @@ function gatherData() {
         "status": status,
         "tagList": tagList
     };
-
     return d;
 }
 
@@ -102,6 +107,9 @@ $(document).delegate('input[name="tag"]', "click", function () {
 });
 
 $(function(){
+    dealwithTagList();
+});
+function dealwithTagList(){
     var taglist = $("#tagList").val();
     if (taglist === undefined || taglist === ""){}
     else {
@@ -134,4 +142,4 @@ $(function(){
             }
         }
     }
-});
+}

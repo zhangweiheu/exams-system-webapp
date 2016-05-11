@@ -14,12 +14,11 @@ $(function () {
                 var d = data.data;
                 $("#uid").val(d.uid);
                 $("#pid").val(d.pid);
-                generatePaperView(d.questions);
+                generatePaperView(d.questions, d.time);
             }
         }
     });
 });
-
 
 /**试题类型选择页*/
 $("#submit-btn").on('click', function () {
@@ -35,7 +34,7 @@ $("#submit-btn").on('click', function () {
                 var d = data.data;
                 $("#uid").val(d.uid);
                 $("#pid").val(d.pid);
-                generatePaperView(d.questions);
+                generatePaperView(d.questions, d.time);
             } else {
                 layer.alert(data.msg, {icon: 11})
             }
@@ -83,7 +82,7 @@ $("input[name='questionTagList']").on("click", function () {
 
 /**试题显示页*/
 
-function generatePaperView(questions) {
+function generatePaperView(questions, time) {
 
     if (questions === "" || questions === undefined || questions.length < 1) {
         return;
@@ -110,32 +109,32 @@ function generatePaperView(questions) {
         if (q.questionType == "SINGLE_SELECTION") {
             s++;
             var options = JSON.parse(q.options);
-            single = single + "<div class='font-style' style='position: relative;left: 20px;margin-top: 25px'>"+ s + "、" + title + "</div>";
+            single = single + "<div class='font-style' style='position: relative;left: 20px;margin-top: 25px'>" + s + "、" + title + "</div>";
             single = single + "<div style='margin:0 auto;position: relative'>";
-                single = single + "<div hidden><input id='" + s + "s' value='" + id + "' hidden/></div>";
-                single = single + "<div style='width:25%;float: left;vertical-align:middle'><label style='font-size: 15px;color: black;right: 30px'><input class='input-radio' name='" + s + "s' type='radio' value='A'>" + options.A + "</label></div>";
-                single = single + "<div style='width:25%;float: left;vertical-align:middle'><label style='font-size: 15px;color: black;right: 30px'><input class='input-radio' name='" + s + "s' type='radio' value='B'>" + options.B + "</label></div>";
-                single = single + "<div style='width:25%;float: left;vertical-align:middle'><label style='font-size: 15px;color: black;right: 30px'><input class='input-radio' name='" + s + "s' type='radio' value='C'>" + options.C + "</label></div>";
-                single = single + "<div style='width:25%;float: left;vertical-align:middle'><label style='font-size: 15px;color: black;right: 30px'><input class='input-radio' name='" + s + "s' type='radio' value='D'>" + options.D + "</label></div>";
+            single = single + "<div hidden><input id='" + s + "s' value='" + id + "' hidden/></div>";
+            single = single + "<div style='width:25%;float: left;vertical-align:middle'><label style='font-size: 15px;color: black;right: 30px'><input class='input-radio' name='" + s + "s' type='radio' value='A'" + ("A" === q.currentAnswer ? "checked='checked'" : null) + ">" + options.A + "</label></div>";
+            single = single + "<div style='width:25%;float: left;vertical-align:middle'><label style='font-size: 15px;color: black;right: 30px'><input class='input-radio' name='" + s + "s' type='radio' value='B'" + ("B" === q.currentAnswer ? "checked='checked'" : null) + ">" + options.B + "</label></div>";
+            single = single + "<div style='width:25%;float: left;vertical-align:middle'><label style='font-size: 15px;color: black;right: 30px'><input class='input-radio' name='" + s + "s' type='radio' value='C'" + ("C" === q.currentAnswer ? "checked='checked'" : null) + ">" + options.C + "</label></div>";
+            single = single + "<div style='width:25%;float: left;vertical-align:middle'><label style='font-size: 15px;color: black;right: 30px'><input class='input-radio' name='" + s + "s' type='radio' value='D'" + ("D" === q.currentAnswer ? "checked='checked'" : null) + ">" + options.D + "</label></div>";
             single = single + "</div>";
         }
 
         if (q.questionType == "MULTI_SELECTION") {
             m++;
             var options = JSON.parse(q.options);
-            multi = multi + "<div class='font-style' style='position: relative;left: 20px;margin-top: 25px'>"+ m + "、" + title + "</div>"
+            multi = multi + "<div class='font-style' style='position: relative;left: 20px;margin-top: 25px'>" + m + "、" + title + "</div>"
             multi = multi + "<div style='margin:0 auto;position: relative'>";
-                multi = multi + "<div hidden><input id='" + m + "m' value='" + id + "' hidden/></div>";
-                multi = multi + "<div style='width:25%;float: left;vertical-align:middle'><label style='font-size: 15px;color: black;right: 30px'><input class='input-radio' name='" + m + "m' type='checkbox' value='A'>" + options.A + "</label></div>";
-                multi = multi + "<div style='width:25%;float: left;vertical-align:middle'><label style='font-size: 15px;color: black;right: 30px'><input class='input-radio' name='" + m + "m' type='checkbox' value='B'>" + options.B + "</label></div>";
-                multi = multi + "<div style='width:25%;float: left;vertical-align:middle'><label style='font-size: 15px;color: black;right: 30px'><input class='input-radio' name='" + m + "m' type='checkbox' value='C'>" + options.C + "</label></div>";
-                multi = multi + "<div style='width:25%;float: left;vertical-align:middle'><label style='font-size: 15px;color: black;right: 30px'><input class='input-radio' name='" + m + "m' type='checkbox' value='D'>" + options.D + "</label></div>";
+            multi = multi + "<div hidden><input id='" + m + "m' value='" + id + "' hidden/></div>";
+            multi = multi + "<div style='width:25%;float: left;vertical-align:middle'><label style='font-size: 15px;color: black;right: 30px'><input class='input-radio' name='" + m + "m' type='checkbox' value='A'" + isTheRadio(q.currentAnswer,"A") + ">" + options.A + "</label></div>";
+            multi = multi + "<div style='width:25%;float: left;vertical-align:middle'><label style='font-size: 15px;color: black;right: 30px'><input class='input-radio' name='" + m + "m' type='checkbox' value='B'" + isTheRadio(q.currentAnswer,"B") + ">" + options.B + "</label></div>";
+            multi = multi + "<div style='width:25%;float: left;vertical-align:middle'><label style='font-size: 15px;color: black;right: 30px'><input class='input-radio' name='" + m + "m' type='checkbox' value='C'" + isTheRadio(q.currentAnswer,"C") + ">" + options.C + "</label></div>";
+            multi = multi + "<div style='width:25%;float: left;vertical-align:middle'><label style='font-size: 15px;color: black;right: 30px'><input class='input-radio' name='" + m + "m' type='checkbox' value='D'" + isTheRadio(q.currentAnswer,"D") + ">" + options.D + "</label></div>";
             multi = multi + "</div>";
         }
 
         if (q.questionType == "PROGRAMMING_QUESTION") {
             p++;
-            program = program + "<div class='font-style' style='position: relative;left: 20px;margin-bottom: 20px'>"+ p + "、" + title + "</div>"
+            program = program + "<div class='font-style' style='position: relative;left: 20px;margin-bottom: 20px'>" + p + "、" + title + "</div>"
             program = program + "<div style='margin:0 auto;position: relative'>";
             program = program + "<div><input id='" + p + "p' class='input-radio' value='" + id + "' hidden/></div>";
             program = program + "<div><input style='width:80%;height:450px;margin-left: 10%;margin-bottom: 3%' name='" + p + "p' type='text'></div>";
@@ -161,6 +160,14 @@ function generatePaperView(questions) {
         $("#p").val(p);
         $("#program").html(program);
     }
+
+    //设置要倒计时的秒数
+    EndTimeMsg = time;
+    if(time < 0){
+        $("#exam-over-btn").click();
+    }
+    show();
+    window.setInterval("show()", 1000);
 }
 
 function singlesubmit() {
@@ -259,7 +266,7 @@ function gatherDataSingle() {
         var valuecheck = $('input[name = ' + i + 's]:checked').val();
         d[ids] = valuecheck;
     }
-    return {"answersList":JSON.stringify(d)};
+    return {"answersList": JSON.stringify(d)};
 }
 
 function gatherDataMulti() {
@@ -279,7 +286,7 @@ function gatherDataMulti() {
         var answers = tag_array.join();
         d[ids] = answers;
     }
-    return {"answersList":JSON.stringify(d)};
+    return {"answersList": JSON.stringify(d)};
 }
 
 function gatherDataProgram() {
@@ -290,6 +297,32 @@ function gatherDataProgram() {
         "pid": pid,
         "qid": qid,
         "text": text
-    }
+    };
     return d;
+}
+function show() {
+    h = Math.floor(EndTimeMsg / 60 / 60);
+    m = Math.floor((EndTimeMsg - h * 60 * 60) / 60);
+    s = Math.floor((EndTimeMsg - h * 60 * 60 - m * 60));
+    $("#HH").innerHTML = h;
+    $("#MM").innerHTML = m;
+    $("#SS").innerHTML = s;
+    EndTimeMsg--;
+    if (EndTimeMsg <= 300 && EndTimeMsg > 299) {
+        $("#SS").innerHTML = s;
+        $("#OK").innerHTML = " 后将自动交卷,请提前提交各部分试题"
+    }
+    if (EndTimeMsg < 0) {
+        $("#exam-over-btn").click();
+    }
+}
+
+function isTheRadio(currentAnswers , option) {
+    var answer = currentAnswers.split(",");
+    for (var i = 0; i < answer.length; i++) {
+        if (option === answer[i]) {
+            return "checked='checked'";
+        }
+    }
+    return null;
 }

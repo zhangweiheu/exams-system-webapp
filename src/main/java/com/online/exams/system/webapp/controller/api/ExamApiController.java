@@ -7,10 +7,7 @@ import com.online.exams.system.core.bean.QuestionMap;
 import com.online.exams.system.core.bean.TestCase;
 import com.online.exams.system.core.dao.MongoPaperDao;
 import com.online.exams.system.core.dao.MongoTestCaseDao;
-import com.online.exams.system.core.mybatis.enums.QuestionTypeEnum;
-import com.online.exams.system.core.mybatis.enums.RefTypeEnum;
-import com.online.exams.system.core.mybatis.enums.StatusEnum;
-import com.online.exams.system.core.mybatis.enums.TagEnum;
+import com.online.exams.system.core.mybatis.enums.*;
 import com.online.exams.system.core.model.Paper;
 import com.online.exams.system.core.model.Question;
 import com.online.exams.system.core.service.PaperGenerateService;
@@ -19,6 +16,7 @@ import com.online.exams.system.core.service.QuestionService;
 import com.online.exams.system.core.service.TagService;
 import com.online.exams.system.core.util.PaperUtil;
 import com.online.exams.system.webapp.annotation.LoginRequired;
+import com.online.exams.system.webapp.bean.UserHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +25,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -152,15 +151,15 @@ public class ExamApiController {
         if (null != paper) {
             MongoPaper mongoPaper = mongoPaperDao.findMongoPaperById(Integer.toUnsignedLong(paper.getMongoPaperId()));
             JsonResponse jsonResponse = JsonResponse.success();
-            jsonResponse.put("uid", uid);
             List<QuestionMap> list = mongoPaper.getQuestionMapList();
             for (QuestionMap questionMap : list) {
                 questionMap.setRight(null);
                 questionMap.setAnswers(null);
             }
             jsonResponse.put("questions", list);
+            jsonResponse.put("uid", uid);
             jsonResponse.put("pid", paper.getId());
-
+            jsonResponse.put("time", 2 * 3600 - (new Date().getTime() - paper.getCreateAt().getTime()) / 1000);
             return jsonResponse;
         } else {
             return JsonResponse.failed();
@@ -169,6 +168,9 @@ public class ExamApiController {
 
     @RequestMapping(value = "/generate/{uid}", method = RequestMethod.POST)
     public JsonResponse generatePaper(@PathVariable("uid") Integer uid, @RequestParam("questionTagList") String questionTagList, @RequestParam("paperType") String paperType, ModelMap model) {
+        if(UserStatusEnum.NORMAL != UserHolder.getInstance().getUser().getStatus()){
+            return JsonResponse.failed("您无此权限");
+        }
         Paper paper = paperService.findDoingPaperByUid(uid);
         HashMap<String, Object> hashMap;
         if (null != paper) {
@@ -208,6 +210,7 @@ public class ExamApiController {
         jsonResponse.put("uid", uid);
         jsonResponse.put("questions", hashMap.get("questions"));
         jsonResponse.put("pid", hashMap.get("pid"));
+        jsonResponse.put("time", 2 * 3600 - (new Date().getTime() - ((Date) hashMap.get("time")).getTime()) / 1000);
 
         return jsonResponse;
     }
@@ -447,6 +450,15 @@ public class ExamApiController {
         }
         TestCase testCase = mongoTestCaseDao.findTestCaseById(tcid);
         return testCase.getKeyValue();
+    }
+
+    /**
+     * 检查是否存在未完成试卷，如果有，则返回，否则返回fail
+     */
+    @RequestMapping(value = "/time/{pid}", method = RequestMethod.GET)
+    public JsonResponse checkTime(@PathVariable("pid") Integer pid) {
+        Paper paper = paperService.findPaperById(pid);
+        return JsonResponse.success().put("time", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(paper.getCreateAt()));
     }
 
 }

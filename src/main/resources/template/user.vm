@@ -9,8 +9,6 @@
     #include("./index.vm")
 
 <div class="container-fluid" align="center">
-    <div style="color: black;font-size: 30px;align-content: center">编辑资料</div>
-    <br/>
     <form id="form">
         <input id="id" name="id" type="hidden" value="$!{userVo.id}">
         <div class="control-group">

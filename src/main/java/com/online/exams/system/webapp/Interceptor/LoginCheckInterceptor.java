@@ -3,6 +3,7 @@ package com.online.exams.system.webapp.Interceptor;
 import com.alibaba.fastjson.JSON;
 import com.online.exams.system.core.bean.JsonResponse;
 import com.online.exams.system.core.model.User;
+import com.online.exams.system.core.mybatis.enums.UserStatusEnum;
 import com.online.exams.system.core.service.UserService;
 import com.online.exams.system.webapp.annotation.NotNeedLogin;
 import com.online.exams.system.webapp.bean.UserHolder;
@@ -62,7 +63,7 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
                 Integer uid = getUid(token);
                 if (uid != null) {
                     User user = userService.findUserByUid(uid);
-                    if (null != user && !user.getIsDelete()) {
+                    if (null != user && UserStatusEnum.DELETED != user.getStatus() && UserStatusEnum.BLACK != user.getStatus()) {
                         UserHolder.getInstance().set(user);
                         return true;
                     }
@@ -89,7 +90,7 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
         if (retJson) {
             response.getOutputStream().write(JSON.toJSONString(JsonResponse.failed("请登录")).getBytes("UTF-8"));
         } else {
-            response.sendRedirect("/");
+            response.sendRedirect("");
         }
 
         return false;
