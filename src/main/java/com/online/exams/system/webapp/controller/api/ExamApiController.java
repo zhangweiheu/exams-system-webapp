@@ -7,9 +7,9 @@ import com.online.exams.system.core.bean.QuestionMap;
 import com.online.exams.system.core.bean.TestCase;
 import com.online.exams.system.core.dao.MongoPaperDao;
 import com.online.exams.system.core.dao.MongoTestCaseDao;
-import com.online.exams.system.core.mybatis.enums.*;
 import com.online.exams.system.core.model.Paper;
 import com.online.exams.system.core.model.Question;
+import com.online.exams.system.core.mybatis.enums.*;
 import com.online.exams.system.core.service.PaperGenerateService;
 import com.online.exams.system.core.service.PaperService;
 import com.online.exams.system.core.service.QuestionService;
@@ -159,7 +159,13 @@ public class ExamApiController {
             jsonResponse.put("questions", list);
             jsonResponse.put("uid", uid);
             jsonResponse.put("pid", paper.getId());
-            jsonResponse.put("time", 2 * 3600 - (new Date().getTime() - paper.getCreateAt().getTime()) / 1000);
+            long time = 2 * 3600 - (new Date().getTime() - paper.getCreateAt().getTime()) / 1000;
+            if (time < 0) {
+                paper.setStatus(StatusEnum.CLOSE);
+                paperService.updatePaper(paper);
+            } else {
+                jsonResponse.put("time",2 * 3600 - (new Date().getTime() - paper.getCreateAt().getTime()) / 1000);
+            }
             return jsonResponse;
         } else {
             return JsonResponse.failed();
@@ -168,7 +174,7 @@ public class ExamApiController {
 
     @RequestMapping(value = "/generate/{uid}", method = RequestMethod.POST)
     public JsonResponse generatePaper(@PathVariable("uid") Integer uid, @RequestParam("questionTagList") String questionTagList, @RequestParam("paperType") String paperType, ModelMap model) {
-        if(UserStatusEnum.NORMAL != UserHolder.getInstance().getUser().getStatus()){
+        if (UserStatusEnum.NORMAL != UserHolder.getInstance().getUser().getStatus()) {
             return JsonResponse.failed("您无此权限");
         }
         Paper paper = paperService.findDoingPaperByUid(uid);

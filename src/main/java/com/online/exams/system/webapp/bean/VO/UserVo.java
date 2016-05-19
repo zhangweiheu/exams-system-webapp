@@ -3,6 +3,9 @@ package com.online.exams.system.webapp.bean.VO;
 import com.online.exams.system.core.mybatis.enums.UserStatusEnum;
 import com.online.exams.system.core.mybatis.enums.UserTypeEnum;
 import com.online.exams.system.webapp.bean.BaseObject;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -16,13 +19,16 @@ public class UserVo extends BaseObject {
 
     /** 用户名 */
     @NotNull
+    @Length(min = 5,max = 20,message = "用户名长度不合法")
     private String username;
 
     /** 密码 */
     @NotNull
+    @Length(min = 5,max = 20,message = "密码长度不合法")
     private String password;
 
     /** 密码 */
+    @Length(min = 5,max = 20,message = "密码长度不合法")
     private String password2;
 
     /** 头像 */
@@ -37,6 +43,7 @@ public class UserVo extends BaseObject {
     private String intro;
 
     /** 邮箱 */
+    @Email
     private String email;
 
     /** 手机号 */

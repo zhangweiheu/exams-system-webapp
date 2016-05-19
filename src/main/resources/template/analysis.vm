@@ -14,10 +14,10 @@
 
 <div id="containerC" style="width: 80%;height:400px;margin-left: 10%;margin-bottom: 5%"></div>
 
-<script type="text/javascript" src="/asset/jquery/jquery-1.11.2.js"></script>
-<script type="text/javascript" src="/asset/Highcharts-4.2.3/js/highcharts.js"></script>
-<script type="text/javascript" src="/asset/Highcharts-4.2.3/js/modules/exporting.js"></script>
-<script type="text/javascript" src="/asset/Highcharts-4.2.3/js/themes/gray.js"></script>
-<script type="text/javascript" src="/js/analysis.js"></script>
+<script type="text/javascript" src="../static/asset/jquery/jquery-1.11.2.js"></script>
+<script type="text/javascript" src="../static/asset/Highcharts-4.2.3/js/highcharts.js"></script>
+<script type="text/javascript" src="../static/asset/Highcharts-4.2.3/js/modules/exporting.js"></script>
+<script type="text/javascript" src="../static/asset/Highcharts-4.2.3/js/themes/gray.js"></script>
+<script type="text/javascript" src="../static/js/analysis.js"></script>
 </body>
 </html>

@@ -6,6 +6,7 @@ import com.online.exams.system.core.mybatis.enums.UserStatusEnum;
 import com.online.exams.system.core.mybatis.enums.UserTypeEnum;
 import com.online.exams.system.core.service.UserService;
 import com.online.exams.system.webapp.annotation.NotNeedLogin;
+import com.online.exams.system.webapp.bean.UserHolder;
 import com.online.exams.system.webapp.bean.VO.UserVo;
 import com.online.exams.system.webapp.geetest.GeetestConfig;
 import com.online.exams.system.webapp.geetest.GeetestLib;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -27,15 +27,15 @@ import javax.servlet.http.HttpServletResponse;
  * Created by zhang on 2016/2/20.
  */
 @RestController
-@NotNeedLogin
-@RequestMapping("/api/login")
-public class LoginApiController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(LoginApiController.class);
+@RequestMapping("/api")
+public class LoginAndLogoutApiController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoginAndLogoutApiController.class);
 
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "", method = RequestMethod.POST)
+    @NotNeedLogin
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public JsonResponse index(@ModelAttribute UserVo userVo, HttpServletRequest request, HttpServletResponse response) {
         LOGGER.info("{}请求登陆", userVo.getUsername());
         int gtResult;
@@ -80,6 +80,20 @@ public class LoginApiController {
             e.getMessage();
             return JsonResponse.failed();
         }
+        return JsonResponse.success();
+    }
+
+    @RequestMapping(value = "/logout")
+    public JsonResponse doLogOut(HttpServletRequest request, HttpServletResponse response) {
+
+        Cookie[] cookies = request.getCookies();
+        for (Cookie cookie : cookies) {
+            cookie.setValue("");
+            cookie.setMaxAge(0);
+            cookie.setPath("/");
+            response.addCookie(cookie);
+        }
+        LOGGER.info("用户{}退出系统", UserHolder.getInstance().getUser().getId());
         return JsonResponse.success();
     }
 }

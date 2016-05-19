@@ -40,10 +40,41 @@ function buildTable(page, pageSize) {
                             var elem = data.data.data[i];
                             tbody += "<tr>";
                             tbody += "<td width='50px' style='border-left:1px solid #C1DAD7'>" + elem.id + "</td>";
-                            tbody += "<td width=\"150px\">" + elem.paperType + "</td>";
+                            if ("SINGLE_SELECTION" === elem.paperType) {
+                                tbody += "<td>单选</td>";
+                            } else if ("MULTI_SELECTION" === elem.paperType) {
+                                tbody += "<td>多选</td>";
+                            } else if ("PROGRAMMING_QUESTION" === elem.paperType) {
+                                tbody += "<td>编程</td>";
+                            } else if ("SINGLE_AND_MULTI" === elem.paperType) {
+                                tbody += "<td>单选、多选</td>";
+                            } else if ("SINGLE_AND_PROGRAMMING" === elem.paperType) {
+                                tbody += "<td>单选、编程</td>";
+                            } else if ("MULTI_AND_PROGRAMMING" === elem.paperType) {
+                                tbody += "<td>多选、编程</td>";
+                            } else if ("SINGLE_AND_MULTI_PROGRAMMING" === elem.paperType) {
+                                tbody += "<td>单选、多选、编程</td>";
+                            } else {
+                                tbody += "<td></td>";
+                            }
+                            if (elem.exam) {
+                                tbody += "<td width='60px'>考试卷</td>";
+                            } else {
+                                tbody += "<td width='60px'>练习卷</td>";
+                            }
                             tbody += "<td width='50px'>" + elem.difficulty + "</td>";
                             tbody += "<td width='50px'>" + elem.score + "</td>";
-                            tbody += "<td>" + elem.status + "</td>";
+                            if("NORMAL" === elem.status){
+                                tbody += "<td width='95px'>正常</td>";
+                            }else if("WRONG" === elem.status){
+                                tbody += "<td width='95px'>有误</td>";
+                            }else if("CLOSE" === elem.status){
+                                tbody += "<td width='95px'>已关闭</td>";
+                            }else if("DELETE" === elem.status){
+                                tbody += "<td width='95px'>已删除</td>";
+                            }else{
+                                tbody += "<td width='95px'></td>";
+                            }
                             tbody += "<td>" + elem.tagList + "</td>";
                             tbody += "<td>" + elem.totalRight + "</td>";
                             tbody += "<td>" + elem.properties.createTime + "</td>";

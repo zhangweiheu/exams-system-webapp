@@ -22,6 +22,7 @@ $("#submit_btn").on("click", function () {
         success: function (data) {
             var code = data.code;
             if (code == 0) {
+                layer.msg('欢迎回来！', {shade: 0.8});
                 window.setTimeout("location='/index'", 100);
             } else {
                 layer.alert(data.msg, {icon: 11})

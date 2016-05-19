@@ -1,0 +1,25 @@
+body {
+    background-color: #ECF0F1;
+}
+
+.selectDom div .title {
+    font-size: 25px
+}
+
+.selectDom div .form1 {
+    position: relative;
+    vertical-align: middle;
+    left: 25%
+}
+.selectDom div .form2 {
+    position: relative;
+    vertical-align: middle;
+    left: 23.5%
+}
+
+.selectDom div form label {
+    font-size: 16px;
+    color: black;
+    right: 30px;
+    vertical-align: middle
+}

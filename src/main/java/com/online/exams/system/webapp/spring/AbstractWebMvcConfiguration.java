@@ -20,8 +20,6 @@ import java.util.List;
  */
 public abstract class AbstractWebMvcConfiguration extends WebMvcConfigurerAdapter {
 
-
-
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         // 自定义fastjson的转换器

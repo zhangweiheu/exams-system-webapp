@@ -38,7 +38,7 @@ public class AnalysisApiController {
     public JsonResponse getRankList(Page page) {
         List<User> userList = dataService.getAllTotalScoreOrder(page.getOffset(), page.getPageSize());
         page.setData(userList);
-        page.setTotalCount(userService.getTotalCount());
+        page.setTotalCount(userService.getTotalCommonUser());
         return JsonResponse.success(page);
     }
 

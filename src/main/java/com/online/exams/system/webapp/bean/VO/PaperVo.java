@@ -18,6 +18,9 @@ public class PaperVo extends BaseObject {
      */
     private Integer id;
 
+    /** 考试主题 */
+    private String title;
+
     /**
      * mongo试卷 id
      */
@@ -182,5 +185,13 @@ public class PaperVo extends BaseObject {
 
     public void setExam(Boolean exam) {
         isExam = exam;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

@@ -109,10 +109,10 @@ public class WebappConfiguration extends AbstractWebMvcConfiguration {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/css/**").addResourceLocations("classpath:/static/css/");
-        registry.addResourceHandler("/js/**").addResourceLocations("classpath:/static/js/");
-        registry.addResourceHandler("/asset/**").addResourceLocations("classpath:/static/asset/");
-        registry.addResourceHandler("/images/**").addResourceLocations("classpath:/static/images/");
+        registry.addResourceHandler("/static/css/**").addResourceLocations("classpath:/static/css/");
+        registry.addResourceHandler("/static/js/**").addResourceLocations("classpath:/static/js/");
+        registry.addResourceHandler("/static/asset/**").addResourceLocations("classpath:/static/asset/");
+        registry.addResourceHandler("/static/images/**").addResourceLocations("classpath:/static/images/");
     }
 //
 //    @Override

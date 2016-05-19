@@ -6,15 +6,14 @@
 </head>
 <body>
 <div align="center">
-    <div>跳转页面</div>
     <br/>
        <span style="color: green"><span id="totalSecond">5</span>
-                        秒后自动跳转至登陆页面</span>
+                        秒后自动跳转</span>
     <a href="javascript:;" onclick="cancel();" style="color: red">取消</a>
 
     <span style="color:green">当前时间<span id="time"></span></span>
 </div>
-<script type="text/javascript" src="/asset/jquery/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="../static/asset/jquery/jquery-1.11.2.min.js"></script>
 <script type="text/javascript">
     var second = 4;
     var timer;

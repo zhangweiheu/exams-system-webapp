@@ -5,6 +5,7 @@ import com.online.exams.system.core.model.User;
 import com.online.exams.system.core.mybatis.enums.UserStatusEnum;
 import com.online.exams.system.core.mybatis.enums.UserTypeEnum;
 import com.online.exams.system.core.service.UserService;
+import com.online.exams.system.webapp.annotation.NotNeedLogin;
 import com.online.exams.system.webapp.bean.VO.UserVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,8 +28,9 @@ public class RegisterApiController {
     @Autowired
     private UserService userService;
 
+    @NotNeedLogin
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public JsonResponse registerForm(@ModelAttribute UserVo userVo, ModelAndView modelAndView) {
+    public JsonResponse registerForm(@ModelAttribute UserVo userVo) {
         if (null == userService.findUserByName(userVo.getUsername()) && userVo.getPassword().equals(userVo.getPassword2())) {
             User user = new User();
             BeanUtils.copyProperties(userVo,user);

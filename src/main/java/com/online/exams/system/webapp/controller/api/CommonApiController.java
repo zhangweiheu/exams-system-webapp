@@ -2,6 +2,7 @@ package com.online.exams.system.webapp.controller.api;
 
 import com.online.exams.system.core.bean.JsonResponse;
 import com.online.exams.system.core.service.UserService;
+import com.online.exams.system.webapp.annotation.NotNeedLogin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ public class CommonApiController {
     @Autowired
     UserService userService;
 
+    @NotNeedLogin
     @RequestMapping(value = "/check/username", method = RequestMethod.POST)
     public JsonResponse checkUsername(@RequestParam("username")String username) {
         if(null == userService.findUserByName(username)){

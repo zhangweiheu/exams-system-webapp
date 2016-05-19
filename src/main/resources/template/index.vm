@@ -3,15 +3,11 @@
 <head>
     <title>在线测试系统 | 主页</title>
     <meta http-equiv="content-type" content="text/html;charset=utf-8">
-    <link type="text/css" rel="stylesheet" href="/asset/metroJs/MetroJs.css"/>
-    <link type="text/css" rel="stylesheet" href="/css/simplePagination.css"/>
-    <link type="text/css" rel="stylesheet" href="/css/style.css"/>
-    <link type="text/css" rel="stylesheet" href="/css/online.css"/>
-    <link type="text/css" rel="stylesheet" href="/css/main.css"/>
-    <link type="text/css" rel="stylesheet" href="/css/navigate_demo.css"/>
-    <link type="text/css" rel="stylesheet" href="/css/navigate_main.css"/>
-    <script type="text/javascript" src="/asset/jquery/jquery-1.11.2.js"></script>
-    <script type="text/javascript" src="/asset/metroJs/MetroJs.js"></script>
+    <link type="text/css" rel="stylesheet" href="../static/asset/metroJs/MetroJs.css"/>
+    <link type="text/css" rel="stylesheet" href="../static/css/navigate_demo.css"/>
+    <link type="text/css" rel="stylesheet" href="../static/css/navigate_main.css"/>
+    <script type="text/javascript" src="../static/asset/jquery/jquery-1.11.2.js"></script>
+    <script type="text/javascript" src="../static/asset/metroJs/MetroJs.js"></script>
     <script>
         function goToTargetPage(tarVal) {
             if (tarVal == 1) location.href = '/user';
@@ -63,11 +59,11 @@
     <script>
         $(
                 function () {
-                    var nav = " <li class=\"nav-item\" onclick=\"goToTargetPage(1)\"><a>我的资料</a></li>" +
-                            "<li class=\"nav-item\" onclick=\"goToTargetPage(2)\"><a>试题入口</a></li>" +
-                            "<li class=\"nav-item\" onclick=\"goToTargetPage(3)\"><a>我的试卷</a></li>" +
-                            "<li class=\"nav-item\" onclick=\"goToTargetPage(4)\"><a>我的排行榜</a></li>" +
-                            "<li class=\"nav-item\" onclick=\"goToTargetPage(5)\"><a>我的数据分析</a></li>";
+                    var nav = " <li class='nav-item' onclick='goToTargetPage(1)'><a>我的资料</a></li>" +
+                            "<li class='nav-item' onclick='goToTargetPage(2)'><a>试题入口</a></li>" +
+                            "<li class='nav-item' onclick='goToTargetPage(3)'><a>我的试卷</a></li>" +
+                            "<li class='nav-item' onclick='goToTargetPage(4)'><a>我的排行榜</a></li>" +
+                            "<li class='nav-item' onclick='goToTargetPage(5)'><a>我的数据分析</a></li>";
                     if (document.cookie.length > 0) {
                         c_start = document.cookie.indexOf("_lpc=");
                         if (c_start != -1) {
@@ -76,10 +72,10 @@
                             if (c_end == -1) c_end = document.cookie.length
                             if (unescape(document.cookie.substring(c_start, c_end)) == "T") {
 //                                nav = "";
-                                nav += "<li class=\"nav-item\" onclick=\"goToTargetPage(6)\"><a>系统数据分析</a></li>";
-                                nav += "<li class=\"nav-item\" onclick=\"goToTargetPage(7)\"><a>系统用户管理</a></li>";
-                                nav += "<li class=\"nav-item\" onclick=\"goToTargetPage(8)\"><a>系统试卷管理</a></li>";
-                                nav += "<li class=\"nav-item\" onclick=\"goToTargetPage(9)\"><a>系统试题管理</a></li>";
+                                nav += "<li class='nav-item' onclick='goToTargetPage(6)'><a>系统数据分析</a></li>";
+                                nav += "<li class='nav-item' onclick='goToTargetPage(7)'><a>系统用户管理</a></li>";
+                                nav += "<li class='nav-item' onclick='goToTargetPage(8)'><a>系统试卷管理</a></li>";
+                                nav += "<li class='nav-item' onclick='goToTargetPage(9)'><a>系统试题管理</a></li>";
                             }
                         }
                     }

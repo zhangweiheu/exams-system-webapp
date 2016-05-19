@@ -3,9 +3,9 @@
 <head>
     <title>在线测试系统 | 注册</title>
     <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
-    <link type="text/css" rel="stylesheet" href="/css/simplePagination.css"/>
-    <link type="text/css" rel="stylesheet" href="/css/style.css"/>
-    <link type="text/css" rel="stylesheet" href="/css/online.css"/>
+    <link type="text/css" rel="stylesheet" href="../static/css/simplePagination.css"/>
+    <link type="text/css" rel="stylesheet" href="../static/css/style.css"/>
+    <link type="text/css" rel="stylesheet" href="../static/css/online.css"/>
 </head>
 <body style="overflow: auto">
 <div id="particles-js"></div>
@@ -27,29 +27,29 @@
                 <input id="phone" style="padding: 0px" name="phone" placeholder="请输入手机号" type="text" value="$!{user.phone}"/>
             </div>
             <div style="color: black;font-size: 15px">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱：
-                <input id="email" style="padding: 0px;margin-bottom: 10px;border-radius: 3px;border: 1px solid #DFE1E8" name="email" placeholder="请输入邮箱" type="email" value="$!{user.email}"/>
+                <input id="email" style="padding: 0px;margin-bottom: 10px;border-radius: 3px;border: 1px solid #DFE1E8" name="email" placeholder="请输入邮箱" type="email" value="$!{user.email}" oninvalid="msg("校验失败")"/>
             </div>
             <div style="color: black;font-size: 15px">微&nbsp;&nbsp;信&nbsp;&nbsp;号：
                 <input id="wechat" style="padding: 0px" name="wechat" placeholder="请输入微信号" type="text" value="$!{user.wechat}"/>
             </div>
             <div style="color: black;font-size: 15px">个人简介：
-                <input id="intro" style="padding: 0px" name="intro" placeholder="请简单介绍一下自己" type="text" value="$!{user.intro}"/>
+                <textarea id="intro" style="padding: 0px" name="intro" placeholder="请简单介绍一下自己" type="text">$!{user.intro}</textarea>
             </div>
             <div id="captcha"></div>
             <br/>
-            <input id="submit_btn" class="btn input-submit" disabled="disabled" type="submit" value="注册"
-                   style="width: 70%;background-color:#fff;color: #0f0f0f;font-size: 15px;height: 30px"/>
+            <input id="submit_btn" class="btn input-submit" disabled="disabled" type="button" value="注册"
+                   style="width: 40%;background-color:#fff;color: #0f0f0f;font-size: 15px;height: 30px"/>
         </form>
     </div>
 </section>
 
-<script type="text/javascript" src="/asset/jquery/jquery-1.11.2.min.js"></script>
-<script type="text/javascript" src="/asset/jquery/jquery.md5.js"></script>
-<script type="text/javascript" src="/asset/layer/layer.js"></script>
-<script type="text/javascript" src="/js/particles.js"></script>
+<script type="text/javascript" src="../static/asset/jquery/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="../static/asset/jquery/jquery.md5.js"></script>
+<script type="text/javascript" src="../static/asset/layer/layer.js"></script>
+<script type="text/javascript" src="../static/js/particles.js"></script>
 <script src="http://static.geetest.com/static/tools/gt.js"></script>
-<script type="text/javascript" src="/js/bg.js"></script>
-<script type="text/javascript" src="/js/seccode.js"></script>
-<script type="text/javascript" src="/js/register.js"></script>
+<script type="text/javascript" src="../static/js/bg.js"></script>
+<script type="text/javascript" src="../static/js/seccode.js"></script>
+<script type="text/javascript" src="../static/js/register.js"></script>
 </body>
 </html>

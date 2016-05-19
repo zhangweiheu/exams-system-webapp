@@ -13,11 +13,11 @@ import org.springframework.web.servlet.ModelAndView;
  * Created by zhangwei on 16/1/13.
  */
 @Controller
-@NotNeedLogin
 @RequestMapping("")
 public class LoginController {
     private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
 
+    @NotNeedLogin
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ModelAndView login() {
         ModelAndView view = new ModelAndView();
@@ -25,6 +25,7 @@ public class LoginController {
         return view;
     }
 
+    @NotNeedLogin
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView login2() {
         ModelAndView view = new ModelAndView();
@@ -32,6 +33,7 @@ public class LoginController {
         return view;
     }
 
+    @NotNeedLogin
     @RequestMapping(value = "/skip", method = RequestMethod.GET)
     public ModelAndView skip() {
         ModelAndView view = new ModelAndView();
