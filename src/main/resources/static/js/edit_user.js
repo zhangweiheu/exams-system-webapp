@@ -1,7 +1,7 @@
 /**
  * Created by zhang on 2016/3/14.
  */
-$("#save-btn").on('click', function () {
+$("#edit_save_btn").on('click', function () {
     var d = gatherData();
     if (!checkInputData(d))return;
     if (d.id != undefined && d.id != "") {
@@ -54,7 +54,7 @@ $("#save-btn").on('click', function () {
 function gatherData() {
     var id = $("#id").val();
     var username = $("#username").val().trim();
-    var password = $.md5($("#password").val().trim());
+    var password = $("#password").val().trim();
     var phone = $("#phone").val().trim();
     var email = $("#email").val().trim();
     var wechat = $("#wechat").val().trim();
@@ -134,3 +134,6 @@ function dealwithTagList() {
         }
     }
 }
+$("#password").on("change", function () {
+    $("#password").val($.md5($("#password").val()));
+});

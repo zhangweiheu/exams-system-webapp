@@ -59,8 +59,7 @@
     <script>
         $(
                 function () {
-                    var nav = " <li class='nav-item' onclick='goToTargetPage(1)'><a>我的资料</a></li>" +
-                            "<li class='nav-item' onclick='goToTargetPage(2)'><a>试题入口</a></li>" +
+                    var nav ="<li class='nav-item' onclick='goToTargetPage(2)'><a>试题入口</a></li>" +
                             "<li class='nav-item' onclick='goToTargetPage(3)'><a>我的试卷</a></li>" +
                             "<li class='nav-item' onclick='goToTargetPage(4)'><a>我的排行榜</a></li>" +
                             "<li class='nav-item' onclick='goToTargetPage(5)'><a>我的数据分析</a></li>";
@@ -71,7 +70,7 @@
                             c_end = document.cookie.indexOf(";", c_start);
                             if (c_end == -1) c_end = document.cookie.length
                             if (unescape(document.cookie.substring(c_start, c_end)) == "T") {
-//                                nav = "";
+                                nav = "";
                                 nav += "<li class='nav-item' onclick='goToTargetPage(6)'><a>系统数据分析</a></li>";
                                 nav += "<li class='nav-item' onclick='goToTargetPage(7)'><a>系统用户管理</a></li>";
                                 nav += "<li class='nav-item' onclick='goToTargetPage(8)'><a>系统试卷管理</a></li>";
@@ -79,6 +78,7 @@
                             }
                         }
                     }
+                    nav += " <li class='nav-item' onclick='goToTargetPage(1)'><a>我的资料</a></li>";
                     $("#nav").html(nav);
                 }
         )

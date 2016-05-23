@@ -23,6 +23,7 @@ $("#submit_btn").on("click", function () {
             var code = data.code;
             if (code == 0) {
                 layer.msg('欢迎回来！', {shade: 0.8});
+                //location.href="/index";
                 window.setTimeout("location='/index'", 100);
             } else {
                 layer.alert(data.msg, {icon: 11})

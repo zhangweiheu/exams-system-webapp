@@ -9,11 +9,9 @@ import com.online.exams.system.core.dao.MongoPaperDao;
 import com.online.exams.system.core.dao.MongoTestCaseDao;
 import com.online.exams.system.core.model.Paper;
 import com.online.exams.system.core.model.Question;
+import com.online.exams.system.core.model.User;
 import com.online.exams.system.core.mybatis.enums.*;
-import com.online.exams.system.core.service.PaperGenerateService;
-import com.online.exams.system.core.service.PaperService;
-import com.online.exams.system.core.service.QuestionService;
-import com.online.exams.system.core.service.TagService;
+import com.online.exams.system.core.service.*;
 import com.online.exams.system.core.util.PaperUtil;
 import com.online.exams.system.webapp.annotation.LoginRequired;
 import com.online.exams.system.webapp.bean.UserHolder;
@@ -36,6 +34,8 @@ import java.util.*;
 @RequestMapping("/api/system/exam")
 public class ExamApiController {
     private static final Logger LOGGER = LoggerFactory.getLogger(ExamApiController.class);
+    @Autowired
+    UserService userService;
 
     @Autowired
     PaperService paperService;
@@ -71,27 +71,20 @@ public class ExamApiController {
         for (QuestionMap qMap : questionMaps) {
             if (newAnswers.containsKey(qMap.getId())) {
                 qMap.setCurrentAnswer(newAnswers.get(qMap.getId()));
-                qMap.setRight(qMap.getAnswers().equals(qMap.getCurrentAnswer()));
+                qMap.setRight(qMap.getAnswers().equals(qMap.getCurrentAnswer().replace(",","")));
             }
         }
         mongoPaper.setQuestionMapList(questionMaps);
-
-        paper.setScore(PaperUtil.calautePaperScore(questionMaps));
         paper.setTotalRight(PaperUtil.calautePaperTotalSuccess(questionMaps));
         paperService.updatePaper(paper);
-
         mongoPaperDao.updateMongoPaper(mongoPaper);
         return JsonResponse.success();
     }
 
     @RequestMapping(value = "/close/{uid}/{pid}", method = RequestMethod.PUT)
     public JsonResponse closeExam(@PathVariable("uid") int uid, @PathVariable("pid") int pid) {
-        Paper paper = new Paper();
-        paper.setId(pid);
-        paper.setUserId(uid);
+        Paper paper = paperService.findPaperById(pid);
         paper.setStatus(StatusEnum.CLOSE);
-        paperService.updatePaper(paper);
-
         /**更新题状态*/
         MongoPaper mongoPaper = mongoPaperDao.findMongoPaperById(Integer.toUnsignedLong(paper.getMongoPaperId()));
         List<QuestionMap> questionMapList = mongoPaper.getQuestionMapList();
@@ -103,9 +96,14 @@ public class ExamApiController {
             if (questionMap.getRight()) {
                 question.setTotalSuccess(question.getTotalSuccess() + 1);
             }
+            paper.setScore(PaperUtil.calautePaperScore(questionMapList));
+            paperService.updatePaper(paper);
             questionService.updateQuestion(question);
         }
-
+        User user = userService.findUserByUid(uid);
+        user.setTotalScore(user.getTotalScore() + paper.getScore().intValue());
+        user.setTotalDone(user.getTotalDone() + 1);
+        userService.updateUser(user);
         return JsonResponse.success();
     }
 
@@ -129,17 +127,15 @@ public class ExamApiController {
             }
             mongoPaper.setQuestionMapList(mapList);
             mongoPaperDao.updateMongoPaper(mongoPaper);
-
-            paper.setScore(PaperUtil.calautePaperScore(mapList));
             paper.setTotalRight(PaperUtil.calautePaperTotalSuccess(mapList));
             paperService.updatePaper(paper);
 
             return JsonResponse.success("代码测试通过");
         }
         if ("-1".equals(result)) {
-            return JsonResponse.success("系统出现异常！请联系管理员！");
+            return JsonResponse.failed("系统出现异常！请联系管理员！");
         }
-        return JsonResponse.success(result);
+        return JsonResponse.failed(result);
     }
 
     /**

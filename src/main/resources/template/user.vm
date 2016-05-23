@@ -10,69 +10,89 @@
 </head>
 <body>
     #include("./index.vm")
-    <form class="form-horizontal">
-        <fieldset>
-            <div id="legend" class="">
-                <legend class="">
-                    <span>基本资料：</span>
-                    <a id="logout" class="button button-caution button-pill button-jumbo" style="position: relative;left: 75%">退出系统</a>
-                </legend>
+<form class="form-horizontal">
+    <fieldset>
+        <div id="legend" class="">
+            <legend class="">
+                    <span>基本资料(状态：
+                        #if("AUDITING" == $!{userVo.status})
+                            待审核
+                        #elseif("REFUSE" == $!{userVo.status})
+                            审核不通过
+                        #elseif("NORMAL" == $!{userVo.status})
+                            正常
+                        #else
+                            非正常
+                        #end
+                        类型：
+                        #if("COMMON" == $!{userVo.type})
+                            普通用户
+                        #elseif("MANAGER" == $!{userVo.type})
+                            管理员
+                        #elseif("ADMIN" == $!{userVo.type})
+                            系统管理员
+                        #else
+                            身份
+                        #end
+                    )：</span>
+                <a id="logout" class="button button-caution button-pill button-jumbo" style="position: relative;left: 75%">退出系统</a>
+            </legend>
 
+        </div>
+        <div class="control-group" style="padding-bottom: 10px">
+            <label class="control-label" style="position: relative;margin-left: 40%">用&nbsp;户&nbsp;名&nbsp;:</label>
+            <div class="controls" align="center" style="float: right;margin-right: 35%">
+                <input type="text" id="username" name="username" placeholder="请输入用户名" class="input-xlarge" value="$!{userVo.username}" required>
             </div>
-            <div class="control-group" style="padding-bottom: 10px">
-                <label class="control-label" style="position: relative;margin-left: 40%">用&nbsp;户&nbsp;名&nbsp;:</label>
-                <div class="controls" align="center" style="float: right;margin-right: 35%">
-                    <input type="text" id="username" name="username" placeholder="请输入用户名" class="input-xlarge" value="$!{userVo.username}" required>
+        </div>
+
+        <div class="control-group" style="padding-bottom: 10px">
+            <label class="control-label" style="position: relative;margin-left: 40%">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码&nbsp;: </label>
+            <div class="controls" align="center" style="float: right;margin-right: 35%">
+                <input type="text" id="password" name="password" placeholder="请输入密码" class="input-xlarge" value="$!{userVo.password}" required>
+            </div>
+        </div>
+
+        <div class="control-group" style="padding-bottom: 10px">
+            <label class="control-label" style="position: relative;margin-left: 40%">手&nbsp;机&nbsp;号&nbsp;: </label>
+            <div class="controls" align="center" style="float: right;margin-right: 35%">
+                <input type="tel" id="phone" name="phone" placeholder="请输入手机号" class="input-xlarge" value="$!{userVo.phone}">
+            </div>
+        </div>
+
+        <div class="control-group" style="padding-bottom: 10px">
+            <label class="control-label" style="position: relative;margin-left: 40%">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱&nbsp;: </label>
+            <div class="controls" align="center" style="float: right;margin-right: 35%">
+                <input type="email" id="email" type="text" placeholder="请输入邮箱" class="input-xlarge" value="$!{userVo.email}">
+            </div>
+        </div>
+
+        <div class="control-group" style="padding-bottom: 10px">
+            <label class="control-label" style="position: relative;margin-left: 40%">微&nbsp;信&nbsp;号&nbsp;: </label>
+            <div class="controls" align="center" style="float: right;margin-right: 35%">
+                <input type="text" id="wechat" name="wechat" placeholder="请输入微信号" class="input-xlarge" value="$!{userVo.wechat}">
+            </div>
+        </div>
+
+        <div class="control-group" style="padding-bottom: 10px">
+            <label class="control-label" style="position: relative;margin-left: 40%">个人简介&nbsp;: </label>
+            <div class="controls" style="float: right;margin-right: 35%">
+                <div class="textarea">
+                    <textarea type="" id="intro" name="intro" class="">$!{userVo.intro}</textarea>
                 </div>
             </div>
+        </div>
 
-            <div class="control-group" style="padding-bottom: 10px">
-                <label class="control-label" style="position: relative;margin-left: 40%">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码&nbsp;: </label>
-                <div class="controls" align="center" style="float: right;margin-right: 35%">
-                    <input type="text" id="password" name="password" placeholder="请输入密码" class="input-xlarge" value="$!{userVo.password}" required>
-                </div>
+        <div class="control-group" align="center" style="position: relative;margin-top: 5%">
+            <div class="controls">
+                <button class="btn btn-success">提交</button>
             </div>
-
-            <div class="control-group" style="padding-bottom: 10px">
-                <label class="control-label" style="position: relative;margin-left: 40%">手&nbsp;机&nbsp;号&nbsp;: </label>
-                <div class="controls" align="center" style="float: right;margin-right: 35%">
-                    <input type="tel" id="phone" name="phone" placeholder="请输入手机号" class="input-xlarge" value="$!{userVo.phone}">
-                </div>
-            </div>
-
-            <div class="control-group" style="padding-bottom: 10px">
-                <label class="control-label" style="position: relative;margin-left: 40%">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱&nbsp;: </label>
-                <div class="controls" align="center" style="float: right;margin-right: 35%">
-                    <input type="email" id="email" type="text" placeholder="请输入邮箱" class="input-xlarge" value="$!{userVo.email}">
-                </div>
-            </div>
-
-            <div class="control-group" style="padding-bottom: 10px">
-                <label class="control-label" style="position: relative;margin-left: 40%">微&nbsp;信&nbsp;号&nbsp;: </label>
-                <div class="controls" align="center" style="float: right;margin-right: 35%">
-                    <input type="text" id="wechat" name="wechat" placeholder="请输入微信号" class="input-xlarge" value="$!{userVo.wechat}">
-                </div>
-            </div>
-
-            <div class="control-group" style="padding-bottom: 10px">
-                <label class="control-label" style="position: relative;margin-left: 40%">个人简介&nbsp;: </label>
-                <div class="controls" style="float: right;margin-right: 35%">
-                    <div class="textarea">
-                        <textarea type="" id="intro" name="intro" class="">$!{userVo.intro}</textarea>
-                    </div>
-                </div>
-            </div>
-
-            <div class="control-group"  align="center" style="position: relative;margin-top: 5%">
-                <div class="controls">
-                    <button class="btn btn-success">提交</button>
-                </div>
-            </div>
-        </fieldset>
-    </form>
+        </div>
+    </fieldset>
+</form>
 <script type="text/javascript" src="../static/asset/jquery/jquery-1.11.2.js"></script>
 <script type="text/javascript" src="../static/asset/jquery/jquery.md5.js"></script>
-    <script type="text/javascript" src="../static/asset/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="../static/asset/bootstrap/js/bootstrap.js"></script>
 <script type="text/javascript" src="../static/asset/layer/layer.js"></script>
 <script type="text/javascript" src="../static/js/user.js"></script>
 </body>

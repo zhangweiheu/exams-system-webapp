@@ -85,7 +85,6 @@ public class LoginAndLogoutApiController {
 
     @RequestMapping(value = "/logout")
     public JsonResponse doLogOut(HttpServletRequest request, HttpServletResponse response) {
-
         Cookie[] cookies = request.getCookies();
         for (Cookie cookie : cookies) {
             cookie.setValue("");

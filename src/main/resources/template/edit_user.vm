@@ -3,6 +3,8 @@
 <head>
     <title>在线测试系统 | 编辑用户</title>
     <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+    <link rel="stylesheet" type="text/css" href="../../static/asset/bootstrap/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="../../static/css/buttons.css"/>
 </head>
 <body>
 <div class="container-fluid" align="center" style="background-color: #ECF0F1">
@@ -22,8 +24,8 @@
             <label class="control-label" style="color: black;font-size: 15px;" for="password">密码：</label>
             <div class="controls">
                 <input id="password" style="width: 40%;height: 40px"
-                       name="password" placeholder="请输入密码" type="password"
-                       value="$!{userVo.password}" required/>
+                       name="password" placeholder="请输入密码" type="text"
+                       value="$!{userVo.password}" required>
             </div>
         </div>
 
@@ -168,15 +170,16 @@
         </div>
 
         <div>
-            <input id="save-btn" type="submit" value="保存"/>
+            <input id="edit_save_btn" type="button" value="保存"/>
         </div>
     </form>
 </div>
 
-<script type="text/javascript" src="../static/asset/jquery/jquery-1.11.2.min.js"></script>
-<script type="text/javascript" src="../static/asset/jquery/jquery.md5.js"></script>
-<script type="text/javascript" src="../static/js/particles.js"></script>
-<script type="text/javascript" src="../static/asset/layer/layer.js"></script>
-<script type="text/javascript" src="../static/js/edit_user.js"></script>
+<script type="text/javascript" src="../../static/asset/jquery/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="../../static/asset/jquery/jquery.md5.js"></script>
+<script type="text/javascript" src="../../static/asset/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="../../static/js/particles.js"></script>
+<script type="text/javascript" src="../../static/asset/layer/layer.js"></script>
+<script type="text/javascript" src="../../static/js/edit_user.js"></script>
 </body>
 </html>

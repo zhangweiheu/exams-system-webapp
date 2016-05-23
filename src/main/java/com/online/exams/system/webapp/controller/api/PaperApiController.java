@@ -60,11 +60,16 @@ public class PaperApiController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public JsonResponse getPaperList(@ModelAttribute Page page) {
         List<Paper> paperList;
+        int totalCount;
         User user = UserHolder.getInstance().getUser();
         if (user.getType().getValue() > 0) {
             paperList = paperService.listAllPaper(page.getOffset(), page.getPageSize());
+            totalCount = paperService.countAllPapersByAttr(null);
         } else {
             paperList = paperService.listAllPaper(page.getOffset(), page.getPageSize(), user.getId());
+            Paper paper = new Paper();
+            paper.setUserId(user.getId());
+            totalCount = paperService.countAllPapersByAttr(paper);
         }
         List<PaperVo> paperVos = new ArrayList<>();
         for (Paper paper : paperList) {
@@ -78,7 +83,7 @@ public class PaperApiController {
             paperVos.add(paperVo);
         }
         page.setData(paperVos);
-        page.setTotalCount(paperService.countAllPapersByAttr(null));
+        page.setTotalCount(totalCount);
         return JsonResponse.success(page);
     }
 

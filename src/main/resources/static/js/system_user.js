@@ -18,7 +18,7 @@ function buildPager(_totalCnt, _currentPage, pageSize) {
 }
 
 function buildTable(page, pageSize) {
-    var pageSize = Math.floor(window.innerHeight / 45) - 9;
+    var pageSize = Math.floor(window.innerHeight / 45) - 5;
     if ($('#page').val() == "") {
         page = 1;
     }

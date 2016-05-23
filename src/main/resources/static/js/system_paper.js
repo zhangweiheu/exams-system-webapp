@@ -39,15 +39,15 @@ function buildTable(page, pageSize) {
                         if (i < curPageSize) {
                             var elem = data.data.data[i];
                             tbody += "<tr style='border-left: 1px solid #C1DAD7'>";
-                            tbody += "<td width='50px'>elem.id</td>";
-                            tbody += "<td width='50px'>elem.userId</td>";
-                            tbody += "<td width='50px'>elem.mongoPaperId</td>";
+                            tbody += "<td width='50px'>"+ elem.id + "</td>";
+                            tbody += "<td width='50px'>"+ elem.userId + "</td>";
+                            tbody += "<td width='50px'>"+ elem.mongoPaperId + "</td>";
                             if (elem.exam) {
                                 tbody += "<td width='60px'>考试卷</td>";
                             } else {
                                 tbody += "<td width='60px'>练习卷</td>";
                             }
-                            tbody += "<td width='60px'>elem.title</td>";
+                            tbody += "<td width='60px'>"+ elem.title + "</td>";
                             if ("SINGLE_SELECTION" === elem.paperType) {
                                 tbody += "<td>单选</td>";
                             } else if ("MULTI_SELECTION" === elem.paperType) {

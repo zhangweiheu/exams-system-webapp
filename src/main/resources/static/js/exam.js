@@ -143,7 +143,7 @@ function generatePaperView(questions, time) {
             program = program + "<div class='font-style' style='position: relative;left: 20px;margin-bottom: 20px'>" + p + "、" + title + "</div>"
             program = program + "<div style='margin:0 auto;position: relative'>";
             program = program + "<div><input id='" + p + "p' class='input-radio' value='" + id + "' hidden/></div>";
-            program = program + "<div><input style='width:80%;height:450px;margin-left: 10%;margin-bottom: 3%' name='" + p + "p' type='text'></div>";
+            program = program + "<div><textarea style='width:80%;height:450px;margin-left: 10%;margin-bottom: 3%' name='" + p + "p' type=''>" +("" == q.currentAnswer || undefined == q.currentAnswer ? "public class demo\{public static void main\(String\[\] args\) \{\}\}" : q.currentAnswer)+"</textarea></div>";
             program = program + "</div>";
         }
     }
@@ -221,7 +221,7 @@ function programsubmit() {
         data: d,
         success: function (data) {
             if (data.code == 0) {
-                layer.alert('提交成功', {
+                layer.alert(data.data, {
                     icon: 9, offset: '150px', end: function () {
                         var index = parent.layer.getFrameIndex(window.name);
                         parent.layer.close(index);
@@ -247,6 +247,7 @@ $("#exam-over-btn").on('click', function () {
                         parent.layer.close(index);
                     }
                 });
+                location.reload(true);
             } else {
                 layer.alert(data.msg, {icon: 11})
             }
@@ -293,7 +294,7 @@ function gatherDataMulti() {
 function gatherDataProgram() {
     var pid = $("#pid").val();
     var qid = $("#1p").val();
-    var text = $("input[name='1p']").val();
+    var text = $("textarea[name='1p']").val();
     var d = {
         "pid": pid,
         "qid": qid,
