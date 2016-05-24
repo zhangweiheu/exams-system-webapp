@@ -35,7 +35,7 @@
                             身份
                         #end
                     )：</span>
-                <a id="logout" class="button button-caution button-pill button-jumbo" style="position: relative;left: 75%">退出系统</a>
+                <a id="logout" class="button button-caution button-pill button-jumbo" style="position: relative;left: 50%">退出系统</a>
             </legend>
 
         </div>
