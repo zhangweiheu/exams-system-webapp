@@ -39,20 +39,20 @@ public class PaperApiController {
     private static final Logger LOGGER = LoggerFactory.getLogger(PaperApiController.class);
 
     @Autowired
-    PaperService paperService;
+    private PaperService paperService;
 
     @Autowired
-    MongoPaperDao mongoPaperDao;
+    private MongoPaperDao mongoPaperDao;
 
     @Autowired
-    QuestionService questionService;
+    private QuestionService questionService;
 
 
     @Autowired
-    TagService tagService;
+    private TagService tagService;
 
     @Autowired
-    PaperGenerateService paperGenerateService;
+    private PaperGenerateService paperGenerateService;
 
     /**
      * 获取试卷列表

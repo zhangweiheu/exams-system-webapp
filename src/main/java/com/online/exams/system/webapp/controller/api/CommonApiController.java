@@ -20,7 +20,7 @@ public class CommonApiController {
     private static final Logger LOGGER = LoggerFactory.getLogger(CommonApiController.class);
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @NotNeedLogin
     @RequestMapping(value = "/check/username", method = RequestMethod.POST)

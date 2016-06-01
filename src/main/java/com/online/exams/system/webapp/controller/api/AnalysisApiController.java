@@ -28,10 +28,10 @@ public class AnalysisApiController {
     private static final Logger LOGGER = LoggerFactory.getLogger(AnalysisApiController.class);
 
     @Autowired
-    DataService dataService;
+    private DataService dataService;
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @ResponseBody
     @RequestMapping(value = "/list", method = RequestMethod.GET)

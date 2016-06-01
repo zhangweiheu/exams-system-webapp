@@ -35,25 +35,25 @@ import java.util.*;
 public class ExamApiController {
     private static final Logger LOGGER = LoggerFactory.getLogger(ExamApiController.class);
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
-    PaperService paperService;
+    private PaperService paperService;
 
     @Autowired
-    MongoPaperDao mongoPaperDao;
+    private MongoPaperDao mongoPaperDao;
 
     @Autowired
-    MongoTestCaseDao mongoTestCaseDao;
+    private MongoTestCaseDao mongoTestCaseDao;
 
     @Autowired
-    PaperGenerateService paperGenerateService;
+    private PaperGenerateService paperGenerateService;
 
     @Autowired
-    TagService tagService;
+    private TagService tagService;
 
     @Autowired
-    QuestionService questionService;
+    private QuestionService questionService;
 
     /**
      * 做题

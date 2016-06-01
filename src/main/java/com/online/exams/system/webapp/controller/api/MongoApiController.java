@@ -24,7 +24,7 @@ public class MongoApiController {
     private static final Logger LOGGER = LoggerFactory.getLogger(MongoApiController.class);
 
     @Autowired
-    MongoPaperDao mongoPaperDao;
+    private MongoPaperDao mongoPaperDao;
 
     @RequestMapping(value = "/paper", method = RequestMethod.GET)
     public JsonResponse getMongoPaperList() {

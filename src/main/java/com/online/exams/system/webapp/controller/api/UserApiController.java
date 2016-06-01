@@ -31,10 +31,10 @@ public class UserApiController {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserApiController.class);
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
-    TagService tagService;
+    private TagService tagService;
 
     @RequestMapping(value = "/{uid}", method = RequestMethod.GET)
     public JsonResponse getUserById(@PathVariable("uid") int uid) {

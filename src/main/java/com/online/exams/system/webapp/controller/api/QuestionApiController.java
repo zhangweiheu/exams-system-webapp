@@ -31,13 +31,13 @@ public class QuestionApiController {
     private static final Logger LOGGER = LoggerFactory.getLogger(QuestionApiController.class);
 
     @Autowired
-    QuestionService questionService;
+    private QuestionService questionService;
 
     @Autowired
-    TagService tagService;
+    private TagService tagService;
 
     @Autowired
-    MongoTestCaseDao mongoTestCaseDao;
+    private MongoTestCaseDao mongoTestCaseDao;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public JsonResponse getQuestionList(@ModelAttribute Page page) {

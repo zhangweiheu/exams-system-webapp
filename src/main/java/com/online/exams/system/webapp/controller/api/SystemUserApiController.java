@@ -34,10 +34,10 @@ public class SystemUserApiController {
     private static final Logger LOGGER = LoggerFactory.getLogger(SystemUserApiController.class);
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
-    TagService tagService;
+    private TagService tagService;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public JsonResponse getuserList(@ModelAttribute Page page) {
