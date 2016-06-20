@@ -112,9 +112,9 @@
         </div>
     </form>
 </div>
-<script type="text/javascript" src="../static/asset/jquery/jquery-1.11.2.min.js"></script>
-<script type="text/javascript" src="../static/asset/jquery/jquery.simplePagination.js"></script>
-<script type="text/javascript" src="../static/asset/layer/layer.js"></script>
-<script type="text/javascript" src="../static/js/edit_question.js"></script>
+<script type="text/javascript" src="../../../static/asset/jquery/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="../../../static/asset/jquery/jquery.simplePagination.js"></script>
+<script type="text/javascript" src="../../../static/asset/layer/layer.js"></script>
+<script type="text/javascript" src="../../../static/js/edit_question.js"></script>
 </body>
 </html>

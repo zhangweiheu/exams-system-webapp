@@ -1,0 +1,34 @@
+section {
+    position: absolute;
+    top: 37%
+}
+
+section > div > div {
+    color: black;
+    font-size: 30px;
+    align-content: center
+}
+
+section > div > form > div {
+    color: black;
+    font-size: 15px;
+
+}
+
+section > div > form > div > input {
+    padding: 0px;
+    height: 30px;
+}
+.mail{
+    margin-bottom: 10px;
+    width: 224px;
+    height: 32px;
+    border: 1px solid #DFE1E8;
+    border-radius: 1px;
+}
+.intro{
+    width: 224px;
+    border: 1px solid #DFE1E8;
+    border-radius: 1px;
+
+}

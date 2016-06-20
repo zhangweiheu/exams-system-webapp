@@ -335,7 +335,7 @@ function countTime(times){
         //    $("#CountDownTimer").TimeCircles().restart();
         //}
         if(unit <= 0){
-            //$("#exam-over-btn").click();
+            $("#exam-over-btn").click();
         }
     });
 }

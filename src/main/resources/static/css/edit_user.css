@@ -1,0 +1,15 @@
+label{
+    color: black;
+    font-size: 15px;
+}
+input{
+    width: 35%;
+    height: 32px;
+    border: 1px solid #DFE1E8;
+    border-radius: 2px;
+}
+.form2{
+    position: relative;
+    vertical-align: middle;
+    left: 23.5%
+}
